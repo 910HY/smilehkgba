@@ -17,6 +17,11 @@ const Footer: React.FC = () => {
           <p className="mt-1">數據僅供參考，詳情請致電診所查詢</p>
         </div>
       </div>
+      
+      <div className="text-sm text-[#94a3b8] text-center mt-4 space-y-1">
+        <p>聯絡我們：<a href="mailto:smilehkgba@gmail.com" className="underline text-sky-400 hover:text-sky-300 transition-colors">smilehkgba@gmail.com</a></p>
+        <p>免責聲明：本平台提供資訊僅供參考，實際診所資訊請以官方為準。</p>
+      </div>
     </footer>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 
 const ReportPage = () => {
@@ -7,26 +7,38 @@ const ReportPage = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const clinicName = urlParams.get('clinic') || '';
 
-  const [formData, setFormData] = useState({
-    clinic: clinicName,
-    issue: '',
-    detail: '',
-    contact: '',
-  });
-
   const [submitted, setSubmitted] = useState(false);
+  const [isFormSubmitting, setIsFormSubmitting] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  // 監聽表單提交事件
+  useEffect(() => {
+    const handleFormSubmit = (event: any) => {
+      if (event.target.action?.includes('formspree.io')) {
+        setIsFormSubmitting(true);
+      }
+    };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // 可以在這裡呼叫後端 API 或發送電郵通知
-    console.log('報錯資料：', formData);
-    setSubmitted(true);
-  };
+    // 監聽 formspree 的表單提交完成事件
+    const handleFormSubmitDone = () => {
+      if (isFormSubmitting) {
+        setSubmitted(true);
+        setIsFormSubmitting(false);
+      }
+    };
+
+    // 添加事件監聽器
+    document.addEventListener('submit', handleFormSubmit);
+    window.addEventListener('message', (e) => {
+      if (e.data.formspreeResponse && isFormSubmitting) {
+        handleFormSubmitDone();
+      }
+    });
+
+    // 清理函數
+    return () => {
+      document.removeEventListener('submit', handleFormSubmit);
+    };
+  }, [isFormSubmitting]);
 
   // 返回首頁
   const goHome = () => {
@@ -51,16 +63,22 @@ const ReportPage = () => {
   return (
     <div className="max-w-2xl mx-auto p-6">
       <h2 className="text-2xl font-bold text-[#FF7A00] mb-4">回報診所資料錯誤</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      
+      <form
+        action="https://formspree.io/f/meoaprzb"
+        method="POST"
+        className="space-y-4"
+      >
+        <input type="hidden" name="clinic" value={clinicName} />
+
         <div>
           <label className="block text-sm text-[#FF7A00] mb-1">診所名稱</label>
           <input
             type="text"
             name="clinic"
-            value={formData.clinic}
-            onChange={handleChange}
-            className="w-full p-2 border border-[#FDBA74]/50 rounded bg-[#1e293b] text-white"
+            defaultValue={clinicName}
             readOnly
+            className="w-full p-2 border border-[#FDBA74]/50 rounded bg-[#0f172a] text-white"
           />
         </div>
 
@@ -69,11 +87,9 @@ const ReportPage = () => {
           <input
             type="text"
             name="issue"
-            value={formData.issue}
-            onChange={handleChange}
-            placeholder="例如：電話錯誤 / 地址錯誤 / 已結業"
-            className="w-full p-2 border border-[#FDBA74]/50 rounded bg-[#1e293b] text-white"
             required
+            placeholder="例如：電話錯誤 / 地址錯誤 / 已結業"
+            className="w-full p-2 border border-[#FDBA74]/50 rounded bg-[#0f172a] text-white"
           />
         </div>
 
@@ -81,11 +97,9 @@ const ReportPage = () => {
           <label className="block text-sm text-[#FF7A00] mb-1">詳細說明</label>
           <textarea
             name="detail"
-            value={formData.detail}
-            onChange={handleChange}
             rows={4}
             placeholder="請補充更多說明，例如正確資料為？"
-            className="w-full p-2 border border-[#FDBA74]/50 rounded bg-[#1e293b] text-white"
+            className="w-full p-2 border border-[#FDBA74]/50 rounded bg-[#0f172a] text-white"
           />
         </div>
 
@@ -94,10 +108,8 @@ const ReportPage = () => {
           <input
             type="text"
             name="contact"
-            value={formData.contact}
-            onChange={handleChange}
             placeholder="電郵或電話，方便我們聯絡你"
-            className="w-full p-2 border border-[#FDBA74]/50 rounded bg-[#1e293b] text-white"
+            className="w-full p-2 border border-[#FDBA74]/50 rounded bg-[#0f172a] text-white"
           />
         </div>
 
