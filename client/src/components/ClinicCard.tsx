@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Clinic } from '../types/clinic';
 import { 
-  MapPin, Phone, Clock, DollarSign, Navigation,
-  Stethoscope, Building, HeartPulse
+  MapPin, Phone, Clock, DollarSign, Map,
+  Navigation, Stethoscope, Building, HeartPulse
 } from 'lucide-react';
+import MapDialog from './MapDialog';
 
 interface ClinicCardProps {
   clinic: Clinic;
 }
 
 const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
+  const [isMapOpen, setIsMapOpen] = useState(false);
+
   // 每個診所類型對應的圖標和顏色
   const clinicTypeIcons = {
     '私家診所': <Building className="h-5 w-5 text-primary" />,
@@ -31,17 +34,6 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
       return phoneStr.replace(/(\d{4})(\d{4})/, '$1 $2');
     }
     return phoneStr;
-  };
-
-  // 根據位置生成適當的地圖連結
-  const getMapLink = () => {
-    if (clinic.isGreaterBayArea || clinic.country === '中國' || clinic.country === '澳門') {
-      // 對於大灣區，使用高德地圖
-      return `https://uri.amap.com/marker?name=${encodeURIComponent(clinic.name)}&address=${encodeURIComponent(clinic.address)}`;
-    } else {
-      // 對於香港，使用Google Maps
-      return `https://maps.google.com/?q=${encodeURIComponent(clinic.name + ' ' + clinic.address)}`;
-    }
   };
 
   // 格式化營業時間以便顯示
@@ -99,20 +91,43 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
           )}
         </div>
         
-        <a 
-          href={getMapLink()} 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="block w-full bg-primary/10 hover:bg-primary/20 text-primary font-medium py-2 px-4 rounded text-center transition"
-        >
-          <span className="flex items-center justify-center">
-            <Navigation className="h-4 w-4 mr-2" />
-            {clinic.isGreaterBayArea || clinic.country === '中國' || clinic.country === '澳門' 
-              ? '在高德地圖查看' 
-              : '在Google Maps查看'}
-          </span>
-        </a>
+        <div className="flex space-x-2">
+          {/* 地圖按鈕 */}
+          <button
+            onClick={() => setIsMapOpen(true)}
+            className="flex-1 bg-primary/10 hover:bg-primary/20 text-primary font-medium py-2 px-4 rounded text-center transition"
+          >
+            <span className="flex items-center justify-center">
+              <Map className="h-4 w-4 mr-2" />
+              在地圖查看
+            </span>
+          </button>
+          
+          {/* 外部地圖連結 */}
+          <a 
+            href={clinic.isGreaterBayArea || clinic.country === '中國' || clinic.country === '澳門'
+                  ? `https://uri.amap.com/marker?name=${encodeURIComponent(clinic.name)}&address=${encodeURIComponent(clinic.address)}`
+                  : `https://maps.google.com/?q=${encodeURIComponent(clinic.name + ' ' + clinic.address)}`}
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="flex-1 bg-primary/10 hover:bg-primary/20 text-primary font-medium py-2 px-4 rounded text-center transition"
+          >
+            <span className="flex items-center justify-center">
+              <MapPin className="h-4 w-4 mr-2" />
+              {clinic.isGreaterBayArea || clinic.country === '中國' || clinic.country === '澳門' 
+                ? '高德地圖' 
+                : 'Google Maps'}
+            </span>
+          </a>
+        </div>
       </div>
+      
+      {/* 地圖對話框 */}
+      <MapDialog 
+        clinic={clinic}
+        isOpen={isMapOpen}
+        onClose={() => setIsMapOpen(false)}
+      />
     </div>
   );
 };
