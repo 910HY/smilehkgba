@@ -12,32 +12,10 @@ interface ClinicCardProps {
 const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
   // 每個診所類型對應的圖標和顏色
   const clinicTypeIcons = {
-    '私家診所': <Building className="h-5 w-5 text-blue-600" />,
-    'NGO社企': <Stethoscope className="h-5 w-5 text-green-600" />,
+    '私家診所': <Building className="h-5 w-5 text-primary" />,
+    'NGO社企': <Stethoscope className="h-5 w-5 text-primary" />,
     '全部': <HeartPulse className="h-5 w-5 text-primary" />
   };
-  
-  // 選擇診所圖像（以診所的名稱或類型計算一個一致的索引）
-  const clinicImages = [
-    "https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1559126012-17aac90034c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1588776813941-1e16a942b3e5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1601316712907-1eaf4a6268e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-  ];
-
-  // 使用診所名稱哈希來確保同一診所每次顯示相同圖像
-  const getImageIndex = (name: string) => {
-    let hash = 0;
-    for (let i = 0; i < name.length; i++) {
-      hash = ((hash << 5) - hash) + name.charCodeAt(i);
-      hash |= 0; // 轉換為32位整數
-    }
-    return Math.abs(hash) % clinicImages.length;
-  };
-
-  const clinicImage = clinicImages[getImageIndex(clinic.name)];
   
   // 格式化電話號碼以便顯示
   const formatPhone = (phone: string | number) => {
@@ -83,42 +61,37 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-      <div className="h-40 bg-gray-200 relative overflow-hidden">
-        <img 
-          src={clinicImage} 
-          alt={`${clinic.name} 外觀`} 
-          className="w-full h-full object-cover"
-        />
-        <div className={`absolute top-0 right-0 ${getTypeColor()} text-white px-2 py-1 text-sm font-medium rounded-bl-md`}>
+    <div className="bg-[#2B1B0F] border border-primary/30 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+      <div className="pt-4 pl-4 pr-4 flex justify-between items-start">
+        <h4 className="font-bold text-lg mb-2 text-primary tracking-wide">{clinic.name}</h4>
+        <div className={`${getTypeColor()} text-white px-2 py-1 text-sm font-medium rounded-md`}>
           {clinic.type}
         </div>
       </div>
-      <div className="p-4">
-        <h4 className="font-bold text-lg mb-2 text-primary-text">{clinic.name}</h4>
-        <p className="text-secondary-text text-sm mb-3 line-clamp-2">{clinic.address}</p>
+      <div className="p-4 pt-0">
+        <p className="text-primary text-sm mb-3 line-clamp-2">{clinic.address}</p>
         
         <div className="space-y-2 mb-4">
           <div className="flex items-start">
             <MapPin className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
-            <span className="text-secondary-text text-sm">{clinic.region}</span>
+            <span className="text-primary text-sm">{clinic.region}</span>
           </div>
           
           <div className="flex items-start">
             <Phone className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
-            <span className="text-secondary-text text-sm">{formatPhone(clinic.phone)}</span>
+            <span className="text-primary text-sm">{formatPhone(clinic.phone)}</span>
           </div>
           
           <div className="flex items-start">
             <Clock className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
-            <span className="text-secondary-text text-sm">{formatHours(clinic.hours)}</span>
+            <span className="text-primary text-sm">{formatHours(clinic.hours)}</span>
           </div>
           
           {/* 顯示價格（如果有）（針對大灣區診所） */}
           {clinic.prices && clinic.prices.洗牙 && (
             <div className="flex items-start">
               <DollarSign className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
-              <div className="text-secondary-text text-sm">
+              <div className="text-primary text-sm">
                 {clinic.prices.洗牙 && <div>洗牙: {clinic.prices.洗牙}</div>}
                 {clinic.prices.補牙 && <div>補牙: {clinic.prices.補牙}</div>}
               </div>

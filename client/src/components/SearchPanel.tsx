@@ -44,14 +44,14 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ onSearch }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-      <h3 className="text-xl font-bold mb-4">搜尋牙科診所</h3>
+    <div className="bg-[#2B1B0F] border border-primary/30 rounded-lg shadow-lg p-6 mb-8">
+      <h3 className="text-primary text-xl font-bold mb-4 tracking-wide">搜尋牙科診所</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div>
-          <label className="block text-secondary-text mb-2" htmlFor="region">區域分類</label>
+          <label className="block text-primary mb-2" htmlFor="region">區域分類</label>
           <select
             id="region"
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 bg-[#2B1B0F] border border-primary/40 rounded text-primary"
             value={selectedRegion}
             onChange={(e) => setSelectedRegion(e.target.value)}
           >
@@ -64,10 +64,10 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ onSearch }) => {
           </select>
         </div>
         <div>
-          <label className="block text-secondary-text mb-2" htmlFor="subRegion">細分地區</label>
+          <label className="block text-primary mb-2" htmlFor="subRegion">細分地區</label>
           <select
             id="subRegion"
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 bg-[#2B1B0F] border border-primary/40 rounded text-primary"
             value={selectedSubRegion}
             onChange={(e) => setSelectedSubRegion(e.target.value)}
             disabled={!selectedRegion}
@@ -81,10 +81,10 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ onSearch }) => {
           </select>
         </div>
         <div>
-          <label className="block text-secondary-text mb-2" htmlFor="clinicType">診所類型</label>
+          <label className="block text-primary mb-2" htmlFor="clinicType">診所類型</label>
           <select
             id="clinicType"
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 bg-[#2B1B0F] border border-primary/40 rounded text-primary"
             value={selectedType}
             onChange={(e) => setSelectedType(e.target.value)}
           >
@@ -97,12 +97,12 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ onSearch }) => {
           </select>
         </div>
         <div>
-          <label className="block text-secondary-text mb-2" htmlFor="keyword">關鍵字搜尋</label>
+          <label className="block text-primary mb-2" htmlFor="keyword">關鍵字搜尋</label>
           <input
             type="text"
             id="keyword"
             placeholder="輸入診所名稱/地址/電話"
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 bg-[#2B1B0F] border border-primary/40 rounded text-primary placeholder-primary/50"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -112,7 +112,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ onSearch }) => {
       <div className="mt-4 text-right">
         <button
           onClick={handleSearch}
-          className="bg-primary hover:bg-orange-500 text-white font-bold py-2 px-6 rounded transition"
+          className="bg-primary hover:bg-orange-600 text-white font-bold py-2 px-6 rounded transition tracking-wide"
         >
           搜尋
         </button>

@@ -8,13 +8,19 @@
   }
 
   body {
-    @apply font-sans antialiased text-foreground;
+    font-family: 'Orbitron', 'Noto Sans TC', sans-serif;
+    @apply antialiased;
     background-color: #2B1B0F;
+    color: #FF7A00;
+  }
+
+  h1, h2, h3 {
+    letter-spacing: 1px;
   }
 
   :root {
     --primary: 30 100% 50%;
-    --primary-text: #212529;
-    --secondary-text: #6c757d;
+    --primary-text: #FF7A00;
+    --secondary-text: #FF7A00;
   }
 }
