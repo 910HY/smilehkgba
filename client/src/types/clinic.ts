@@ -11,6 +11,10 @@ export interface Clinic {
   country: string;
   isGreaterBayArea: boolean;
   sourceLink?: string;
+  location?: {
+    lat: number;
+    lng: number;
+  };
   prices?: {
     洗牙?: string;
     補牙?: string;

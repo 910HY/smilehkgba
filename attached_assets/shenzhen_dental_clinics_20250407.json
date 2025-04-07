@@ -12,6 +12,10 @@
     "city": "深圳",
     "country": "中國",
     "isGreaterBayArea": true,
+    "location": {
+      "lat": 22.5431,
+      "lng": 114.0886
+    },
     "prices": {
       "洗牙": "¥180-350/次",
       "補牙": "未知",
@@ -32,6 +36,10 @@
     "city": "深圳",
     "country": "中國",
     "isGreaterBayArea": true,
+    "location": {
+      "lat": 22.5225,
+      "lng": 114.0578
+    },
     "prices": {
       "洗牙": "¥200-500/次",
       "補牙": "¥180-600/顆",
