@@ -41,34 +41,62 @@ function App() {
     setSearchParams(params);
     setCurrentPage(1);
 
-    // Filter clinics based on search parameters
+    // 依據搜尋參數篩選診所
     const filtered = clinics.filter((clinic) => {
-      // Filter by region
-      if (params.region && 
-        ((params.region === "大灣區" && !clinic.isGreaterBayArea) || 
-        (params.region !== "大灣區" && clinic.isGreaterBayArea) || 
-        (params.region !== "大灣區" && clinic.region !== params.region))) {
+      // 篩選區域
+      if (params.region) {
+        // 大灣區特殊處理
+        if (params.region === '大灣區') {
+          if (!clinic.isGreaterBayArea && clinic.country !== '中國' && clinic.country !== '澳門') {
+            return false;
+          }
+        } 
+        // 香港島
+        else if (params.region === '香港島') {
+          if (clinic.isGreaterBayArea || !clinic.region.includes('區') || 
+             !['中西區', '灣仔區', '東區', '南區'].some(r => clinic.region.includes(r))) {
+            return false;
+          }
+        }
+        // 九龍
+        else if (params.region === '九龍') {
+          if (clinic.isGreaterBayArea || !clinic.region.includes('區') ||
+             !['油尖旺區', '深水埗區', '九龍城區', '黃大仙區', '觀塘區'].some(r => clinic.region.includes(r))) {
+            return false;
+          }
+        }
+        // 新界
+        else if (params.region === '新界') {
+          if (clinic.isGreaterBayArea || !clinic.region.includes('區') ||
+             !['葵青區', '荃灣區', '屯門區', '元朗區', '北區', '大埔區', '沙田區', '西貢區', '離島區'].some(r => clinic.region.includes(r))) {
+            return false;
+          }
+        }
+      }
+
+      // 篩選細分地區
+      if (params.subRegion && !clinic.region.includes(params.subRegion)) {
         return false;
       }
 
-      // Filter by sub-region
-      if (params.subRegion && clinic.region !== params.subRegion) {
-        return false;
+      // 篩選診所類型
+      if (params.clinicType) {
+        if (params.clinicType === '私家診所' && clinic.type.includes('NGO')) {
+          return false;
+        }
+        if (params.clinicType === 'NGO社企' && !clinic.type.includes('NGO')) {
+          return false;
+        }
       }
 
-      // Filter by clinic type
-      if (params.clinicType && clinic.type !== params.clinicType) {
-        return false;
-      }
-
-      // Filter by keyword (name, address, or phone)
+      // 篩選關鍵字（名稱、地址或電話）
       if (params.keyword) {
         const keyword = params.keyword.toLowerCase();
-        const name = clinic.name.toLowerCase();
-        const address = clinic.address.toLowerCase();
+        const name = (clinic.name || '').toLowerCase();
+        const address = (clinic.address || '').toLowerCase();
         const phone = typeof clinic.phone === 'number' 
           ? clinic.phone.toString() 
-          : clinic.phone.toLowerCase();
+          : (clinic.phone || '').toLowerCase();
 
         return (
           name.includes(keyword) || 

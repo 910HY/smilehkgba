@@ -1,4 +1,5 @@
 import React from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface PaginationProps {
   currentPage: number;
@@ -7,64 +8,91 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, paginate }) => {
-  // Generate page numbers array
-  const pageNumbers = [];
+  // 計算頁碼範圍（當頁數多時顯示當前頁附近的頁碼）
+  const getPageNumbers = () => {
+    const pageNumbers = [];
+    const maxPagesToShow = 5; // 最多顯示的頁碼數量
+    
+    if (totalPages <= maxPagesToShow) {
+      // 如果總頁數少於或等於最大顯示數，則顯示所有頁碼
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i);
+      }
+    } else {
+      // 否則，計算起始和結束頁碼
+      let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+      let endPage = startPage + maxPagesToShow - 1;
+      
+      if (endPage > totalPages) {
+        endPage = totalPages;
+        startPage = Math.max(1, endPage - maxPagesToShow + 1);
+      }
+      
+      for (let i = startPage; i <= endPage; i++) {
+        pageNumbers.push(i);
+      }
+      
+      // 添加省略號
+      if (startPage > 1) {
+        pageNumbers.unshift('...');
+        pageNumbers.unshift(1);
+      }
+      
+      if (endPage < totalPages) {
+        pageNumbers.push('...');
+        pageNumbers.push(totalPages);
+      }
+    }
+    
+    return pageNumbers;
+  };
   
-  // Show at most 5 page buttons
-  let startPage = Math.max(1, currentPage - 2);
-  let endPage = Math.min(totalPages, startPage + 4);
+  const pageNumbers = getPageNumbers();
   
-  // Adjust start page if we're at the end
-  if (endPage - startPage < 4) {
-    startPage = Math.max(1, endPage - 4);
-  }
-  
-  for (let i = startPage; i <= endPage; i++) {
-    pageNumbers.push(i);
-  }
-
   return (
-    <div className="mt-8 flex justify-center">
-      <nav className="inline-flex rounded-md shadow-sm">
-        {/* Previous page button */}
+    <div className="flex justify-center mt-8">
+      <nav className="flex items-center space-x-1">
         <button
           onClick={() => currentPage > 1 && paginate(currentPage - 1)}
           disabled={currentPage === 1}
-          className={`py-2 px-4 border rounded-l-md transition ${
-            currentPage === 1
-              ? 'bg-gray-100 text-gray-400 border-gray-300 cursor-not-allowed'
-              : 'bg-white text-textPrimary border-gray-300 hover:bg-gray-100'
+          className={`p-2 rounded-md ${
+            currentPage === 1 
+              ? 'text-white/40 cursor-not-allowed' 
+              : 'text-white hover:bg-white/10'
           }`}
+          aria-label="上一頁"
         >
-          上一頁
+          <ChevronLeft className="h-5 w-5" />
         </button>
         
-        {/* Page numbers */}
-        {pageNumbers.map(number => (
+        {pageNumbers.map((page, index) => (
           <button
-            key={number}
-            onClick={() => paginate(number)}
-            className={`py-2 px-4 border transition ${
-              currentPage === number
-                ? 'bg-primary border-primary text-white hover:bg-orange-500'
-                : 'bg-white border-gray-300 text-textPrimary hover:bg-gray-100'
+            key={index}
+            onClick={() => typeof page === 'number' && paginate(page)}
+            className={`px-3 py-1 rounded-md ${
+              page === currentPage
+                ? 'bg-primary text-white font-bold'
+                : page === '...'
+                ? 'text-white/60 cursor-default'
+                : 'text-white hover:bg-white/10'
             }`}
+            disabled={page === '...'}
           >
-            {number}
+            {page}
           </button>
         ))}
         
-        {/* Next page button */}
         <button
           onClick={() => currentPage < totalPages && paginate(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className={`py-2 px-4 border rounded-r-md transition ${
-            currentPage === totalPages
-              ? 'bg-gray-100 text-gray-400 border-gray-300 cursor-not-allowed'
-              : 'bg-white text-textPrimary border-gray-300 hover:bg-gray-100'
+          className={`p-2 rounded-md ${
+            currentPage === totalPages 
+              ? 'text-white/40 cursor-not-allowed' 
+              : 'text-white hover:bg-white/10'
           }`}
+          aria-label="下一頁"
         >
-          下一頁
+          <ChevronRight className="h-5 w-5" />
         </button>
       </nav>
     </div>
