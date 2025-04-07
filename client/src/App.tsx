@@ -53,22 +53,22 @@ function App() {
         } 
         // 香港島
         else if (params.region === '香港島') {
-          if (clinic.isGreaterBayArea || !clinic.region.includes('區') || 
-             !['中西區', '灣仔區', '東區', '南區'].some(r => clinic.region.includes(r))) {
+          if (clinic.isGreaterBayArea) return false;
+          if (!['中西區', '灣仔區', '東區', '南區'].some(r => clinic.region.includes(r))) {
             return false;
           }
         }
         // 九龍
         else if (params.region === '九龍') {
-          if (clinic.isGreaterBayArea || !clinic.region.includes('區') ||
-             !['油尖旺區', '深水埗區', '九龍城區', '黃大仙區', '觀塘區'].some(r => clinic.region.includes(r))) {
+          if (clinic.isGreaterBayArea) return false;
+          if (!['油尖旺區', '深水埗區', '九龍城區', '黃大仙區', '觀塘區'].some(r => clinic.region.includes(r))) {
             return false;
           }
         }
         // 新界
         else if (params.region === '新界') {
-          if (clinic.isGreaterBayArea || !clinic.region.includes('區') ||
-             !['葵青區', '荃灣區', '屯門區', '元朗區', '北區', '大埔區', '沙田區', '西貢區', '離島區'].some(r => clinic.region.includes(r))) {
+          if (clinic.isGreaterBayArea) return false;
+          if (!['葵青區', '荃灣區', '屯門區', '元朗區', '北區', '大埔區', '沙田區', '西貢區', '離島區'].some(r => clinic.region.includes(r))) {
             return false;
           }
         }

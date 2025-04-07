@@ -5,6 +5,7 @@ import {
   Navigation, Stethoscope, Building, HeartPulse
 } from 'lucide-react';
 import MapDialog from './MapDialog';
+import ExpandableText from './ExpandableText';
 
 interface ClinicCardProps {
   clinic: Clinic;
@@ -39,11 +40,16 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
   // 格式化營業時間以便顯示
   const formatHours = (hours: string) => {
     if (!hours || hours === '-') return '詳情請致電查詢';
-    // 如果太長則縮短
-    if (hours.length > 50) {
-      return hours.substring(0, 47) + '...';
-    }
     return hours;
+  };
+  
+  // 格式化價格信息
+  const formatPrices = (prices?: Record<string, string>) => {
+    if (!prices) return null;
+    
+    return Object.entries(prices)
+      .map(([service, price]) => `${service}: ${price}`)
+      .join('\n');
   };
 
   // 確定診所類型標籤的顏色
@@ -74,20 +80,20 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
             <span className="text-primary text-sm">{formatPhone(clinic.phone)}</span>
           </div>
           
-          <div className="flex items-start">
-            <Clock className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
-            <span className="text-primary text-sm">{formatHours(clinic.hours)}</span>
-          </div>
+          {/* 營業時間（可展開） */}
+          <ExpandableText 
+            label="營業時間"
+            content={formatHours(clinic.hours)}
+            icon={<Clock className="h-5 w-5 text-primary" />}
+          />
           
-          {/* 顯示價格（如果有）（針對大灣區診所） */}
-          {clinic.prices && clinic.prices.洗牙 && (
-            <div className="flex items-start">
-              <DollarSign className="h-5 w-5 text-primary mr-2 mt-0.5 flex-shrink-0" />
-              <div className="text-primary text-sm">
-                {clinic.prices.洗牙 && <div>洗牙: {clinic.prices.洗牙}</div>}
-                {clinic.prices.補牙 && <div>補牙: {clinic.prices.補牙}</div>}
-              </div>
-            </div>
+          {/* 價格信息（可展開） */}
+          {clinic.prices && (
+            <ExpandableText 
+              label="價格信息"
+              content={formatPrices(clinic.prices) || '無價格信息'}
+              icon={<DollarSign className="h-5 w-5 text-primary" />}
+            />
           )}
         </div>
         
@@ -106,7 +112,7 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
           {/* 外部地圖連結 */}
           <a 
             href={clinic.isGreaterBayArea || clinic.country === '中國' || clinic.country === '澳門'
-                  ? `https://uri.amap.com/marker?name=${encodeURIComponent(clinic.name)}&address=${encodeURIComponent(clinic.address)}`
+                  ? `https://m.amap.com/search/view/keywords=${encodeURIComponent(clinic.name + ' ' + clinic.address)}`
                   : `https://maps.google.com/?q=${encodeURIComponent(clinic.name + ' ' + clinic.address)}`}
             target="_blank" 
             rel="noopener noreferrer" 
