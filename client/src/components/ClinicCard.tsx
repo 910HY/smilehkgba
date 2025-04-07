@@ -161,7 +161,7 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
         {/* 報錯按鈕 */}
         <div className="mt-4 pt-3 border-t border-[#FDBA74]/20 text-center">
           <button 
-            onClick={() => window.location.href = `mailto:info@smilehk.com?subject=診所資料錯誤報告：${clinic.name}&body=診所名稱：${clinic.name}%0A地址：${clinic.address}%0A%0A錯誤描述：`}
+            onClick={() => window.location.href = `/report?clinic=${encodeURIComponent(clinic.name)}`}
             className="text-[#94a3b8] text-xs hover:text-[#FF7A00] transition-colors"
           >
             診所資料有誤？點此回報

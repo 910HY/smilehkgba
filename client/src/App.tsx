@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { Route, Switch } from "wouter";
 import Header from "./components/Header";
 import SearchPanel from "./components/SearchPanel";
 import ClinicCard from "./components/ClinicCard";
 import NoResults from "./components/NoResults";
 import Footer from "./components/Footer";
 import Pagination from "./components/Pagination";
+import ReportPage from "./pages/ReportPage";
 import { Clinic } from "./types/clinic";
 import { Toaster } from "@/components/ui/toaster";
 import { useQuery } from "@tanstack/react-query";
@@ -153,44 +155,56 @@ function App() {
 
   return (
     <div className="bg-background min-h-screen font-sans text-textPrimary">
-      <div className="container mx-auto px-4 py-6 max-w-7xl">
-        <Header />
-        
-        <SearchPanel onSearch={handleSearch} />
-        
-        {isLoading ? (
-          <div className="text-center py-20">
-            <div className="text-white text-xl">載入中...</div>
+      <Switch>
+        <Route path="/report">
+          <div className="container mx-auto px-4 py-6 max-w-7xl">
+            <Header />
+            <ReportPage />
+            <Footer />
           </div>
-        ) : filteredClinics.length > 0 ? (
-          <div id="searchResults" className="mb-8">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-[#FF7A00] text-xl font-bold">搜尋結果</h3>
-              <p className="text-[#FDBA74]">
-                共找到 <span className="font-bold">{filteredClinics.length}</span> 間診所
-              </p>
-            </div>
+        </Route>
+        
+        <Route path="/">
+          <div className="container mx-auto px-4 py-6 max-w-7xl">
+            <Header />
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {currentItems.map((clinic, index) => (
-                <ClinicCard key={index} clinic={clinic} />
-              ))}
-            </div>
+            <SearchPanel onSearch={handleSearch} />
             
-            {totalPages > 1 && (
-              <Pagination 
-                currentPage={currentPage} 
-                totalPages={totalPages} 
-                paginate={paginate} 
-              />
+            {isLoading ? (
+              <div className="text-center py-20">
+                <div className="text-white text-xl">載入中...</div>
+              </div>
+            ) : filteredClinics.length > 0 ? (
+              <div id="searchResults" className="mb-8">
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-[#FF7A00] text-xl font-bold">搜尋結果</h3>
+                  <p className="text-[#FDBA74]">
+                    共找到 <span className="font-bold">{filteredClinics.length}</span> 間診所
+                  </p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {currentItems.map((clinic, index) => (
+                    <ClinicCard key={index} clinic={clinic} />
+                  ))}
+                </div>
+                
+                {totalPages > 1 && (
+                  <Pagination 
+                    currentPage={currentPage} 
+                    totalPages={totalPages} 
+                    paginate={paginate} 
+                  />
+                )}
+              </div>
+            ) : (
+              <NoResults />
             )}
+            
+            <Footer />
           </div>
-        ) : (
-          <NoResults />
-        )}
-        
-        <Footer />
-      </div>
+        </Route>
+      </Switch>
       <Toaster />
     </div>
   );
