@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import MapDialog from './MapDialog';
 import ExpandableText from './ExpandableText';
+import { generateAmapSearchUrl } from '../lib/generateAmapLink';
 
 interface ClinicCardProps {
   clinic: Clinic;
@@ -112,7 +113,7 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
           {/* 外部地圖連結 */}
           <a 
             href={clinic.isGreaterBayArea || clinic.country === '中國' || clinic.country === '澳門'
-                  ? `https://www.amap.com/search?query=${encodeURIComponent('中國 ' + clinic.address)}`
+                  ? generateAmapSearchUrl(clinic.address)
                   : `https://maps.google.com/?q=${encodeURIComponent(clinic.name + ' ' + clinic.address)}`}
             target="_blank" 
             rel="noopener noreferrer" 
