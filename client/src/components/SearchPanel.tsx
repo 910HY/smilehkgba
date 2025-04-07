@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { regions, RegionMapping, clinicTypes, regionDisplayNames } from '../lib/regions';
+import { regions, RegionMapping, clinicTypes, regionDisplayNames, detailedRegions, DetailedRegionMapping } from '../lib/regions';
 
 interface SearchPanelProps {
   onSearch: (params: {
@@ -74,7 +74,12 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ onSearch }) => {
           >
             <option value="">全部地區</option>
             {subRegions.map((subRegion) => (
-              <option key={subRegion} value={subRegion}>
+              <option key={subRegion} value={subRegion} title={
+                // 如果有詳細地區資訊，顯示相關地點作為標題提示
+                detailedRegions[subRegion as keyof typeof detailedRegions] 
+                  ? detailedRegions[subRegion as keyof typeof detailedRegions].join('、') 
+                  : ''
+              }>
                 {subRegion}
               </option>
             ))}
