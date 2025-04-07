@@ -59,19 +59,7 @@ function App() {
           return false;
         }
         
-        // 區域關鍵字匹配檢查
-        const regionKeywords: Record<string, string[]> = {
-          '香港島': ['香港島', '港島'],
-          '九龍': ['九龍', 'Kowloon'],
-          '新界': ['新界', 'New Territories', 'NT']
-        };
-        
-        // 檢查地區關鍵字
-        const isInRegion = regionKeywords[params.region]?.some(keyword => 
-          clinic.region.includes(keyword) || clinic.address.includes(keyword)
-        ) || false;
-        
-        // 檢查診所是否屬於該區域的下級細分地區
+        // 定義各區域包含的細分地區
         const regionSubDistricts: Record<string, string[]> = {
           '香港島': ['中西區', '灣仔區', '東區', '南區'],
           '九龍': ['油尖旺區', '深水埗區', '九龍城區', '黃大仙區', '觀塘區'],
@@ -81,29 +69,15 @@ function App() {
           ]
         };
         
-        // 檢查細分地區
-        const isInSubDistrict = regionSubDistricts[params.region]?.some(district => {
+        // 檢查細分地區 - 僅檢查 clinic.region 是否等於區名或其簡稱
+        const isInSubRegion = regionSubDistricts[params.region]?.some(district => {
           // 處理「區」字的匹配，例如「元朗區」和「元朗」
           const districtBase = district.replace('區', '');
-          return clinic.region === district || clinic.region === districtBase || 
-                 clinic.region.includes(district) || clinic.region.includes(districtBase);
+          return clinic.region === district || clinic.region === districtBase;
         }) || false;
         
-        // 檢查詳細地點 
-        const hasAreaKeyword = (() => {
-          // 取得所有該區域的細分地區關鍵字
-          const allKeywords: string[] = [];
-          regionSubDistricts[params.region]?.forEach(district => {
-            const detailedKeywords = detailedRegions[district as keyof typeof detailedRegions] || [];
-            allKeywords.push(...detailedKeywords);
-          });
-          
-          return allKeywords.some(keyword => 
-            clinic.address.includes(keyword) || clinic.region.includes(keyword)
-          );
-        })();
-        
-        regionMatch = isInRegion || isInSubDistrict || hasAreaKeyword;
+        // 設定區域匹配標誌 - 只依照區域精確匹配判斷
+        regionMatch = isInSubRegion;
         if (!regionMatch) {
           return false;
         }
