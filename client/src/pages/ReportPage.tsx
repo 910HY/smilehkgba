@@ -3,7 +3,7 @@ import { useLocation } from 'wouter';
 
 const ReportPage = () => {
   // 從 URL 參數取得診所資訊
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const urlParams = new URLSearchParams(window.location.search);
   const clinicName = urlParams.get('clinic') || '';
 
@@ -30,7 +30,7 @@ const ReportPage = () => {
 
   // 返回首頁
   const goHome = () => {
-    window.location.href = "/";
+    setLocation("/");
   };
 
   if (submitted) {
