@@ -106,23 +106,10 @@ function App() {
         }
       }
 
-      // 篩選細分地區
+      // 篩選細分地區 - 使用嚴格匹配
       if (params.subRegion) {
-        // 直接匹配 region 欄位 - 必須是精確匹配，不是部分包含
-        const exactRegionMatch = clinic.region === params.subRegion;
-        
-        // 地址中包含該區名稱
-        const addressContainsRegion = clinic.address.includes(params.subRegion);
-        
-        // 檢查是否匹配該細分地區下的任一關鍵字地點
-        const subRegionKeywords = detailedRegions[params.subRegion as keyof typeof detailedRegions];
-        const keywordMatch = subRegionKeywords ? subRegionKeywords.some((keyword: string) => 
-          clinic.address.includes(keyword) || clinic.region.includes(keyword)
-        ) : false;
-        
-        if (!exactRegionMatch && !addressContainsRegion && !keywordMatch) {
-          return false;
-        }
+        // 只使用精確匹配，避免誤判
+        return clinic.region === params.subRegion;
       }
 
       // 篩選診所類型
