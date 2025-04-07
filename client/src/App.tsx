@@ -134,8 +134,8 @@ function App() {
         ) : filteredClinics.length > 0 ? (
           <div id="searchResults" className="mb-8">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-white text-xl font-bold">搜尋結果</h3>
-              <p className="text-white">
+              <h3 className="text-[#FF7A00] text-xl font-bold">搜尋結果</h3>
+              <p className="text-[#FDBA74]">
                 共找到 <span className="font-bold">{filteredClinics.length}</span> 間診所
               </p>
             </div>

@@ -10,9 +10,9 @@ const Header: React.FC = () => {
           alt="SmileHK Logo" 
           className="w-[80px] h-auto"
         />
-        <h1 className="text-primary text-3xl font-bold ml-4 tracking-wider">SmileHK</h1>
+        <h1 className="text-[#FF7A00] text-3xl font-bold ml-4 tracking-wider">SmileHK</h1>
       </div>
-      <h2 className="text-primary text-xl mt-2 md:mt-0 tracking-wide">香港及大灣區牙醫資訊平台</h2>
+      <h2 className="text-[#FDBA74] text-xl mt-2 md:mt-0 tracking-wide">香港及大灣區牙醫資訊平台</h2>
     </header>
   );
 };

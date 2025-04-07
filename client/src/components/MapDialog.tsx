@@ -69,19 +69,19 @@ const MapDialog: React.FC<MapDialogProps> = ({ clinic, isOpen, onClose }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={() => onClose()}>
-      <DialogContent className="sm:max-w-[600px] bg-[#2B1B0F] border-primary/30">
+      <DialogContent className="sm:max-w-[600px] bg-[#1e293b] border-[#FDBA74]/30">
         <DialogHeader>
-          <DialogTitle className="text-primary">{clinic.name}</DialogTitle>
-          <DialogDescription className="text-primary/80">
+          <DialogTitle className="text-[#FF7A00]">{clinic.name}</DialogTitle>
+          <DialogDescription className="text-[#94a3b8]">
             {clinic.address}
           </DialogDescription>
         </DialogHeader>
         
         <div className="flex flex-col space-y-4">
           {isLoading ? (
-            <div className="w-full h-[300px] flex items-center justify-center bg-primary/5 rounded-lg">
-              <Loader2 className="h-8 w-8 text-primary animate-spin" />
-              <span className="ml-2 text-primary">正在載入地圖...</span>
+            <div className="w-full h-[300px] flex items-center justify-center bg-[#0f172a]/80 rounded-lg">
+              <Loader2 className="h-8 w-8 text-[#FF7A00] animate-spin" />
+              <span className="ml-2 text-[#FF7A00]">正在載入地圖...</span>
             </div>
           ) : location ? (
             <>
@@ -96,15 +96,15 @@ const MapDialog: React.FC<MapDialogProps> = ({ clinic, isOpen, onClose }) => {
                   <p>{error}</p>
                 </div>
               )}
-              <div className="text-xs text-primary/60 text-center">
+              <div className="text-xs text-[#94a3b8] text-center">
                 {clinic.isGreaterBayArea || clinic.country === '中國' || clinic.country === '澳門' 
                   ? '地圖數據來源: OpenStreetMap © OpenStreetMap 貢獻者'
                   : '地圖數據來源: OpenStreetMap © OpenStreetMap 貢獻者'}
               </div>
             </>
           ) : (
-            <div className="w-full h-[300px] flex items-center justify-center bg-primary/5 rounded-lg">
-              <p className="text-primary">無法載入地圖</p>
+            <div className="w-full h-[300px] flex items-center justify-center bg-[#0f172a]/80 rounded-lg">
+              <p className="text-[#FF7A00]">無法載入地圖</p>
             </div>
           )}
         </div>
