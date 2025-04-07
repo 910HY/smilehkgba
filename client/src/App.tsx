@@ -46,32 +46,32 @@ function App() {
     
     // 依據搜尋參數篩選診所
     const filtered = clinics.filter((clinic) => {
-      // 大灣區特殊處理
-      if (params.region === '大灣區') {
-        // 只顯示屬於大灣區的診所
-        return clinic.isGreaterBayArea || clinic.country === '中國' || clinic.country === '澳門';
-      }
-      
-      // 如果選擇了香港、九龍或新界，排除大灣區的診所
-      if (['香港島', '九龍', '新界'].includes(params.region) && clinic.isGreaterBayArea) {
-        return false;
-      }
-      
-      // 處理香港本地區域搜尋
-      if (params.region && params.region !== '大灣區') {
-        // 檢查診所是否屬於該區域
+      // 檢查大區域匹配
+      let regionMatch = true;
+      if (params.region) {
+        // 大灣區特殊處理
+        if (params.region === '大灣區') {
+          return clinic.isGreaterBayArea || clinic.country === '中國' || clinic.country === '澳門';
+        }
+        
+        // 如果選擇了香港、九龍或新界，排除大灣區的診所
+        if (clinic.isGreaterBayArea) {
+          return false;
+        }
+        
+        // 區域關鍵字匹配檢查
         const regionKeywords: Record<string, string[]> = {
           '香港島': ['香港島', '港島'],
           '九龍': ['九龍', 'Kowloon'],
           '新界': ['新界', 'New Territories', 'NT']
         };
         
-        // 診所所屬區域檢查
+        // 檢查地區關鍵字
         const isInRegion = regionKeywords[params.region]?.some(keyword => 
           clinic.region.includes(keyword) || clinic.address.includes(keyword)
         ) || false;
         
-        // 檢查細分地區是否屬於該大區
+        // 檢查診所是否屬於該區域的下級細分地區
         const regionSubDistricts: Record<string, string[]> = {
           '香港島': ['中西區', '灣仔區', '東區', '南區'],
           '九龍': ['油尖旺區', '深水埗區', '九龍城區', '黃大仙區', '觀塘區'],
@@ -81,48 +81,70 @@ function App() {
           ]
         };
         
-        const hasDistrictInRegion = regionSubDistricts[params.region]?.some(district => 
-          clinic.region === district || clinic.region.includes(district)
-        ) || false;
+        // 檢查細分地區
+        const isInSubDistrict = regionSubDistricts[params.region]?.some(district => {
+          // 處理「區」字的匹配，例如「元朗區」和「元朗」
+          const districtBase = district.replace('區', '');
+          return clinic.region === district || clinic.region === districtBase || 
+                 clinic.region.includes(district) || clinic.region.includes(districtBase);
+        }) || false;
         
-        // 如果診所既不在該區域也不在屬於該區域的子地區，則排除
-        if (!isInRegion && !hasDistrictInRegion) {
-          // 針對區域內的地名關鍵字再檢查一次
-          // 檢查該區域的所有細分地區關鍵字
-          const allDetailedRegionKeywords: string[] = [];
-          
+        // 檢查詳細地點 
+        const hasAreaKeyword = (() => {
+          // 取得所有該區域的細分地區關鍵字
+          const allKeywords: string[] = [];
           regionSubDistricts[params.region]?.forEach(district => {
-            const keywords = detailedRegions[district as keyof typeof detailedRegions] || [];
-            allDetailedRegionKeywords.push(...keywords);
+            const detailedKeywords = detailedRegions[district as keyof typeof detailedRegions] || [];
+            allKeywords.push(...detailedKeywords);
           });
           
-          const hasAreaKeyword = allDetailedRegionKeywords.some(keyword => 
+          return allKeywords.some(keyword => 
             clinic.address.includes(keyword) || clinic.region.includes(keyword)
           );
-          
-          if (!hasAreaKeyword) {
-            return false;
-          }
+        })();
+        
+        regionMatch = isInRegion || isInSubDistrict || hasAreaKeyword;
+        if (!regionMatch) {
+          return false;
         }
       }
-
-      // 篩選細分地區 - 使用嚴格匹配
+      
+      // 篩選細分地區 - 使用更靈活的匹配
+      let subRegionMatch = true;
       if (params.subRegion) {
-        // 只使用精確匹配，避免誤判
-        return clinic.region === params.subRegion;
+        // 1. 檢查精確匹配
+        const exactMatch = clinic.region === params.subRegion;
+        
+        // 2. 檢查去掉「區」字的匹配 (如元朗區 vs 元朗)
+        const noSuffixMatch = clinic.region === params.subRegion.replace('區', '');
+        
+        // 3. 檢查診所是否包含在此細分地區的關鍵字中
+        const subRegionKeywords = detailedRegions[params.subRegion as keyof typeof detailedRegions];
+        const keywordMatch = subRegionKeywords ? subRegionKeywords.some((keyword: string) => 
+          clinic.region.includes(keyword) || clinic.address.includes(keyword)
+        ) : false;
+        
+        subRegionMatch = exactMatch || noSuffixMatch || keywordMatch;
+        if (!subRegionMatch) {
+          return false;
+        }
       }
-
+      
       // 篩選診所類型
+      let typeMatch = true;
       if (params.clinicType) {
-        if (params.clinicType === '私家診所' && clinic.type.includes('NGO')) {
-          return false;
+        if (params.clinicType === '私家診所') {
+          typeMatch = !clinic.type.includes('NGO');
+        } else if (params.clinicType === 'NGO社企') {
+          typeMatch = clinic.type.includes('NGO');
         }
-        if (params.clinicType === 'NGO社企' && !clinic.type.includes('NGO')) {
+        
+        if (!typeMatch) {
           return false;
         }
       }
-
-      // 篩選關鍵字（名稱、地址或電話）
+      
+      // 篩選關鍵字
       if (params.keyword) {
         const keyword = params.keyword.toLowerCase();
         const name = (clinic.name || '').toLowerCase();
@@ -130,14 +152,15 @@ function App() {
         const phone = typeof clinic.phone === 'number' 
           ? clinic.phone.toString() 
           : (clinic.phone || '').toLowerCase();
-
+        
         return (
           name.includes(keyword) || 
           address.includes(keyword) || 
           phone.includes(keyword)
         );
       }
-
+      
+      // 如果通過以上所有篩選，返回 true
       return true;
     });
     
