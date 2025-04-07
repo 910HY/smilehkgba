@@ -112,7 +112,7 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
           {/* 外部地圖連結 */}
           <a 
             href={clinic.isGreaterBayArea || clinic.country === '中國' || clinic.country === '澳門'
-                  ? `https://m.amap.com/search/view/keywords=${encodeURIComponent(clinic.name + ' ' + clinic.address)}`
+                  ? `https://www.amap.com/search?query=${encodeURIComponent('中國 ' + clinic.address)}`
                   : `https://maps.google.com/?q=${encodeURIComponent(clinic.name + ' ' + clinic.address)}`}
             target="_blank" 
             rel="noopener noreferrer" 
@@ -121,8 +121,8 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
             <span className="flex items-center justify-center">
               <MapPin className="h-4 w-4 mr-2" />
               {clinic.isGreaterBayArea || clinic.country === '中國' || clinic.country === '澳門' 
-                ? '高德地圖' 
-                : 'Google Maps'}
+                ? '在高德地圖查看' 
+                : '在Google Maps查看'}
             </span>
           </a>
         </div>
