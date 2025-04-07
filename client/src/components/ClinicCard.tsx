@@ -151,6 +151,22 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
             </a>
           )}
         </div>
+        {/* 地圖提示 */}
+        {!clinic.location && (
+          <p className="text-xs text-red-500 mt-2">
+            地圖未能開啟？請複製地址於 Google 或百度地圖搜尋。
+          </p>
+        )}
+        
+        {/* 報錯按鈕 */}
+        <div className="mt-4 pt-3 border-t border-[#FDBA74]/20 text-center">
+          <button 
+            onClick={() => window.location.href = `mailto:info@smilehk.com?subject=診所資料錯誤報告：${clinic.name}&body=診所名稱：${clinic.name}%0A地址：${clinic.address}%0A%0A錯誤描述：`}
+            className="text-[#94a3b8] text-xs hover:text-[#FF7A00] transition-colors"
+          >
+            診所資料有誤？點此回報
+          </button>
+        </div>
       </div>
       
       {/* 地圖對話框 */}
