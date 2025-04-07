@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { regions, RegionMapping, clinicTypes, regionDisplayNames, detailedRegions, DetailedRegionMapping } from '../lib/regions';
+import { regions, RegionMapping, clinicTypes, regionDisplayNames, detailedRegions, DetailedRegionMapping, ntRegionGroups } from '../lib/regions';
 
 interface SearchPanelProps {
   onSearch: (params: {
@@ -73,16 +73,36 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ onSearch }) => {
             disabled={!selectedRegion}
           >
             <option value="">全部地區</option>
-            {subRegions.map((subRegion) => (
-              <option key={subRegion} value={subRegion} title={
-                // 如果有詳細地區資訊，顯示相關地點作為標題提示
-                detailedRegions[subRegion as keyof typeof detailedRegions] 
-                  ? detailedRegions[subRegion as keyof typeof detailedRegions].join('、') 
-                  : ''
-              }>
-                {subRegion}
-              </option>
-            ))}
+            
+            {/* 如果選擇的是新界，顯示分組的選項 */}
+            {selectedRegion === '新界' ? (
+              ntRegionGroups['新界'].map(group => (
+                <optgroup key={group.label} label={group.label} className="text-[#FDBA74] font-bold">
+                  {group.regions.map(subRegion => (
+                    <option key={subRegion} value={subRegion} className="text-[#FF7A00]" title={
+                      // 如果有詳細地區資訊，顯示相關地點作為標題提示
+                      detailedRegions[subRegion as keyof typeof detailedRegions] 
+                        ? detailedRegions[subRegion as keyof typeof detailedRegions].join('、') 
+                        : ''
+                    }>
+                      {subRegion}
+                    </option>
+                  ))}
+                </optgroup>
+              ))
+            ) : (
+              // 其他區域使用一般顯示方式
+              subRegions.map((subRegion) => (
+                <option key={subRegion} value={subRegion} title={
+                  // 如果有詳細地區資訊，顯示相關地點作為標題提示
+                  detailedRegions[subRegion as keyof typeof detailedRegions] 
+                    ? detailedRegions[subRegion as keyof typeof detailedRegions].join('、') 
+                    : ''
+                }>
+                  {subRegion}
+                </option>
+              ))
+            )}
           </select>
         </div>
         <div>
