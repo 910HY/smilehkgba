@@ -7,7 +7,7 @@ const Header: React.FC = () => {
       <Link href="/">
         <div className="flex items-center cursor-pointer">
           <img 
-            src="/assets/tooth_logo.png"
+            src="/logo.png"
             alt="SmileHK Logo" 
             className="w-[80px] h-auto"
             onError={(e) => {

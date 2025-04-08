@@ -154,7 +154,7 @@ function App() {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div className="min-h-screen bg-[#0f172a] text-[#FF7A00] font-sans">
+    <div className="min-h-screen" style={{ backgroundColor: "#0f172a", color: "#FF7A00" }}>
       <Switch>
         <Route path="/report">
           <div className="container mx-auto px-4 py-6 max-w-7xl">

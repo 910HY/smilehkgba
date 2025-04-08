@@ -11,13 +11,14 @@
   }
 
   body {
-    font-family: 'Orbitron', 'Noto Sans TC', sans-serif;
+    font-family: 'Noto Sans TC', sans-serif;
     @apply antialiased;
     background-color: #0f172a;
     color: #FF7A00;
   }
 
   h1, h2, h3 {
+    font-family: 'Orbitron', 'Noto Sans TC', sans-serif;
     letter-spacing: 1px;
   }
 
