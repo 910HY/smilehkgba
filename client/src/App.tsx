@@ -96,11 +96,9 @@ function App() {
         
         // 3. 檢查診所是否包含在此細分地區的關鍵字中
         const subRegionKeywords = detailedRegions[params.subRegion as keyof typeof detailedRegions];
-        const keywordMatch = subRegionKeywords ? subRegionKeywords.some((keyword: string) => {
-          // 防止 clinic.region 是 undefined
-          const region = clinic.region || '';
-          return region.includes(keyword) || clinic.address.includes(keyword);
-        }) : false;
+        const keywordMatch = subRegionKeywords ? subRegionKeywords.some((keyword: string) => 
+          clinic.region?.includes(keyword) || clinic.address.includes(keyword)
+        ) : false;
         
         subRegionMatch = exactMatch || noSuffixMatch || keywordMatch;
         if (!subRegionMatch) {
@@ -111,13 +109,10 @@ function App() {
       // 篩選診所類型
       let typeMatch = true;
       if (params.clinicType) {
-        // 取得診所類型，如果 undefined 則設為空字串
-        const clinicType = clinic.type || '';
-        
         if (params.clinicType === '私家診所') {
-          typeMatch = !clinicType.includes('NGO');
+          typeMatch = !clinic.type?.includes('NGO');
         } else if (params.clinicType === 'NGO社企') {
-          typeMatch = clinicType.includes('NGO');
+          typeMatch = clinic.type?.includes('NGO') || false;
         }
         
         if (!typeMatch) {

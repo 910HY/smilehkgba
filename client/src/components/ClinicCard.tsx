@@ -63,8 +63,7 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
 
   // 確定診所類型標籤的顏色
   const getTypeColor = () => {
-    const type = clinic.type || '';
-    if (type.includes('NGO')) return 'bg-green-600';
+    if (clinic.type?.includes('NGO')) return 'bg-green-600';
     return 'bg-primary';
   };
 
