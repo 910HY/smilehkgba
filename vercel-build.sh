@@ -14,6 +14,7 @@ echo "===== 創建 dist 目錄 ====="
 mkdir -p dist
 mkdir -p dist/api
 mkdir -p dist/api/data
+mkdir -p dist/assets
 
 # 顯示 attached_assets 中的文件
 echo "===== attached_assets 目錄中的文件 ====="
@@ -28,6 +29,17 @@ cp attached_assets/shenzhen_dental_clinics_20250407.json dist/api/data/
 # 複製 API 文件
 echo "===== 複製 API 文件 ====="
 cp api/*.ts dist/api/
+
+# 複製靜態資源
+echo "===== 複製靜態資源 ====="
+cp attached_assets/LOGO_UPDATED.png dist/assets/
+cp attached_assets/favicon.ico dist/
+cp attached_assets/og-image.png dist/assets/
+
+# 確保前端構建可以訪問資源
+echo "===== 為前端準備資源 ====="
+mkdir -p client/public/assets
+cp attached_assets/LOGO_UPDATED.png client/public/assets/
 
 # 檢查最終目錄結構
 echo "===== 最終目錄結構 ====="
