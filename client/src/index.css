@@ -6,10 +6,6 @@
 @tailwind utilities;
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
   body {
     font-family: 'Orbitron', 'Noto Sans TC', sans-serif;
     @apply antialiased;
