@@ -68,9 +68,9 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
   };
 
   return (
-    <div className="bg-[#1e293b] border border-[#FDBA74]/30 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+    <div className="clinic-card bg-[#1e293b] border border-[#FDBA74]/30 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow" style={{backgroundColor: "#1e293b", borderColor: "rgba(253, 186, 116, 0.3)"}}>
       <div className="pt-4 pl-4 pr-4 flex justify-between items-start">
-        <h4 className="font-bold text-lg mb-2 text-[#FF7A00] tracking-wide">{clinic.name}</h4>
+        <h4 className="font-bold text-lg mb-2 text-[#FF7A00] tracking-wide" style={{color: "#FF7A00"}}>{clinic.name}</h4>
         <div className={`${getTypeColor()} text-white px-2 py-1 text-sm font-medium rounded-md`}>
           {clinic.type}
         </div>

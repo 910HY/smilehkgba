@@ -11,15 +11,16 @@
   }
 
   body {
-    font-family: 'Noto Sans TC', sans-serif;
+    font-family: 'Noto Sans TC', sans-serif !important;
     @apply antialiased;
-    background-color: #0f172a;
-    color: #FF7A00;
+    background-color: #0f172a !important;
+    color: #FF7A00 !important;
   }
 
   h1, h2, h3 {
-    font-family: 'Orbitron', 'Noto Sans TC', sans-serif;
+    font-family: 'Orbitron', 'Noto Sans TC', sans-serif !important;
     letter-spacing: 1px;
+    color: #FF7A00 !important;
   }
 
   :root {
@@ -44,19 +45,28 @@
   /* 設計欄樣式 */
   .design-column {
     @apply bg-[#1e293b] border border-[#FDBA74]/30 rounded-lg p-4 flex flex-col;
+    background-color: #1e293b !important;
+    border: 1px solid rgba(253, 186, 116, 0.3) !important;
+    border-radius: 0.5rem !important;
   }
   
   .design-title {
     @apply text-[#FF7A00] text-lg font-bold mb-2;
+    color: #FF7A00 !important;
+    font-family: 'Orbitron', 'Noto Sans TC', sans-serif !important;
   }
   
   .design-desc {
     @apply text-[#94a3b8] text-sm mb-4;
+    color: #94a3b8 !important;
   }
   
   /* 診所卡片增強樣式 */
   .clinic-card {
     @apply bg-[#1e293b] border border-[#FDBA74]/30 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow;
+    background-color: #1e293b !important;
+    border: 1px solid rgba(253, 186, 116, 0.3) !important;
+    border-radius: 0.5rem !important;
   }
   
   .clinic-card-header {

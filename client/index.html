@@ -19,6 +19,49 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
      crossorigin=""/>
+     
+    <!-- 直接注入樣式以確保顯示正確 -->
+    <style>
+      :root {
+        --primary-text: #FF7A00;
+        --secondary-text: #FDBA74;
+        --background-color: #0f172a;
+        --card-color: #1e293b;
+        --muted-text: #94a3b8;
+      }
+      
+      body {
+        background-color: #0f172a !important;
+        color: #FF7A00 !important;
+        font-family: 'Noto Sans TC', sans-serif !important;
+      }
+      
+      h1, h2, h3 {
+        font-family: 'Orbitron', 'Noto Sans TC', sans-serif !important;
+        color: #FF7A00 !important;
+      }
+      
+      .design-column {
+        background-color: #1e293b !important;
+        border: 1px solid rgba(253, 186, 116, 0.3) !important;
+        border-radius: 0.5rem !important;
+        padding: 1rem !important;
+      }
+      
+      .clinic-card {
+        background-color: #1e293b !important;
+        border: 1px solid rgba(253, 186, 116, 0.3) !important;
+        border-radius: 0.5rem !important;
+        overflow: hidden !important;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+      }
+      
+      .search-panel {
+        background-color: #1e293b !important;
+        border: 1px solid rgba(253, 186, 116, 0.3) !important;
+        border-radius: 0.5rem !important;
+      }
+    </style>
   </head>
   <body style="background-color: #0f172a; color: #FF7A00;">
     <div id="root"></div>

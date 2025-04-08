@@ -172,21 +172,21 @@ function App() {
             
             {/* 設計欄 */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="design-column">
-                <h3 className="design-title font-orbitron">精準定位</h3>
-                <p className="design-desc">
+              <div className="design-column" style={{backgroundColor: "#1e293b", border: "1px solid rgba(253, 186, 116, 0.3)", borderRadius: "0.5rem", padding: "1rem"}}>
+                <h3 className="design-title font-orbitron" style={{color: "#FF7A00", fontFamily: "'Orbitron', 'Noto Sans TC', sans-serif"}}>精準定位</h3>
+                <p className="design-desc" style={{color: "#94a3b8"}}>
                   結合高德地圖及Google地圖，為您提供香港及大灣區牙醫診所的精確位置資訊，便於快速尋找最近的診所。
                 </p>
               </div>
-              <div className="design-column">
-                <h3 className="design-title font-orbitron">全面資訊</h3>
-                <p className="design-desc">
+              <div className="design-column" style={{backgroundColor: "#1e293b", border: "1px solid rgba(253, 186, 116, 0.3)", borderRadius: "0.5rem", padding: "1rem"}}>
+                <h3 className="design-title font-orbitron" style={{color: "#FF7A00", fontFamily: "'Orbitron', 'Noto Sans TC', sans-serif"}}>全面資訊</h3>
+                <p className="design-desc" style={{color: "#94a3b8"}}>
                   包含診所營業時間、服務項目、收費標準及診所聯絡方式，讓您在選擇前了解所有必要信息。
                 </p>
               </div>
-              <div className="design-column">
-                <h3 className="design-title font-orbitron">多元篩選</h3>
-                <p className="design-desc">
+              <div className="design-column" style={{backgroundColor: "#1e293b", border: "1px solid rgba(253, 186, 116, 0.3)", borderRadius: "0.5rem", padding: "1rem"}}>
+                <h3 className="design-title font-orbitron" style={{color: "#FF7A00", fontFamily: "'Orbitron', 'Noto Sans TC', sans-serif"}}>多元篩選</h3>
+                <p className="design-desc" style={{color: "#94a3b8"}}>
                   依據地區、服務類型及關鍵字進行快速篩選，智能推薦最符合您需求的診所選擇。
                 </p>
               </div>
