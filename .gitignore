@@ -1,19 +1,14 @@
-# Node & build
+# 忽略這些不必要的項目
 node_modules/
 dist/
 .cache/
 .client/
-
-# macOS
 .DS_Store
-
-# Replit 相關
 .replit
 .config
 .local
 start_vite.sh
-
-# Vite / Vercel
+server/
 server/public/
 vite.config.ts.*
 *.tar.gz
@@ -21,8 +16,5 @@ vite.config.ts.*
 .upm/
 generated-icon.png
 
-# API or build artifacts
-server/
-
-# 保留API數據在儲存庫中，但忽略其他不必要的文件
-# api/data/*.json
+# ✅ 保留 API 數據
+!api/data/*.json
