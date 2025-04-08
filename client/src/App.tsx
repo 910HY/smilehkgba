@@ -7,6 +7,7 @@ import NoResults from "./components/NoResults";
 import Footer from "./components/Footer";
 import Pagination from "./components/Pagination";
 import ReportPage from "./pages/ReportPage";
+import NotFound from "./pages/not-found";
 import { Clinic } from "./types/clinic";
 import { Toaster } from "@/components/ui/toaster";
 import { useQuery } from "@tanstack/react-query";
@@ -203,6 +204,10 @@ function App() {
             
             <Footer />
           </div>
+        </Route>
+        
+        <Route>
+          <NotFound />
         </Route>
       </Switch>
       <Toaster />
