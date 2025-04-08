@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link } from 'wouter';
-// @ts-ignore
-import logo from '@assets/LOGO_UPDATED.png';
 
 const Header: React.FC = () => {
   return (
@@ -9,13 +7,21 @@ const Header: React.FC = () => {
       <Link href="/">
         <div className="flex items-center cursor-pointer">
           <img 
-            src={logo}
+            src="/assets/LOGO_UPDATED.png"
             alt="SmileHK Logo" 
             className="w-[80px] h-auto"
             onError={(e) => {
-              // 嘗試備用路徑
               if (e.currentTarget) {
-                e.currentTarget.src = "/assets/LOGO_UPDATED.png";
+                e.currentTarget.src = "/favicon.ico";
+                e.currentTarget.onerror = () => {
+                  // 如果favicon也失敗，顯示一個純色塊
+                  e.currentTarget.style.display = "none";
+                  e.currentTarget.parentElement?.classList.add("bg-[#FF7A00]", "w-[80px]", "h-[80px]", "rounded-md", "flex", "items-center", "justify-center");
+                  const span = document.createElement("span");
+                  span.textContent = "SmileHK";
+                  span.className = "text-white text-xs font-bold";
+                  e.currentTarget.parentElement?.appendChild(span);
+                };
               }
             }}
           />
