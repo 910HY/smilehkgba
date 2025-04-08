@@ -3,8 +3,8 @@ import { execSync } from 'child_process';
 
 console.log('📦 啟動開發服務器...');
 try {
-  // 使用 node dev-server.js 啟動
-  execSync('node dev-server.js', { stdio: 'inherit' });
+  // 使用靜態服務器而不是Vite開發服務器
+  execSync('node static-server.js', { stdio: 'inherit' });
 } catch (error) {
   console.error('❌ 啟動失敗:', error);
   process.exit(1);

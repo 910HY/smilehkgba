@@ -30,4 +30,10 @@ export default defineConfig(async () => ({
     outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
   },
+  server: {
+    port: 5000, // 🚀 Replit 預期用 5000
+    host: true,
+    strictPort: true,
+    allowedHosts: ['.replit.dev'], // ✅ 加入這一行，解決 blocked host 問題
+  },
 }));

@@ -1,21 +1,20 @@
-// 整合 Vite 和 Express 的開發服務器
+// 靜態文件服務器 - 簡單版，無需Vite
 import express from 'express';
-import { createServer } from 'vite';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import fs from 'fs';
-import react from "@vitejs/plugin-react";
-import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
-import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = 5000;
 
-async function startServer() {
+async function startStaticServer() {
   // 創建 Express 應用程序
   const app = express();
 
-  console.log('📦 啟動整合式開發服務器...');
+  console.log('📦 啟動靜態文件服務器...');
+
+  // 靜態文件服務
+  app.use(express.static(path.join(__dirname, 'client/dist')));
 
   // API 路由處理
   // 所有診所資料
@@ -84,67 +83,22 @@ async function startServer() {
     }
   });
 
-  // 創建 Vite 開發服務器
-  const vite = await createServer({
-    root: path.resolve(__dirname, 'client'),
-    server: {
-      middlewareMode: true,
-      hmr: { clientPort: 443 },
-      watch: {
-        usePolling: true,
-        interval: 100
-      },
-      allowedHosts: ['.replit.dev', 'localhost'],  // 允許特定主機
-      host: '0.0.0.0',      // 綁定到所有網絡接口
-    },
-    base: './',
-    appType: 'spa',
-    clearScreen: false,
-    plugins: [
-      react({
-        // 禁用快速刷新，以解決重複 React 插件問題
-        fastRefresh: false
-      }),
-      themePlugin(),
-    ],
-    resolve: {
-      alias: {
-        "@": path.resolve(__dirname, "client", "src"),
-        "@shared": path.resolve(__dirname, "shared"),
-        "@assets": path.resolve(__dirname, "attached_assets"),
-      },
-    },
-    optimizeDeps: {
-      force: true // 強制優化依賴
-    }
-  });
-
-  // 使用 Vite 的中間件處理前端請求
-  app.use(vite.middlewares);
-
   // 處理 SPA 路由 - 所有非 API 路由返回 index.html
-  app.get('*', async (req, res, next) => {
+  app.get('*', (req, res) => {
     if (req.path.startsWith('/api/')) {
-      next();
       return;
     }
     
-    try {
-      // 讓 Vite 處理請求
-      next();
-    } catch (error) {
-      console.error("Vite 處理請求時出錯:", error);
-      res.status(500).send("內部服務器錯誤");
-    }
+    res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
   });
 
   // 啟動 Express 服務器
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`整合式開發服務器運行於 http://localhost:${PORT}`);
+    console.log(`靜態服務器運行於 http://localhost:${PORT}`);
   });
 }
 
-startServer().catch((err) => {
+startStaticServer().catch((err) => {
   console.error('啟動服務器時出錯:', err);
   process.exit(1);
 });
