@@ -2,6 +2,11 @@ import path from 'path';
 import fs from 'fs';
 
 export default function handler(req: any, res: any) {
+  // 只允許GET請求
+  if (req.method !== 'GET') {
+    return res.status(405).json({ error: 'Method Not Allowed' });
+  }
+  
   try {
     const filePath = path.join(process.cwd(), 'api', 'data', 'clinic_list_hkcss_cleaned.json');
     const data = fs.readFileSync(filePath, 'utf8');

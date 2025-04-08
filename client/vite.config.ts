@@ -21,19 +21,13 @@ export default defineConfig(async () => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
-      "@shared": path.resolve(__dirname, "..", "shared"),
-      "@assets": path.resolve(__dirname, "..", "attached_assets"),
+      "@shared": path.resolve(__dirname, "../shared"),
+      "@assets": path.resolve(__dirname, "../attached_assets"),
     },
   },
-  root: path.resolve(__dirname),
+  root: path.resolve(__dirname), // 前端根目錄
   build: {
-    outDir: path.resolve(__dirname, "dist"),
+    outDir: path.resolve(__dirname, "dist"), // ✅ 改為 Vercel 認得的結構
     emptyOutDir: true,
-  },
-  server: {
-    port: 5000, // 🚀 Replit 預期用 5000
-    host: true,
-    strictPort: true,
-    allowedHosts: ['.replit.dev'], // ✅ 加入這一行，解決 blocked host 問題
   },
 }));

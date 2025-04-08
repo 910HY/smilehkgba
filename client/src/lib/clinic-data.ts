@@ -3,10 +3,12 @@ import { Clinic } from "../types/clinic";
 // 從API獲取所有診所資料
 export async function fetchClinicData(): Promise<Clinic[]> {
   try {
-    // 在開發環境中使用相對路徑
-    const devBaseUrl = import.meta.env.DEV ? '' : '';
+    // 根據環境確定BASE URL
+    const baseUrl = import.meta.env.DEV 
+      ? '' 
+      : (import.meta.env.VITE_API_URL || '');
     // 直接從合併的API端點獲取資料
-    const response = await fetch(`${devBaseUrl}/api/clinics`);
+    const response = await fetch(`${baseUrl}/api/clinics`);
     
     if (!response.ok) {
       throw new Error(`API 回應錯誤: ${response.status}`);
@@ -26,13 +28,15 @@ export async function fetchClinicData(): Promise<Clinic[]> {
 // 備用方法，獨立獲取各個資料來源並合併
 export const fetchClinicDataFallback = async (): Promise<Clinic[]> => {
   try {
-    // 在開發環境中使用相對路徑
-    const devBaseUrl = import.meta.env.DEV ? '' : '';
+    // 根據環境確定BASE URL
+    const baseUrl = import.meta.env.DEV 
+      ? '' 
+      : (import.meta.env.VITE_API_URL || '');
     
     const [hkClinicsResp, ngoClinicsResp, szClinicsResp] = await Promise.all([
-      fetch(`${devBaseUrl}/api/hk-clinics`),
-      fetch(`${devBaseUrl}/api/ngo-clinics`),
-      fetch(`${devBaseUrl}/api/sz-clinics`)
+      fetch(`${baseUrl}/api/hk-clinics`),
+      fetch(`${baseUrl}/api/ngo-clinics`),
+      fetch(`${baseUrl}/api/sz-clinics`)
     ]);
 
     const hkClinics = hkClinicsResp.ok ? await hkClinicsResp.json() : [];
