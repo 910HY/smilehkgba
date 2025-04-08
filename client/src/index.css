@@ -6,8 +6,12 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    @apply border-border;
+  }
+
   body {
-    font-family: 'Noto Sans TC', sans-serif;
+    font-family: 'Orbitron', 'Noto Sans TC', sans-serif;
     @apply antialiased;
     background-color: #0f172a;
     color: #FF7A00;
