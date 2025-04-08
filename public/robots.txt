@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://smilehkgba.vercel.app/sitemap.xml
