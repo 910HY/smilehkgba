@@ -5,7 +5,12 @@ import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 export default defineConfig(async () => ({
-  base: './', // ✅ 關鍵：令 build 出來 assets 用相對路徑
+  base: './', // 使用相對路徑，確保部署後資源正確載入
+  root: ".",   // 💡 這樣就等於 client 目錄（因為這檔在 client 裡）
+  build: {
+    outDir: "dist", // ⚠️ 使用相對路徑，Vercel 會自己處理位置
+    emptyOutDir: true,
+  },
   plugins: [
     react(),
     runtimeErrorOverlay(),
@@ -24,10 +29,5 @@ export default defineConfig(async () => ({
       "@shared": path.resolve(__dirname, "../shared"),
       "@assets": path.resolve(__dirname, "../attached_assets"),
     },
-  },
-  root: path.resolve(__dirname), // 前端根目錄
-  build: {
-    outDir: path.resolve(__dirname, "dist"), // ✅ 改為 Vercel 認得的結構
-    emptyOutDir: true,
   },
 }));
