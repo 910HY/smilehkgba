@@ -1,0 +1,170 @@
+[
+  {
+    "name": "深圳自有光牙科診所",
+    "address": "中國深圳市羅湖區人民南路2002號佳寧娜廣場3樓全層",
+    "region": "羅湖區",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://mybeame.com/",
+    "phone": "+852 5388 7318",
+    "hours": "09:00-19:00",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "location": {
+      "lat": 22.5431,
+      "lng": 114.0886
+    },
+    "prices": {
+      "洗牙": "¥180-350/次",
+      "補牙": "未知",
+      "拔牙": "未知",
+      "植牙": "未知"
+    }
+  },
+  {
+    "name": "深圳維港口腔診所",
+    "address": "中國深圳市福田區福田南路皇御苑深港一號大樓1樓至2樓",
+    "region": "福田區",
+    "count": "4",
+    "type": "私家診所",
+    "sourceLink": "https://www.vickongdental.cn/Price-list.html",
+    "phone": "+86 132 6696 2630",
+    "hours": "09:30-18:30",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "location": {
+      "lat": 22.5225,
+      "lng": 114.0578
+    },
+    "prices": {
+      "洗牙": "¥200-500/次",
+      "補牙": "¥180-600/顆",
+      "拔牙": "¥20-2000/顆",
+      "植牙": "¥5180-15800/顆"
+    }
+  },
+  {
+    "name": "維港歡樂口腔診所（羅湖區委院）",
+    "address": "中國深圳市羅湖區愛國路1002號外貿輕工大廈8樓",
+    "region": "羅湖區",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.vickongdental.cn/",
+    "phone": "+86 132 6696 2630",
+    "hours": "09:30-18:30",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "location": {
+      "lat": 22.5487,
+      "lng": 114.1202
+    },
+    "prices": {
+      "洗牙": "¥200-500/次",
+      "補牙": "¥180-600/顆",
+      "拔牙": "¥200-2000/顆",
+      "植牙": "¥5180-15800/顆"
+    }
+  },
+  {
+    "name": "維港歡笑口腔診所（福田皇崗院）",
+    "address": "中國深圳市福田區福田南路皇御苑深港一號大樓1樓至2樓",
+    "region": "福田區",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.vickongdental.cn/",
+    "phone": "+86 132 6696 2630",
+    "hours": "09:30-18:30",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "location": {
+      "lat": 22.5230,
+      "lng": 114.0582
+    },
+    "prices": {
+      "洗牙": "¥200-500/次",
+      "補牙": "¥180-600/顆",
+      "拔牙": "¥200-2000/顆",
+      "植牙": "¥5180-15800/顆"
+    }
+  },
+  {
+    "name": "維港三康口腔診所（羅湖國貿院）",
+    "address": "中國深圳市羅湖區春風路廬山大廈B座21樓",
+    "region": "羅湖區",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.vickongdental.cn/",
+    "phone": "+86 132 6696 2630",
+    "hours": "09:00-18:00",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "location": {
+      "lat": 22.5445,
+      "lng": 114.1098
+    },
+    "prices": {
+      "洗牙": "¥200-500/次",
+      "補牙": "¥180-600/顆",
+      "拔牙": "¥200-2000/顆",
+      "植牙": "¥5180-15800/顆"
+    }
+  },
+  {
+    "name": "維港加樂口腔診所（羅湖金光華院）",
+    "address": "中國深圳市羅湖區南湖路凱利商業廣場1樓至2樓",
+    "region": "羅湖區",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.vickongdental.cn/",
+    "phone": "+86 132 6696 2630",
+    "hours": "09:00-18:00",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "location": {
+      "lat": 22.5389,
+      "lng": 114.1180
+    },
+    "prices": {
+      "洗牙": "¥200-500/次",
+      "補牙": "¥180-600/顆",
+      "拔牙": "¥200-2000/顆",
+      "植牙": "¥5180-15800/顆"
+    }
+  },
+  {
+    "name": "維港康固口腔診所（福田KKONE分院）",
+    "address": "中國深圳市福田區下沙花好園106-107號1樓至2樓",
+    "region": "福田區",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.vickongdental.cn/",
+    "phone": "+86 132 6696 2630",
+    "hours": "09:30-18:30",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "location": {
+      "lat": 22.5326,
+      "lng": 114.0669
+    },
+    "prices": {
+      "洗牙": "¥200-500/次",
+      "補牙": "¥180-600/顆",
+      "拔牙": "¥200-2000/顆",
+      "植牙": "¥5180-15800/顆"
+    }
+  }
+]
