@@ -97,7 +97,7 @@ function App() {
         // 3. 檢查診所是否包含在此細分地區的關鍵字中
         const subRegionKeywords = detailedRegions[params.subRegion as keyof typeof detailedRegions];
         const keywordMatch = subRegionKeywords ? subRegionKeywords.some((keyword: string) => 
-          clinic.region?.includes(keyword) || clinic.address.includes(keyword)
+          clinic.region.includes(keyword) || clinic.address.includes(keyword)
         ) : false;
         
         subRegionMatch = exactMatch || noSuffixMatch || keywordMatch;
@@ -110,9 +110,9 @@ function App() {
       let typeMatch = true;
       if (params.clinicType) {
         if (params.clinicType === '私家診所') {
-          typeMatch = !clinic.type?.includes('NGO');
+          typeMatch = !clinic.type.includes('NGO');
         } else if (params.clinicType === 'NGO社企') {
-          typeMatch = clinic.type?.includes('NGO') || false;
+          typeMatch = clinic.type.includes('NGO');
         }
         
         if (!typeMatch) {
@@ -154,7 +154,7 @@ function App() {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#0f172a", color: "#FF7A00" }}>
+    <div className="bg-background min-h-screen font-sans text-textPrimary">
       <Switch>
         <Route path="/report">
           <div className="container mx-auto px-4 py-6 max-w-7xl">
@@ -170,28 +170,6 @@ function App() {
             
             <SearchPanel onSearch={handleSearch} />
             
-            {/* 設計欄 */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="design-column" style={{backgroundColor: "#1e293b", border: "1px solid rgba(253, 186, 116, 0.3)", borderRadius: "0.5rem", padding: "1rem"}}>
-                <h3 className="design-title font-orbitron" style={{color: "#FF7A00", fontFamily: "'Orbitron', 'Noto Sans TC', sans-serif"}}>精準定位</h3>
-                <p className="design-desc" style={{color: "#94a3b8"}}>
-                  結合高德地圖及Google地圖，為您提供香港及大灣區牙醫診所的精確位置資訊，便於快速尋找最近的診所。
-                </p>
-              </div>
-              <div className="design-column" style={{backgroundColor: "#1e293b", border: "1px solid rgba(253, 186, 116, 0.3)", borderRadius: "0.5rem", padding: "1rem"}}>
-                <h3 className="design-title font-orbitron" style={{color: "#FF7A00", fontFamily: "'Orbitron', 'Noto Sans TC', sans-serif"}}>全面資訊</h3>
-                <p className="design-desc" style={{color: "#94a3b8"}}>
-                  包含診所營業時間、服務項目、收費標準及診所聯絡方式，讓您在選擇前了解所有必要信息。
-                </p>
-              </div>
-              <div className="design-column" style={{backgroundColor: "#1e293b", border: "1px solid rgba(253, 186, 116, 0.3)", borderRadius: "0.5rem", padding: "1rem"}}>
-                <h3 className="design-title font-orbitron" style={{color: "#FF7A00", fontFamily: "'Orbitron', 'Noto Sans TC', sans-serif"}}>多元篩選</h3>
-                <p className="design-desc" style={{color: "#94a3b8"}}>
-                  依據地區、服務類型及關鍵字進行快速篩選，智能推薦最符合您需求的診所選擇。
-                </p>
-              </div>
-            </div>
-            
             {isLoading ? (
               <div className="text-center py-20">
                 <div className="text-white text-xl">載入中...</div>
@@ -199,7 +177,7 @@ function App() {
             ) : filteredClinics.length > 0 ? (
               <div id="searchResults" className="mb-8">
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-[#FF7A00] text-xl font-bold font-orbitron">搜尋結果</h3>
+                  <h3 className="text-[#FF7A00] text-xl font-bold">搜尋結果</h3>
                   <p className="text-[#FDBA74]">
                     共找到 <span className="font-bold">{filteredClinics.length}</span> 間診所
                   </p>

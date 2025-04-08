@@ -3,7 +3,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface ExpandableTextProps {
   label: React.ReactNode;
-  content: string | React.ReactNode | null;
+  content: string | React.ReactNode;
   icon?: React.ReactNode;
   initialExpanded?: boolean;
 }

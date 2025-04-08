@@ -30,7 +30,7 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
   };
   
   // 格式化電話號碼以便顯示
-  const formatPhone = (phone: string | number | undefined) => {
+  const formatPhone = (phone: string | number) => {
     if (!phone) return '無提供';
     
     if (typeof phone === 'number') {
@@ -46,31 +46,30 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
   };
 
   // 格式化營業時間以便顯示
-  const formatHours = (hours: string | undefined) => {
+  const formatHours = (hours: string) => {
     if (!hours || hours === '-') return '詳情請致電查詢';
     return hours;
   };
   
   // 格式化價格信息
-  const formatPrices = (prices?: Record<string, string | undefined>) => {
+  const formatPrices = (prices?: Record<string, string>) => {
     if (!prices) return null;
     
     return Object.entries(prices)
-      .filter(([_, price]) => price !== undefined)
       .map(([service, price]) => `${service}: ${price}`)
       .join('\n');
   };
 
   // 確定診所類型標籤的顏色
   const getTypeColor = () => {
-    if (clinic.type?.includes('NGO')) return 'bg-green-600';
+    if (clinic.type.includes('NGO')) return 'bg-green-600';
     return 'bg-primary';
   };
 
   return (
-    <div className="clinic-card bg-[#1e293b] border border-[#FDBA74]/30 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow" style={{backgroundColor: "#1e293b", borderColor: "rgba(253, 186, 116, 0.3)"}}>
+    <div className="bg-[#1e293b] border border-[#FDBA74]/30 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
       <div className="pt-4 pl-4 pr-4 flex justify-between items-start">
-        <h4 className="font-bold text-lg mb-2 text-[#FF7A00] tracking-wide" style={{color: "#FF7A00"}}>{clinic.name}</h4>
+        <h4 className="font-bold text-lg mb-2 text-[#FF7A00] tracking-wide">{clinic.name}</h4>
         <div className={`${getTypeColor()} text-white px-2 py-1 text-sm font-medium rounded-md`}>
           {clinic.type}
         </div>
