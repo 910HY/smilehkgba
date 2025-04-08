@@ -8,7 +8,10 @@ export default defineConfig({
   plugins: [
     react(),
     runtimeErrorOverlay(),
-    themePlugin(),
+    themePlugin({
+      // 從當前目錄讀取 theme.json
+      themeJsonPath: "./theme.json",
+    }),
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
       ? [
@@ -26,7 +29,15 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: path.resolve(__dirname, "../dist/public"),
+    outDir: "dist",
     emptyOutDir: true,
   },
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      }
+    }
+  }
 });
