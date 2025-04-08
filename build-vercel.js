@@ -29,7 +29,12 @@ if (fs.existsSync(attachedAssetsDir)) {
 // 構建前端
 console.log('🏗️ 開始構建前端...');
 try {
-  execSync('cd client && npx vite build', { stdio: 'inherit' });
+  // 直接使用 Vite build 而不是通過 package.json 的 build 腳本
+  // 這將繞過 package.json 中可能包含 Express 服務器構建部分的問題
+  const clientRoot = path.join(process.cwd(), 'client');
+  process.chdir(clientRoot); // 切換到 client 目錄
+  execSync('npx vite build', { stdio: 'inherit' });
+  process.chdir(process.cwd()); // 切回原目錄
   console.log('✅ 前端構建成功');
 } catch (error) {
   console.error('❌ 前端構建失敗:', error);
