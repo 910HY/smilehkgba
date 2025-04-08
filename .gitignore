@@ -1,12 +1,26 @@
-node_modules
-dist
+# Node & build
+node_modules/
+dist/
+.cache/
+.client/
+
+# macOS
 .DS_Store
-server/public
-vite.config.ts.*
-*.tar.gz
-.cache
-.upm
-.local
+
+# Replit 相關
 .replit
 .config
+.local
+start_vite.sh
+
+# Vite / Vercel
+server/public/
+vite.config.ts.*
+*.tar.gz
+*.log
+.upm/
 generated-icon.png
+
+# API or build artifacts
+server/
+api/data/*.json
