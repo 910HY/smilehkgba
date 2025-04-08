@@ -10,8 +10,13 @@
 ## 文件說明
 
 - `vercel.json` - Vercel 部署配置
-- `build.sh` - 用於 Vercel 的構建腳本
 - `vercel-build.sh` - 處理 API 數據文件的輔助腳本
+
+## 構建過程
+
+1. 構建前會運行 `vercel-build.sh` 腳本複製數據文件到 API 目錄
+2. 然後會進入 client 目錄並安裝依賴項
+3. 最後會執行 client 目錄中的 build 腳本
 
 ## API 端點
 
@@ -23,6 +28,6 @@
 ## 常見問題
 
 如果構建失敗，請檢查：
-1. 確保 `build.sh` 和 `vercel-build.sh` 具有執行權限 (`chmod +x *.sh`)
+1. 確保 `vercel-build.sh` 具有執行權限 (`chmod +x vercel-build.sh`)
 2. 確保數據文件存在於 `attached_assets` 目錄中
 3. 檢查 Vercel 的構建日誌中是否有 API 數據文件複製的相關錯誤
