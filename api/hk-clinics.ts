@@ -3,11 +3,23 @@ import fs from 'fs';
 import path from 'path';
 
 export default function handler(_req: VercelRequest, res: VercelResponse) {
+  // 添加 CORS 頭，允許從任何源訪問
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  
+  // 處理 OPTIONS 請求
+  if (_req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  
   try {
     const filePath = path.join(process.cwd(), 'api', 'data', 'clinic_list_hkcss_cleaned.json');
     const data = fs.readFileSync(filePath, 'utf8');
-    res.status(200).json(JSON.parse(data));
+    const clinics = JSON.parse(data);
+    res.status(200).json(clinics);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to read HK clinic data' });
+    console.error('API錯誤:', error);
+    res.status(500).json({ error: 'Failed to read HK clinic data', message: (error as Error).message });
   }
 }

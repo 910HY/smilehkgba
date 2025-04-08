@@ -40,9 +40,16 @@ cp attached_assets/og-image.png dist/assets/
 echo "===== 為前端準備資源 ====="
 mkdir -p client/public/assets
 cp attached_assets/LOGO_UPDATED.png client/public/assets/
+cp attached_assets/LOGO_UPDATED.png client/public/
+cp attached_assets/LOGO_UPDATED.png client/src/assets/
+
+# 確保客戶端構建資源是正確的
+echo "===== 修改客戶端 vite.config.ts ====="
+sed -i 's/@assets": path.resolve(__dirname, "..\/attached_assets"),/@assets": path.resolve(__dirname, "..\/client\/public\/assets"),/g' client/vite.config.ts
 
 # 檢查最終目錄結構
 echo "===== 最終目錄結構 ====="
 find dist -type f
+find client/public -type f 
 
 echo "===== 構建完成 ====="

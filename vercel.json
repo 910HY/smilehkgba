@@ -3,5 +3,6 @@
   "buildCommand": "bash vercel-build.sh && cd client && npm install && npm run build && cp -r dist/* ../dist/",
   "outputDirectory": "dist",
   "cleanUrls": true,
-  "framework": null
+  "framework": null,
+  "public": true
 }
