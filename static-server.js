@@ -5,7 +5,7 @@ import path from 'path';
 import fs from 'fs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const PORT = 5000;
+const PORT = process.env.PORT || 5001; // 使用環境變數或預設為 5001 (避開 5000)
 
 async function startStaticServer() {
   // 創建 Express 應用程序
