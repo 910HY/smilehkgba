@@ -1,16 +1,21 @@
-// This is a CommonJS server for Replit
-const express = require("express");
-const path = require("path");
-const fs = require("fs");
-const http = require("http");
+// Express 服務器（適用於 Replit 工作流）
+import express from "express";
+import fs from "fs";
+import path from "path";
+import { createServer } from "http";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // 設置路徑
-const hkClinicsPath = path.join(__dirname, "attached_assets/clinic_list_hkcss_cleaned.json");
-const ngoClinicsPath = path.join(__dirname, "attached_assets/ngo_clinics_cleaned.json");
-const szClinicsPath = path.join(__dirname, "attached_assets/shenzhen_dental_clinics_20250407.json");
+const hkClinicsPath = path.join(__dirname, "../attached_assets/clinic_list_hkcss_cleaned.json");
+const ngoClinicsPath = path.join(__dirname, "../attached_assets/ngo_clinics_cleaned.json");
+const szClinicsPath = path.join(__dirname, "../attached_assets/shenzhen_dental_clinics_20250407.json");
 
 // API處理函數
-function getHKClinics(_req, res) {
+function getHKClinics(_req: express.Request, res: express.Response) {
   try {
     const data = fs.readFileSync(hkClinicsPath, "utf8");
     const clinics = JSON.parse(data);
@@ -21,7 +26,7 @@ function getHKClinics(_req, res) {
   }
 }
 
-function getNGOClinics(_req, res) {
+function getNGOClinics(_req: express.Request, res: express.Response) {
   try {
     const data = fs.readFileSync(ngoClinicsPath, "utf8");
     const clinics = JSON.parse(data);
@@ -32,7 +37,7 @@ function getNGOClinics(_req, res) {
   }
 }
 
-function getSZClinics(_req, res) {
+function getSZClinics(_req: express.Request, res: express.Response) {
   try {
     const data = fs.readFileSync(szClinicsPath, "utf8");
     const clinics = JSON.parse(data);
@@ -43,7 +48,7 @@ function getSZClinics(_req, res) {
   }
 }
 
-function getAllClinics(_req, res) {
+function getAllClinics(_req: express.Request, res: express.Response) {
   try {
     const hkData = fs.readFileSync(hkClinicsPath, "utf8");
     const ngoData = fs.readFileSync(ngoClinicsPath, "utf8");
@@ -96,20 +101,15 @@ app.get("/api/sz-clinics", getSZClinics);
 app.get("/api/clinics", getAllClinics);
 
 // 靜態文件服務
-if (fs.existsSync(path.join(__dirname, 'client/dist'))) {
-  app.use(express.static(path.join(__dirname, 'client/dist')));
-  
-  // 所有其他請求轉發到前端
-  app.get('*', (_req, res) => {
-    res.sendFile(path.join(__dirname, 'client/dist/index.html'));
-  });
-  console.log("靜態文件服務已啟用");
-} else {
-  console.log("警告: client/dist 目錄不存在，靜態文件服務未啟用");
-}
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+// 所有其他請求轉發到前端
+app.get('*', (_req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
 
 // 錯誤處理
-app.use((err, _req, res, _next) => {
+app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
   const status = err.status || err.statusCode || 500;
   const message = err.message || "Internal Server Error";
   res.status(status).json({ message });
@@ -117,9 +117,8 @@ app.use((err, _req, res, _next) => {
 });
 
 // 啟動服務器
-const PORT = process.env.PORT || 5000;
-const server = http.createServer(app);
-
+const PORT = parseInt(process.env.PORT || '5000');
+const server = createServer(app);
 console.log(`嘗試在端口 ${PORT} 上啟動服務器...`);
 server.listen(PORT, () => {
   console.log(`服務器運行於: http://localhost:${PORT}`);

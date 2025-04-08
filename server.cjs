@@ -117,3 +117,5 @@ const server = createServer(app);
 server.listen(PORT, '0.0.0.0', () => {
   console.log(`本地開發服務器運行於: http://localhost:${PORT}`);
 });
+
+module.exports = app;
