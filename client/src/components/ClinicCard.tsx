@@ -30,7 +30,7 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
   };
   
   // 格式化電話號碼以便顯示
-  const formatPhone = (phone: string | number) => {
+  const formatPhone = (phone: string | number | undefined) => {
     if (!phone) return '無提供';
     
     if (typeof phone === 'number') {
@@ -46,46 +46,48 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
   };
 
   // 格式化營業時間以便顯示
-  const formatHours = (hours: string) => {
+  const formatHours = (hours: string | undefined) => {
     if (!hours || hours === '-') return '詳情請致電查詢';
     return hours;
   };
   
   // 格式化價格信息
-  const formatPrices = (prices?: Record<string, string>) => {
+  const formatPrices = (prices?: Record<string, string | undefined>) => {
     if (!prices) return null;
     
     return Object.entries(prices)
+      .filter(([_, price]) => price !== undefined)
       .map(([service, price]) => `${service}: ${price}`)
       .join('\n');
   };
 
   // 確定診所類型標籤的顏色
   const getTypeColor = () => {
-    if (clinic.type.includes('NGO')) return 'bg-green-600';
+    const type = clinic.type || '';
+    if (type.includes('NGO')) return 'bg-green-600';
     return 'bg-primary';
   };
 
   return (
-    <div className="bg-[#1e293b] border border-[#FDBA74]/30 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-      <div className="pt-4 pl-4 pr-4 flex justify-between items-start">
-        <h4 className="font-bold text-lg mb-2 text-[#FF7A00] tracking-wide">{clinic.name}</h4>
-        <div className={`${getTypeColor()} text-white px-2 py-1 text-sm font-medium rounded-md`}>
+    <div className="clinic-card">
+      <div className="clinic-card-header">
+        <h4 className="clinic-card-title">{clinic.name}</h4>
+        <div className={`${getTypeColor()} clinic-card-type`}>
           {clinic.type}
         </div>
       </div>
       <div className="p-4 pt-0">
-        <p className="text-[#FF7A00] text-sm mb-3 line-clamp-2">{clinic.address}</p>
+        <p className="clinic-card-address">{clinic.address}</p>
         
         <div className="space-y-2 mb-4">
-          <div className="flex items-start">
-            <MapPin className="h-5 w-5 text-[#FF7A00] mr-2 mt-0.5 flex-shrink-0" />
-            <span className="text-[#94a3b8] text-sm">{clinic.region}</span>
+          <div className="clinic-card-info-item">
+            <MapPin className="clinic-card-info-icon" />
+            <span className="clinic-card-info-text">{clinic.region}</span>
           </div>
           
-          <div className="flex items-start">
-            <Phone className="h-5 w-5 text-[#FF7A00] mr-2 mt-0.5 flex-shrink-0" />
-            <span className="text-[#94a3b8] text-sm">{formatPhone(clinic.phone)}</span>
+          <div className="clinic-card-info-item">
+            <Phone className="clinic-card-info-icon" />
+            <span className="clinic-card-info-text">{formatPhone(clinic.phone)}</span>
           </div>
           
           {/* 營業時間（可展開） */}
@@ -109,7 +111,7 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
           {/* 內部Leaflet地圖按鈕 */}
           <button
             onClick={() => setIsMapOpen(true)}
-            className="flex-1 bg-[#FF7A00]/10 hover:bg-[#FF7A00]/20 text-[#FF7A00] font-medium py-2 px-4 rounded text-center transition border border-[#FDBA74]/30"
+            className="clinic-card-button"
           >
             <span className="flex items-center justify-center">
               <Map className="h-4 w-4 mr-2" />
@@ -123,7 +125,7 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
               href={generateAmapMarkerUrl(clinic) || "#"}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 bg-[#FF7A00]/10 hover:bg-[#FF7A00]/20 text-[#FF7A00] font-medium py-2 px-4 rounded text-center transition border border-[#FDBA74]/30"
+              className="clinic-card-button"
             >
               <span className="flex items-center justify-center">
                 <MapPin className="h-4 w-4 mr-2" />
@@ -140,7 +142,7 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
                     : `https://maps.google.com/?q=${encodeURIComponent(clinic.name + ' ' + clinic.address)}`}
               target="_blank" 
               rel="noopener noreferrer" 
-              className="flex-1 bg-[#FF7A00]/10 hover:bg-[#FF7A00]/20 text-[#FF7A00] font-medium py-2 px-4 rounded text-center transition border border-[#FDBA74]/30"
+              className="clinic-card-button"
             >
               <span className="flex items-center justify-center">
                 <MapPin className="h-4 w-4 mr-2" />
