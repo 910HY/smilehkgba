@@ -16,11 +16,51 @@ SmileHK 是一個集中展示香港及大灣區牙醫診所資訊的網站平台
 - UI 框架：Tailwind CSS + Shadcn/UI
 - 地圖整合：Leaflet.js（內嵌地圖）、高德地圖 API（大灣區定位）
 - 表單處理：Formspree
-- 部署：Vercel
+- 部署：Vercel Serverless Functions
 
 ## 區域覆蓋
 - 香港（港島區、九龍區、新界區）
 - 大灣區（深圳等）
+
+## 部署說明
+
+### Vercel部署
+1. Fork或Clone本儲存庫到您的GitHub賬戶
+2. 在Vercel上創建新項目，並連結到GitHub儲存庫
+3. 配置構建設定：
+   - 構建命令：`node build-vercel.js`
+   - 輸出目錄：`client/dist`
+4. 部署！
+
+### 環境變數（可選）
+- `VITE_API_URL`: API的基礎URL，用於生產環境（默認為空）
+- `AMAP_API_KEY`: 高德地圖API金鑰（用於增強地圖功能）
+- `AMAP_SECURITY_CODE`: 高德地圖安全碼（如有需要）
+
+### 本地開發
+1. 克隆儲存庫：`git clone <儲存庫URL>`
+2. 安裝依賴：`npm install`
+3. 啟動開發服務器：`npm run dev`
+4. 瀏覽器訪問：`http://localhost:5000`
+
+## 專案結構
+```
+/
+├── api/                # Vercel Serverless API函數
+│   ├── clinics.ts      # 所有診所API端點
+│   ├── hk-clinics.ts   # 香港診所API端點
+│   ├── sz-clinics.ts   # 深圳診所API端點
+│   ├── ngo-clinics.ts  # NGO診所API端點
+│   └── data/           # 診所數據JSON文件
+├── client/             # 前端代碼
+│   ├── src/            # 源代碼
+│   │   ├── components/ # UI組件
+│   │   ├── lib/        # 工具函數
+│   │   ├── pages/      # 頁面
+│   │   └── types/      # TypeScript類型
+│   └── ...
+└── ...
+```
 
 ## 聯絡方式
 若有任何問題或建議，請聯絡：smilehkgba@gmail.com

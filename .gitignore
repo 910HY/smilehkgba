@@ -23,4 +23,6 @@ generated-icon.png
 
 # API or build artifacts
 server/
-api/data/*.json
+
+# 保留API數據在儲存庫中，但忽略其他不必要的文件
+# api/data/*.json
