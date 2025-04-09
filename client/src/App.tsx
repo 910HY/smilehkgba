@@ -62,8 +62,39 @@ function App() {
         if (params.region === '大灣區') {
           // 如果選擇了細分地區（某個深圳行政區），進行更精細的過濾
           if (params.subRegion) {
-            return (clinic.isGreaterBayArea || clinic.country === '中國') && 
-                   (clinic.region === params.subRegion || clinic.address.includes(params.subRegion));
+            // 針對深圳地區，處理簡繁體字差異，支持多種形式的區域名稱匹配
+            const isRegionMatch = () => {
+              // 檢查完全匹配（直接比較）
+              if (clinic.region === params.subRegion) {
+                return true;
+              }
+              
+              // 針對可能的簡體字差異（例如：区 vs 區）
+              const simplifiedRegion = params.subRegion.replace('區', '区');
+              if (clinic.region === simplifiedRegion) {
+                return true;
+              }
+              
+              // 檢查模糊匹配（地址或其他屬性中包含該區域名稱）
+              if (clinic.address && clinic.address.includes(params.subRegion)) {
+                return true;
+              }
+              
+              // 檢查區域字段中包含區域名稱的部分匹配
+              const regionName = params.subRegion.replace('區', '').replace('区', '');
+              if (clinic.region && clinic.region.includes(regionName)) {
+                return true;
+              }
+              
+              // 檢查地址中包含區域名稱（不帶"區"字）
+              if (clinic.address && clinic.address.includes(regionName)) {
+                return true;
+              }
+              
+              return false;
+            };
+            
+            return (clinic.isGreaterBayArea || clinic.country === '中國') && isRegionMatch();
           }
           // 否則顯示所有大灣區診所
           return clinic.isGreaterBayArea || clinic.country === '中國' || clinic.country === '澳門';
