@@ -9,20 +9,19 @@
 - 按地區、子區域及診所類型搜尋牙醫診所
 - 以卡片形式展示診所詳細資料，包括名稱、地址、電話及營業時間
 - 內嵌地圖功能，直接在平台內查看診所位置
-- 高德地圖集成（大灣區診所）及 Google 地圖集成（香港診所）
+- Google 地圖集成（香港診所）
 - 診所資料錯誤報告功能
 - 響應式設計，支援移動設備及桌面版本
 
 ## 技術棧
 - 前端：React + TypeScript + Vite
 - UI 框架：Tailwind CSS + Shadcn/UI
-- 地圖整合：Leaflet.js（內嵌地圖）、高德地圖 API（大灣區定位）
+- 地圖整合：Leaflet.js（內嵌地圖）
 - 表單處理：Formspree
 - 部署：Vercel Serverless Functions
 
 ## 區域覆蓋
 - 香港（港島區、九龍區、新界區）
-- 大灣區（深圳等）
 
 ## 部署說明
 
@@ -36,8 +35,6 @@
 
 ### 環境變數（可選）
 - `VITE_API_URL`: API的基礎URL，用於生產環境（默認為空）
-- `AMAP_API_KEY`: 高德地圖API金鑰（用於增強地圖功能）
-- `AMAP_SECURITY_CODE`: 高德地圖安全碼（如有需要）
 
 ### 本地開發
 1. 克隆儲存庫：`git clone <儲存庫URL>`

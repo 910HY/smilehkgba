@@ -12,7 +12,7 @@ const Header: React.FC = () => {
         />
         <h1 className="text-[#FF7A00] text-3xl font-bold ml-4 tracking-wider">牙點 Dento</h1>
       </div>
-      <h2 className="text-[#FDBA74] text-xl mt-2 md:mt-0 tracking-wide">至關心你啲牙點既牙科資訊平台</h2>
+      <h2 className="text-[#FDBA74] text-xl mt-2 md:mt-0 tracking-wide">香港牙科資訊平台</h2>
     </header>
   );
 };
