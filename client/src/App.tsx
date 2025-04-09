@@ -21,31 +21,37 @@ function App() {
     clinicType: "",
     keyword: "",
   });
+  
+  // 新增一個搜索標記，用來判斷用戶是否進行過搜索
+  const [hasSearched, setHasSearched] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
 
-  const { data: clinics = [], isLoading } = useQuery({
+  // 懶加載數據 - 只有在用戶搜索時才獲取
+  const { data: clinics = [], isLoading, isFetching } = useQuery({
     queryKey: ['/api/clinics'],
-    queryFn: fetchClinicData
+    queryFn: fetchClinicData,
+    enabled: hasSearched, // 只有在用戶搜索時才啟用查詢
   });
 
   const [filteredClinics, setFilteredClinics] = useState<Clinic[]>([]);
-
+  
+  // 當診所數據加載完成後，自動執行篩選
   useEffect(() => {
-    handleSearch(searchParams);
-  }, [clinics, searchParams]);
+    if (hasSearched && clinics.length > 0) {
+      filterResults(searchParams);
+    }
+  }, [clinics, hasSearched]);
 
-  const handleSearch = (params: {
+  // 篩選診所的邏輯函數
+  const filterResults = (params: {
     region: string;
     subRegion: string;
     clinicType: string;
     keyword: string;
   }) => {
-    setSearchParams(params);
-    setCurrentPage(1);
-    
-    console.log("搜尋參數:", params);
+    console.log("執行篩選，參數:", params);
     
     // 依據搜尋參數篩選診所
     const filtered = clinics.filter((clinic) => {
@@ -144,6 +150,29 @@ function App() {
     console.log("篩選結果數量:", filtered.length);
     setFilteredClinics(filtered);
   };
+  
+  // 處理用戶搜索請求
+  const handleSearch = (params: {
+    region: string;
+    subRegion: string;
+    clinicType: string;
+    keyword: string;
+  }) => {
+    // 設置搜索參數
+    setSearchParams(params);
+    setCurrentPage(1);
+    
+    // 標記已經搜索
+    setHasSearched(true);
+    
+    console.log("搜尋參數:", params);
+    
+    // 如果已有診所數據，直接篩選
+    if (clinics.length > 0) {
+      filterResults(params);
+    }
+    // 否則 useQuery 會因為 enabled: hasSearched 變為 true 而自動開始加載數據
+  };
 
   // Calculate pagination
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -175,7 +204,7 @@ function App() {
               <div className="text-center py-20">
                 <div className="text-white text-xl">載入中...</div>
               </div>
-            ) : filteredClinics.length > 0 ? (
+            ) : hasSearched && filteredClinics.length > 0 ? (
               <div id="searchResults" className="mb-8">
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-[#FF7A00] text-xl font-bold">搜尋結果</h3>
@@ -199,7 +228,7 @@ function App() {
                 )}
               </div>
             ) : (
-              <NoResults />
+              <NoResults hasSearched={hasSearched} />
             )}
             
             <Footer />
