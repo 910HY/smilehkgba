@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
     <footer className="mt-12 py-6 border-t border-primary/30">
       <div className="flex flex-col md:flex-row justify-between items-center">
         <div className="mb-4 md:mb-0">
-          <h3 className="text-primary text-lg font-bold tracking-wide">牙點 Dento - 香港牙科資訊平台</h3>
+          <h3 className="text-primary text-lg font-bold tracking-wide">牙點 Dento - 至關心你啲牙點既牙科資訊平台</h3>
           <p className="text-primary/70 text-sm mt-1">
             至關心你啲牙點既牙科資訊平台
           </p>
