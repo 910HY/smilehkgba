@@ -60,6 +60,12 @@ function App() {
       if (params.region) {
         // 大灣區特殊處理
         if (params.region === '大灣區') {
+          // 如果選擇了細分地區（某個深圳行政區），進行更精細的過濾
+          if (params.subRegion) {
+            return (clinic.isGreaterBayArea || clinic.country === '中國') && 
+                   (clinic.region === params.subRegion || clinic.address.includes(params.subRegion));
+          }
+          // 否則顯示所有大灣區診所
           return clinic.isGreaterBayArea || clinic.country === '中國' || clinic.country === '澳門';
         }
         

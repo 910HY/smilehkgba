@@ -19,7 +19,16 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ onSearch }) => {
 
   useEffect(() => {
     // 當區域改變時更新細分地區
-    if (selectedRegion && regions[selectedRegion as keyof RegionMapping]) {
+    if (!selectedRegion) {
+      setSubRegions([]);
+    } 
+    // 如果選擇了「大灣區」，細分選單顯示這 10 個行政區
+    else if (selectedRegion === '大灣區') {
+      const szRegions = ['福田區', '南山區', '羅湖區', '鹽田區', '大鵬新區', '龍華區', '龍崗區', '寶安區', '坪山區', '光明區'];
+      setSubRegions(szRegions);
+    }
+    // 其他區域使用預設的區域映射
+    else if (regions[selectedRegion as keyof RegionMapping]) {
       setSubRegions(regions[selectedRegion as keyof RegionMapping]);
     } else {
       setSubRegions([]);
