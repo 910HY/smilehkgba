@@ -70,8 +70,13 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
     <div className="bg-[#1e293b] border border-[#FDBA74]/30 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
       <div className="pt-4 pl-4 pr-4 flex justify-between items-start">
         <h4 className="font-bold text-lg mb-2 text-[#FF7A00] tracking-wide">{clinic.name}</h4>
-        <div className={`${getTypeColor()} text-white px-2 py-1 text-sm font-medium rounded-md`}>
-          {clinic.type}
+        <div className="flex items-center space-x-2">
+          {clinic.region_en && clinic.region_code && (
+            <span className="text-[#94a3b8] text-xs">{clinic.region_en}</span>
+          )}
+          <div className={`${getTypeColor()} text-white px-2 py-1 text-sm font-medium rounded-md`}>
+            {clinic.type}
+          </div>
         </div>
       </div>
       <div className="p-4 pt-0">
@@ -158,6 +163,18 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
           </p>
         )}
         
+        {/* 診所詳情頁面連結 */}
+        {clinic.slug && clinic.url && (
+          <div className="mt-4 mb-2 text-center">
+            <a 
+              href={clinic.url}
+              className="text-[#FF7A00] text-sm font-medium hover:text-[#FDBA74] transition-colors"
+            >
+              查看診所詳細資訊 →
+            </a>
+          </div>
+        )}
+
         {/* 報錯按鈕 */}
         <div className="mt-4 pt-3 border-t border-[#FDBA74]/20 text-center">
           <button 
