@@ -28,9 +28,9 @@ const ExpandableText: React.FC<ExpandableTextProps> = ({
       >
         <div className="flex items-start flex-1">
           {icon && <span className="mr-2 mt-0.5 flex-shrink-0">{icon}</span>}
-          <span className="text-[#FF7A00] text-sm font-medium">{label}</span>
+          <span className="text-[#ffaa40] text-sm font-medium">{label}</span>
         </div>
-        <span className="text-[#FF7A00] ml-2">
+        <span className="text-[#ffaa40] ml-2">
           {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
         </span>
       </button>

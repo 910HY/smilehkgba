@@ -71,10 +71,10 @@ const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, pagina
             onClick={() => typeof page === 'number' && paginate(page)}
             className={`px-3 py-1 rounded-md ${
               page === currentPage
-                ? 'bg-primary text-white font-bold'
+                ? 'bg-[#ffaa40] text-black font-bold'
                 : page === '...'
                 ? 'text-white/60 cursor-default'
-                : 'text-white hover:bg-white/10'
+                : 'text-white hover:bg-[#ffaa40]/10'
             }`}
             disabled={page === '...'}
           >
