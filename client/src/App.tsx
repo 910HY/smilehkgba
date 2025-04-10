@@ -280,19 +280,46 @@ function App() {
                 )}
               </div>
             ) : (
-              <div className="py-20 text-center">
+              <div style={{ padding: '5rem 0', textAlign: 'center' }}>
                 {!hasSearched ? (
-                  <div className="flex flex-col items-center justify-center">
-                    <div className="bg-[#ffaa40]/10 p-6 rounded-full mb-6">
+                  <div style={{ 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'center', 
+                    justifyContent: 'center' 
+                  }}>
+                    <div style={{ 
+                      backgroundColor: 'rgba(255, 170, 64, 0.1)', 
+                      padding: '1.5rem', 
+                      borderRadius: '9999px', 
+                      marginBottom: '1.5rem' 
+                    }}>
                       <img 
-                        src="/logo.svg" 
+                        src={`/logo.svg?v=${Date.now()}`} 
                         alt="牙GoGo Logo" 
-                        className="h-12 w-12" 
+                        style={{ height: '3rem', width: '3rem' }} 
                       />
                     </div>
-                    <h2 className="text-[#ffaa40] text-3xl font-bold mb-2">牙GoGo</h2>
-                    <p className="text-[#ffbb66] text-lg mb-6">至關心你啲牙既牙科資訊平台</p>
-                    <p className="text-[#94a3b8] max-w-md mb-4">
+                    <h2 style={{ 
+                      color: '#ffaa40', 
+                      fontSize: '1.875rem', 
+                      fontWeight: 'bold', 
+                      marginBottom: '0.5rem' 
+                    }}>
+                      牙GoGo
+                    </h2>
+                    <p style={{ 
+                      color: '#ffbb66', 
+                      fontSize: '1.125rem', 
+                      marginBottom: '1.5rem' 
+                    }}>
+                      至關心你啲牙既牙科資訊平台
+                    </p>
+                    <p style={{ 
+                      color: '#94a3b8', 
+                      maxWidth: '28rem', 
+                      marginBottom: '1rem' 
+                    }}>
                       請使用上方搜尋欄位尋找香港及大灣區的牙科診所資訊。
                     </p>
                   </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'wouter';
 import './Header.css';
 
-// 全新重建的Header組件
+// 全新重建的Header組件，使用行內樣式確保品牌名稱正確顯示
 const Header = () => {
   const [location] = useLocation();
   
@@ -11,31 +11,85 @@ const Header = () => {
   const isArticles = location.startsWith('/articles');
   const isReport = location === '/report';
   
+  // 使用行內樣式而不依賴CSS文件
+  const headerStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '1.25rem 1rem',
+    background: '#000000',
+    color: '#ffaa40',
+    borderBottom: '1px solid #333',
+    marginBottom: '1.5rem',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
+  };
+  
+  const logoSectionStyle = {
+    display: 'flex',
+    alignItems: 'center'
+  };
+  
+  const logoStyle = {
+    height: '48px',
+    marginRight: '12px'
+  };
+  
+  const brandNameStyle = {
+    fontSize: '1.6rem',
+    margin: '0',
+    fontWeight: 'bold',
+    color: '#ffaa40'
+  };
+  
+  const sloganStyle = {
+    fontSize: '0.9rem',
+    color: '#ffbb66',
+    marginTop: '2px'
+  };
+  
+  const navStyle = {
+    display: 'flex',
+    gap: '1.5rem'
+  };
+  
+  const navItemStyle = {
+    color: 'white',
+    fontSize: '1.1rem',
+    cursor: 'pointer',
+    transition: 'color 0.2s'
+  };
+  
+  const activeNavItemStyle = {
+    ...navItemStyle,
+    color: '#ffaa40',
+    fontWeight: 'bold'
+  };
+  
   return (
-    <header className="header">
-      <div className="logo-section">
+    <header style={headerStyle}>
+      <div style={logoSectionStyle}>
         <Link href="/">
           <img 
             src={`/logo.svg?v=${Date.now()}`} 
             alt="牙GoGo Logo" 
-            className="logo" 
+            style={logoStyle}
           />
         </Link>
-        <div className="brand-text">
-          <h1>牙GoGo</h1>
-          <p className="slogan">至關心你啲牙既牙科資訊平台</p>
+        <div>
+          <h1 style={brandNameStyle}>牙GoGo</h1>
+          <p style={sloganStyle}>至關心你啲牙既牙科資訊平台</p>
         </div>
       </div>
       
-      <nav className="main-nav">
+      <nav style={navStyle}>
         <Link href="/">
-          <span className={isHome ? 'active' : ''}>首頁</span>
+          <span style={isHome ? activeNavItemStyle : navItemStyle}>首頁</span>
         </Link>
         <Link href="/articles">
-          <span className={isArticles ? 'active' : ''}>健康文章</span>
+          <span style={isArticles ? activeNavItemStyle : navItemStyle}>健康文章</span>
         </Link>
         <Link href="/report">
-          <span className={isReport ? 'active' : ''}>報錯</span>
+          <span style={isReport ? activeNavItemStyle : navItemStyle}>報錯</span>
         </Link>
       </nav>
     </header>
