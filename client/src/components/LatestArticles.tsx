@@ -29,8 +29,11 @@ interface LatestArticlesProps {
 const LatestArticles: React.FC<LatestArticlesProps> = ({ limit = 3 }) => {
   // 獲取最新文章
   const { data: articles, isLoading, error } = useQuery({
-    queryKey: ['/api/articles/latest', limit],
-    queryFn: () => getLatestArticles(limit)
+    queryKey: ['/api/articles', limit],
+    queryFn: () => getLatestArticles(limit),
+    retry: 3,  // 失敗時嘗試重新請求3次
+    refetchOnMount: true,  // 組件掛載時重新獲取
+    staleTime: 60000  // 1分鐘內不會重新請求
   });
 
   // 如果正在加載或出錯，顯示對應的狀態
