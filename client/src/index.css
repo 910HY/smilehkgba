@@ -9,8 +9,8 @@
   body {
     font-family: 'Orbitron', 'Noto Sans TC', sans-serif;
     @apply antialiased;
-    background-color: #0f172a;
-    color: #FF7A00;
+    background-color: #000;
+    color: #ffaa40;
   }
 
   h1, h2, h3 {
@@ -18,11 +18,11 @@
   }
 
   :root {
-    --primary: 30 100% 50%;
-    --primary-text: #FF7A00;
-    --secondary-text: #FDBA74;
-    --background-color: #0f172a;
-    --card-color: #1e293b;
+    --primary: 33 100% 62%;
+    --primary-text: #ffaa40;
+    --secondary-text: #ffbb66;
+    --background-color: #000;
+    --card-color: #111;
     --muted-text: #94a3b8;
   }
 }

@@ -224,7 +224,7 @@ function App() {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div className="bg-background min-h-screen font-sans text-textPrimary">
+    <div className="bg-black min-h-screen font-sans text-[#ffaa40]">
       <Switch>
         <Route path="/report">
           <div className="container mx-auto px-4 py-6 max-w-7xl">
