@@ -35,8 +35,8 @@ const ArticlesPage: React.FC = () => {
   });
   
   // 根據標籤篩選文章
-  const filteredArticles = activeTag
-    ? articles?.filter(article => article.tags.includes(activeTag)) 
+  const filteredArticles = activeTag && articles
+    ? articles.filter(article => article.tags.includes(activeTag)) 
     : articles || [];
   
   // 從所有文章中提取並去重標籤
@@ -114,7 +114,7 @@ const ArticlesPage: React.FC = () => {
           Array.from({ length: 6 }).map((_, index) => (
             <ArticleCardSkeleton key={index} />
           ))
-        ) : filteredArticles.length > 0 ? (
+        ) : filteredArticles && filteredArticles.length > 0 ? (
           // 文章列表
           filteredArticles.map(article => (
             <ArticleCard 

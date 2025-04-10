@@ -234,6 +234,18 @@ function App() {
           </div>
         </Route>
         
+        <Route path="/articles/:slug">
+          <Header />
+          <ArticleDetail />
+          <Footer />
+        </Route>
+        
+        <Route path="/articles">
+          <Header />
+          <ArticleIndex />
+          <Footer />
+        </Route>
+        
         <Route path="/">
           <div className="container mx-auto px-4 py-6 max-w-7xl">
             <Header />
@@ -270,6 +282,9 @@ function App() {
             ) : (
               <NoResults hasSearched={hasSearched} />
             )}
+            
+            {/* 在首頁添加最新文章區塊 */}
+            <LatestArticles limit={3} />
             
             <Footer />
           </div>
