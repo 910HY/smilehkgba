@@ -1,12 +1,14 @@
+/* 新的Header樣式 */
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem 1rem;
-  background: #000;
+  background: #000000;
   color: #ffaa40;
   border-bottom: 1px solid #333;
   margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .logo-section {
@@ -17,12 +19,15 @@
 .logo {
   height: 48px;
   margin-right: 12px;
+  -webkit-filter: none;
+  filter: none;
 }
 
 .brand-text h1 {
   font-size: 1.6rem;
   margin: 0;
   font-weight: bold;
+  color: #ffaa40;
 }
 
 .slogan {

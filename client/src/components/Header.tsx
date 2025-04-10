@@ -2,18 +2,24 @@ import React from 'react';
 import { Link, useLocation } from 'wouter';
 import './Header.css';
 
-const Header: React.FC = () => {
+// 全新重建的Header組件
+const Header = () => {
   const [location] = useLocation();
   
   // 判斷當前頁面
   const isHome = location === '/';
   const isArticles = location.startsWith('/articles');
+  const isReport = location === '/report';
   
   return (
-    <div className="header">
+    <header className="header">
       <div className="logo-section">
         <Link href="/">
-          <img src={`/logo.svg?v=${new Date().getTime()}`} alt="牙GoGo Logo" className="logo" />
+          <img 
+            src={`/logo.svg?v=${Date.now()}`} 
+            alt="牙GoGo Logo" 
+            className="logo" 
+          />
         </Link>
         <div className="brand-text">
           <h1>牙GoGo</h1>
@@ -29,10 +35,10 @@ const Header: React.FC = () => {
           <span className={isArticles ? 'active' : ''}>健康文章</span>
         </Link>
         <Link href="/report">
-          <span className={location === '/report' ? 'active' : ''}>報錯</span>
+          <span className={isReport ? 'active' : ''}>報錯</span>
         </Link>
       </nav>
-    </div>
+    </header>
   );
 };
 

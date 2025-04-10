@@ -280,7 +280,26 @@ function App() {
                 )}
               </div>
             ) : (
-              <NoResults hasSearched={hasSearched} />
+              <div className="py-20 text-center">
+                {!hasSearched ? (
+                  <div className="flex flex-col items-center justify-center">
+                    <div className="bg-[#ffaa40]/10 p-6 rounded-full mb-6">
+                      <img 
+                        src="/logo.svg" 
+                        alt="牙GoGo Logo" 
+                        className="h-12 w-12" 
+                      />
+                    </div>
+                    <h2 className="text-[#ffaa40] text-3xl font-bold mb-2">牙GoGo</h2>
+                    <p className="text-[#ffbb66] text-lg mb-6">至關心你啲牙既牙科資訊平台</p>
+                    <p className="text-[#94a3b8] max-w-md mb-4">
+                      請使用上方搜尋欄位尋找香港及大灣區的牙科診所資訊。
+                    </p>
+                  </div>
+                ) : (
+                  <NoResults hasSearched={true} />
+                )}
+              </div>
             )}
             
             {/* 在首頁添加最新文章區塊 */}
