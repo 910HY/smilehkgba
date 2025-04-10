@@ -280,7 +280,12 @@ function App() {
                 )}
               </div>
             ) : (
-              <div style={{ padding: '5rem 0', textAlign: 'center' }}>
+              <div style={{ 
+                  padding: '4rem 0', 
+                  textAlign: 'center',
+                  maxWidth: '1200px',
+                  margin: '0 auto'
+                }}>
                 {!hasSearched ? (
                   <div style={{ 
                     display: 'flex', 
@@ -289,7 +294,7 @@ function App() {
                     justifyContent: 'center' 
                   }}>
                     <div style={{ 
-                      backgroundColor: 'rgba(255, 170, 64, 0.1)', 
+                      backgroundColor: 'rgba(255, 122, 0, 0.1)', 
                       padding: '1.5rem', 
                       borderRadius: '9999px', 
                       marginBottom: '1.5rem' 
@@ -297,28 +302,29 @@ function App() {
                       <img 
                         src={`/logo.svg?v=${Date.now()}`} 
                         alt="牙GoGo Logo" 
-                        style={{ height: '3rem', width: '3rem' }} 
+                        style={{ height: '4rem', width: '4rem' }} 
                       />
                     </div>
                     <h2 style={{ 
-                      color: '#ffaa40', 
-                      fontSize: '1.875rem', 
+                      color: '#FF7A00', 
+                      fontSize: '2.25rem', 
                       fontWeight: 'bold', 
                       marginBottom: '0.5rem' 
                     }}>
                       牙GoGo
                     </h2>
                     <p style={{ 
-                      color: '#ffbb66', 
-                      fontSize: '1.125rem', 
+                      color: '#FF9D45', 
+                      fontSize: '1.25rem', 
                       marginBottom: '1.5rem' 
                     }}>
                       至關心你啲牙既牙科資訊平台
                     </p>
                     <p style={{ 
                       color: '#94a3b8', 
-                      maxWidth: '28rem', 
-                      marginBottom: '1rem' 
+                      maxWidth: '36rem', 
+                      marginBottom: '2rem',
+                      fontSize: '1.1rem'
                     }}>
                       請使用上方搜尋欄位尋找香港及大灣區的牙科診所資訊。
                     </p>

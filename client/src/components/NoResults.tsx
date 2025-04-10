@@ -5,25 +5,27 @@ interface NoResultsProps {
   hasSearched?: boolean;
 }
 
-// 定義樣式
+// 定義樣式 - 使用原始橙色FF7A00
 const containerStyle = {
   display: 'flex',
   flexDirection: 'column' as const,
   alignItems: 'center',
   justifyContent: 'center',
   padding: '5rem 0',
-  textAlign: 'center' as const
+  textAlign: 'center' as const,
+  maxWidth: '1200px',
+  margin: '0 auto'
 };
 
 const iconContainerStyle = {
-  backgroundColor: 'rgba(255, 170, 64, 0.1)',
+  backgroundColor: 'rgba(255, 122, 0, 0.1)',
   padding: '1.5rem',
   borderRadius: '9999px',
   marginBottom: '1.5rem'
 };
 
 const titleStyle = {
-  color: '#ffaa40',
+  color: '#FF7A00',
   fontSize: '1.5rem',
   fontWeight: 'bold',
   marginBottom: '0.5rem',
@@ -32,19 +34,20 @@ const titleStyle = {
 
 const textStyle = {
   color: '#94a3b8',
-  maxWidth: '28rem',
-  marginBottom: '1rem'
+  maxWidth: '36rem',
+  marginBottom: '1rem',
+  fontSize: '1.1rem'
 };
 
 const bounceStyle = {
   animation: 'bounce 1s infinite',
-  color: '#ffbb66'
+  color: '#FF9D45'
 };
 
 const WelcomeMessage = () => (
   <div style={containerStyle}>
     <div style={iconContainerStyle}>
-      <MapPin size={48} color="#ffaa40" />
+      <MapPin size={48} color="#FF7A00" />
     </div>
     <h3 style={titleStyle} className="brand-title">歡迎使用牙GoGo</h3>
     <p style={textStyle}>
@@ -59,7 +62,7 @@ const WelcomeMessage = () => (
 const EmptySearchResults = () => (
   <div style={containerStyle}>
     <div style={iconContainerStyle}>
-      <Search size={48} color="#ffaa40" />
+      <Search size={48} color="#FF7A00" />
     </div>
     <h3 style={titleStyle}>未找到符合條件的診所</h3>
     <p style={textStyle}>
