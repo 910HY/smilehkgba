@@ -5,28 +5,64 @@ interface NoResultsProps {
   hasSearched?: boolean;
 }
 
+// 定義樣式
+const containerStyle = {
+  display: 'flex',
+  flexDirection: 'column' as const,
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '5rem 0',
+  textAlign: 'center' as const
+};
+
+const iconContainerStyle = {
+  backgroundColor: 'rgba(255, 170, 64, 0.1)',
+  padding: '1.5rem',
+  borderRadius: '9999px',
+  marginBottom: '1.5rem'
+};
+
+const titleStyle = {
+  color: '#ffaa40',
+  fontSize: '1.5rem',
+  fontWeight: 'bold',
+  marginBottom: '0.5rem',
+  letterSpacing: '0.05em'
+};
+
+const textStyle = {
+  color: '#94a3b8',
+  maxWidth: '28rem',
+  marginBottom: '1rem'
+};
+
+const bounceStyle = {
+  animation: 'bounce 1s infinite',
+  color: '#ffbb66'
+};
+
 const WelcomeMessage = () => (
-  <div className="flex flex-col items-center justify-center py-20 text-center">
-    <div className="bg-[#ffaa40]/10 p-6 rounded-full mb-6">
-      <MapPin className="h-12 w-12 text-[#ffaa40]" />
+  <div style={containerStyle}>
+    <div style={iconContainerStyle}>
+      <MapPin size={48} color="#ffaa40" />
     </div>
-    <h3 className="text-[#ffaa40] text-2xl font-bold mb-2 tracking-wide">歡迎使用牙GoGo</h3>
-    <p className="text-[#94a3b8] max-w-md mb-4">
+    <h3 style={titleStyle} className="brand-title">歡迎使用牙GoGo</h3>
+    <p style={textStyle}>
       請使用上方搜尋欄位尋找香港及大灣區的牙科診所資訊。
     </p>
-    <div className="animate-bounce">
-      <ArrowDown className="h-6 w-6 text-[#ffbb66]" />
+    <div style={bounceStyle}>
+      <ArrowDown size={24} />
     </div>
   </div>
 );
 
 const EmptySearchResults = () => (
-  <div className="flex flex-col items-center justify-center py-20 text-center">
-    <div className="bg-[#ffaa40]/10 p-6 rounded-full mb-6">
-      <Search className="h-12 w-12 text-[#ffaa40]" />
+  <div style={containerStyle}>
+    <div style={iconContainerStyle}>
+      <Search size={48} color="#ffaa40" />
     </div>
-    <h3 className="text-[#ffaa40] text-2xl font-bold mb-2 tracking-wide">未找到符合條件的診所</h3>
-    <p className="text-[#94a3b8] max-w-md">
+    <h3 style={titleStyle}>未找到符合條件的診所</h3>
+    <p style={textStyle}>
       請嘗試調整您的搜尋條件，例如選擇不同的區域或移除部分篩選條件。
     </p>
   </div>

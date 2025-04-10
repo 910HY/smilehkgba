@@ -6,7 +6,7 @@
     <title>牙GoGo｜香港及大灣區牙科資訊平台</title>
     <meta name="description" content="牙GoGo，至關心你啲牙既牙科資訊平台。提供香港及大灣區牙醫診所搜尋、收費查詢、用戶評價。">
     <meta name="application-name" content="牙GoGo" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=1744256700" />
 
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8354007400602759"
@@ -15,7 +15,7 @@
     <!-- Open Graph (社交分享) -->
     <meta property="og:title" content="牙GoGo｜香港及大灣區牙科資訊平台" />
     <meta property="og:description" content="牙GoGo，至關心你啲牙既牙科資訊平台。提供香港及大灣區牙醫診所搜尋、收費查詢、用戶評價。" />
-    <meta property="og:image" content="/images/og-image.png">
+    <meta property="og:image" content="/images/og-image.png?v=1744256700">
     <meta property="og:url" content="https://yagogo.vercel.app" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="牙GoGo" />
@@ -26,8 +26,40 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
      crossorigin=""/>
+    
+    <!-- 強制指定網站名稱和顏色的樣式 -->
+    <style>
+      :root {
+        --primary-color: #ffaa40;
+        --primary-light: #ffbb66;
+        --text-color: #94a3b8;
+        --bg-color: #0f172a;
+        --card-color: #1e293b;
+      }
+      
+      body:before {
+        content: "牙GoGo - 至關心你啲牙既牙科資訊平台";
+        display: none;
+      }
+      
+      /* 預設應用相關樣式 */
+      .brand-title {
+        color: var(--primary-color) !important;
+        font-weight: bold !important;
+      }
+      
+      .brand-slogan {
+        color: var(--primary-light) !important;
+      }
+    </style>
   </head>
   <body>
+    <!-- 預加載品牌名稱（不顯示，只為確保品牌名稱在DOM中存在） -->
+    <div style="display:none" aria-hidden="true">
+      <h1>牙GoGo</h1>
+      <p>至關心你啲牙既牙科資訊平台</p>
+    </div>
+    
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <!-- This script injects a replit badge into the page, please feel free to remove this line -->
