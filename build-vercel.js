@@ -59,7 +59,7 @@ if (fs.existsSync(attachedAssetsDir)) {
 }
 
 // 確保文章內容存在
-const articleSourceFile = path.join(attachedAssetsDir, '2025-shenzhen-dental-value.json');
+const articleSourceFile = path.join(attachedAssetsDir, '2025-shenzhen-dental-value-analysis.json');
 const articleDestFile = path.join(articlesDir, '2025-shenzhen-dental-value-analysis.json');
 
 // 在Vercel部署環境中增加日誌，幫助調試
@@ -100,35 +100,8 @@ try {
   console.error(`❌ 創建文章失敗:`, error);
 }
 
-// 確保優惠文章內容存在
-const promotionDestFile = path.join(promotionsDir, 'hongkong-dental-month-2025.json');
-
-// 添加日誌用於調試
-console.log(`優惠文章目標路徑: ${promotionDestFile}`);
-console.log(`優惠文章目標存在: ${fs.existsSync(promotionDestFile)}`);
-
-// 始終嘗試創建優惠文章，無論目標文件是否存在
-try {
-  // 創建示例優惠文章
-  const promotionExample = {
-    title: "2025港島洗牙月優惠：4大連鎖牙科診所比較",
-    slug: "hongkong-dental-month-2025",
-    summary: "港島區4大連鎖牙科診所「2025洗牙月」活動優惠大比拼！讓你一次看清邊間最抵！",
-    content: "<h2>4大連鎖牙科診所洗牙優惠</h2>\n<p>今年4-5月，港島區多間知名連鎖牙科診所推出「洗牙月」優惠，最低價低至$350起！</p>\n\n<h3>1. 恆健牙科</h3>\n<ul>\n<li>洗牙價格: <strong>$350</strong> (原價$480)</li>\n<li>限時: 4月1日至5月15日</li>\n<li>適用分店: 中環、銅鑼灣、太古分店</li>\n<li>備註: 需網上預約，首次預約免治療諮詢費</li>\n</ul>\n\n<h3>2. 德善牙醫</h3>\n<ul>\n<li>洗牙價格: <strong>$380</strong> (原價$550)</li>\n<li>限時: 4月全月</li>\n<li>適用分店: 灣仔、中環分店</li>\n<li>備註: 附送口腔檢查及醫生報告</li>\n</ul>\n\n<h3>3. 庇利牙科</h3>\n<ul>\n<li>洗牙價格: <strong>$420</strong> (原價$650)</li>\n<li>限時: 4月1日至5月31日</li>\n<li>適用分店: 金鐘、銅鑼灣分店</li>\n<li>備註: 同時預約補牙可享補牙85折</li>\n</ul>\n\n<h3>4. 樂德牙醫</h3>\n<ul>\n<li>洗牙價格: <strong>$450</strong> (原價$580)</li>\n<li>限時: 4月15日至5月15日</li>\n<li>適用分店: 中環分店</li>\n<li>備註: 附送數碼全口X光片一次</li>\n</ul>\n\n<h2>邊間最抵？</h2>\n<p>純以價格來說，恆健牙科$350最實惠。但若考慮額外服務，樂德牙醫送全口X光片價值超過$300，適合想全面檢查的人士。</p>\n\n<p><strong>小貼士：</strong>4-5月是牙科診所傳統淡季，因此推廣特別多。建議致電個別診所查詢最新詳情，部分診所更可能有額外優惠！</p>",
-    tags: ["洗牙優惠", "牙科診所", "港島區", "口腔健康", "洗牙價格"],
-    sources: [
-      { title: "恆健牙科", url: "https://www.example.com/hk-dental" },
-      { title: "德善牙醫", url: "https://www.example.com/virtuous-dental" }
-    ],
-    publishedAt: "2025-04-05T09:30:00Z"
-  };
-  
-  // 寫入優惠文章
-  fs.writeFileSync(promotionDestFile, JSON.stringify(promotionExample, null, 2));
-  console.log(`✅ 已創建優惠文章: ${promotionDestFile}`);
-} catch (error) {
-  console.error(`❌ 創建優惠文章失敗:`, error);
-}
+// 優惠文章已移除，不再創建默認優惠文章
+console.log('📝 依照用戶要求，不再創建默認優惠文章');
 
 // 構建前端
 console.log('🏗️ 開始構建前端...');
