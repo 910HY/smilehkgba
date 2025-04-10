@@ -13,7 +13,7 @@ const Header: React.FC = () => {
     <div className="header">
       <div className="logo-section">
         <Link href="/">
-          <img src="/logo.svg" alt="牙GoGo Logo" className="logo" />
+          <img src={`/logo.svg?v=${new Date().getTime()}`} alt="牙GoGo Logo" className="logo" />
         </Link>
         <div className="brand-text">
           <h1>牙GoGo</h1>
