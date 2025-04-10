@@ -50,6 +50,10 @@
   cursor: pointer;
   transition: background-color 0.2s;
   font-size: 0.95rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .filters button:hover {

@@ -59,7 +59,7 @@ if (fs.existsSync(attachedAssetsDir)) {
 }
 
 // 確保文章內容存在
-const articleSourceFile = path.join(attachedAssetsDir, '2025-shenzhen-dental-value.json');
+const articleSourceFile = path.join(attachedAssetsDir, '2025-shenzhen-dental-value-analysis.json');
 const articleDestFile = path.join(articlesDir, '2025-shenzhen-dental-value-analysis.json');
 
 if (fs.existsSync(articleSourceFile) && !fs.existsSync(articleDestFile)) {
