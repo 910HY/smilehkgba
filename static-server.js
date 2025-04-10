@@ -383,6 +383,87 @@ async function startStaticServer() {
       res.status(500).json({ error: '無法獲取文章', details: error.message });
     }
   });
+  
+  // 獲取所有優惠文章
+  app.get('/api/promotions', (req, res) => {
+    try {
+      console.log('API 請求: /api/promotions');
+      const promotionsDir = path.join(process.cwd(), 'content', 'promotions');
+      
+      // 檢查目錄是否存在
+      if (!fs.existsSync(promotionsDir)) {
+        console.log('優惠文章目錄不存在，創建目錄');
+        fs.mkdirSync(promotionsDir, { recursive: true });
+        return res.status(200).json([]);
+      }
+      
+      // 讀取promotions目錄
+      const files = fs.readdirSync(promotionsDir).filter(file => file.endsWith('.json'));
+      console.log(`找到 ${files.length} 篇優惠文章`);
+      
+      // 讀取每個優惠文章文件並解析JSON
+      const promotions = files.map(file => {
+        const filePath = path.join(promotionsDir, file);
+        const fileContent = fs.readFileSync(filePath, 'utf8');
+        return JSON.parse(fileContent);
+      });
+      
+      // 根據發佈日期排序（最新的在前）
+      const sortedPromotions = promotions.sort((a, b) => 
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+      );
+      
+      res.status(200).json(sortedPromotions);
+    } catch (error) {
+      console.error('讀取優惠文章列表時出錯:', error);
+      res.status(500).json({ error: '無法獲取優惠文章列表', details: error.message });
+    }
+  });
+  
+  // 獲取單篇優惠文章
+  app.get('/api/promotions/:slug', (req, res) => {
+    try {
+      const { slug } = req.params;
+      console.log(`API 請求: /api/promotions/${slug}`);
+      
+      if (!slug) {
+        return res.status(400).json({ error: '缺少優惠文章slug參數' });
+      }
+      
+      const promotionsDir = path.join(process.cwd(), 'content', 'promotions');
+      
+      // 檢查目錄是否存在
+      if (!fs.existsSync(promotionsDir)) {
+        return res.status(404).json({ error: '優惠文章目錄不存在' });
+      }
+      
+      // 讀取promotions目錄中的所有文件
+      const files = fs.readdirSync(promotionsDir).filter(file => file.endsWith('.json'));
+      
+      // 尋找匹配的優惠文章
+      let foundPromotion = null;
+      
+      for (const file of files) {
+        const filePath = path.join(promotionsDir, file);
+        const fileContent = fs.readFileSync(filePath, 'utf8');
+        const promotion = JSON.parse(fileContent);
+        
+        if (promotion.slug === slug) {
+          foundPromotion = promotion;
+          break;
+        }
+      }
+      
+      if (foundPromotion) {
+        res.status(200).json(foundPromotion);
+      } else {
+        res.status(404).json({ error: '找不到指定的優惠文章' });
+      }
+    } catch (error) {
+      console.error(`讀取優惠文章 ${req.params.slug} 時出錯:`, error);
+      res.status(500).json({ error: '無法獲取優惠文章', details: error.message });
+    }
+  });
 
   // 處理 SPA 路由 - 所有非 API 路由返回 index.html
   app.get('*', (req, res) => {
