@@ -7,8 +7,10 @@ import { apiRequest } from './queryClient';
 export async function getAllArticles(): Promise<ArticleList> {
   try {
     // 使用GET請求獲取文章列表
+    console.log('正在獲取文章列表...');
     const response = await apiRequest('GET', '/api/articles');
     const data = await response.json();
+    console.log('獲取到文章數據:', data?.length || 0, '篇');
     return data as ArticleList;
   } catch (error) {
     console.error('獲取文章列表失敗:', error);
@@ -38,11 +40,19 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
  */
 export async function getLatestArticles(limit: number = 3): Promise<ArticleList> {
   try {
+    console.log(`正在獲取最新${limit}篇文章...`);
     const allArticles = await getAllArticles();
     // 按發佈日期排序，獲取最新的幾篇
-    return allArticles
+    const latestArticles = allArticles
       .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
       .slice(0, limit);
+    
+    console.log(`獲取到${latestArticles.length}篇最新文章`);
+    if (latestArticles.length > 0) {
+      console.log('第一篇文章標題:', latestArticles[0]?.title);
+    }
+    
+    return latestArticles;
   } catch (error) {
     console.error('獲取最新文章失敗:', error);
     return [];
