@@ -284,6 +284,9 @@ function App() {
             )}
             
             {/* 在首頁添加最新文章區塊 */}
+            <div className="bg-red-900 p-4 mb-4 rounded text-white">
+              <p className="font-bold">測試文章區塊可見性</p>
+            </div>
             <LatestArticles limit={3} />
             
             <Footer />

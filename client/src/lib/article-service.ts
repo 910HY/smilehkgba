@@ -40,22 +40,40 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
  */
 export async function getLatestArticles(limit: number = 3): Promise<ArticleList> {
   try {
-    console.log(`正在獲取最新${limit}篇文章...`);
-    const allArticles = await getAllArticles();
+    console.log(`正在直接從API獲取最新${limit}篇文章...`);
+    
+    // 為避免緩存問題，我們直接獲取所有文章，然後在客戶端進行篩選
+    const response = await apiRequest('GET', '/api/articles');
+    const data = await response.json();
+    console.log('原始API數據:', data.length || 0, '篇文章');
+    
+    if (!Array.isArray(data) || data.length === 0) {
+      console.log('API返回的數據不是有效數組或長度為0');
+      return [];
+    }
+    
+    // 確保每篇文章都有publishedAt字段，否則可能會排序失敗
+    const validArticles = data.filter(article => article && article.publishedAt);
+    
     // 按發佈日期排序，獲取最新的幾篇
-    const latestArticles = allArticles
-      .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+    const latestArticles = validArticles
+      .sort((a, b) => {
+        const dateA = new Date(a.publishedAt).getTime();
+        const dateB = new Date(b.publishedAt).getTime();
+        return dateB - dateA;
+      })
       .slice(0, limit);
     
-    console.log(`獲取到${latestArticles.length}篇最新文章`);
+    console.log(`篩選後獲取到${latestArticles.length}篇最新文章`);
     if (latestArticles.length > 0) {
       console.log('第一篇文章標題:', latestArticles[0]?.title);
+      console.log('文章詳情:', JSON.stringify(latestArticles[0], null, 2));
     }
     
     return latestArticles;
   } catch (error) {
     console.error('獲取最新文章失敗:', error);
-    return [];
+    throw error; // 拋出錯誤讓React Query處理
   }
 }
 

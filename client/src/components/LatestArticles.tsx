@@ -52,9 +52,35 @@ const LatestArticles: React.FC<LatestArticlesProps> = ({ limit = 3 }) => {
     );
   }
 
-  // 如果沒有文章或發生錯誤，不顯示此區塊
-  if (!articles || articles.length === 0 || error) {
-    return null;
+  // 如果發生錯誤，顯示錯誤信息
+  if (error) {
+    console.error('文章加載錯誤:', error);
+    return (
+      <div className="py-12 bg-slate-900">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-bold text-white mb-8">最新牙齒健康文章</h2>
+          <div className="bg-red-900 p-4 rounded text-white mb-6">
+            <p>加載文章時出錯。請稍後再試。</p>
+            <p className="text-sm mt-2">錯誤詳情: {error.toString()}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+  // 如果沒有文章，顯示提示信息
+  if (!articles || articles.length === 0) {
+    console.log('文章列表為空');
+    return (
+      <div className="py-12 bg-slate-900">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-bold text-white mb-8">最新牙齒健康文章</h2>
+          <div className="bg-yellow-900 p-4 rounded text-white mb-6">
+            <p>目前沒有可用的文章。</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
