@@ -18,9 +18,9 @@ const Header = () => {
     justifyContent: 'space-between',
     padding: '1.25rem 1rem',
     background: '#000000',
-    color: '#FF7A00', // 改回原來的橙色
+    color: '#FF7A00',
     borderBottom: '1px solid #333',
-    marginBottom: '1.5rem',
+    marginBottom: '0',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
   };
   
@@ -48,31 +48,6 @@ const Header = () => {
     marginTop: '2px'
   };
   
-  // 中間導航區塊
-  const navContainerStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    flex: '1 1 auto'
-  };
-  
-  const navStyle = {
-    display: 'flex',
-    gap: '2rem'
-  };
-  
-  const navItemStyle = {
-    color: 'white',
-    fontSize: '1.1rem',
-    cursor: 'pointer',
-    transition: 'color 0.2s'
-  };
-  
-  const activeNavItemStyle = {
-    ...navItemStyle,
-    color: '#FF7A00',
-    fontWeight: 'bold'
-  };
-  
   // 右側Logo區塊
   const logoContainerStyle = {
     display: 'flex',
@@ -84,39 +59,82 @@ const Header = () => {
     height: 'auto'
   };
   
+  // 導航列樣式
+  const navigationBarStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    padding: '0.5rem 1rem',
+    backgroundColor: '#0f172a',
+    borderBottom: '1px solid #1e293b',
+    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
+    marginBottom: '1.5rem'
+  };
+  
+  const navigationContainerStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    maxWidth: '1200px',
+    width: '100%',
+    margin: '0 auto'
+  };
+  
+  const navStyle = {
+    display: 'flex',
+    gap: '2rem'
+  };
+  
+  const navItemStyle = {
+    color: 'white',
+    fontSize: '1.1rem',
+    cursor: 'pointer',
+    transition: 'color 0.2s',
+    padding: '0.5rem 0'
+  };
+  
+  const activeNavItemStyle = {
+    ...navItemStyle,
+    color: '#FF7A00',
+    fontWeight: 'bold',
+    borderBottom: '2px solid #FF7A00'
+  };
+  
   return (
-    <header style={headerStyle}>
-      {/* 左側品牌區塊 */}
-      <div style={brandSectionStyle}>
-        <div style={brandTextStyle}>
-          <h1 style={brandNameStyle}>牙GoGo</h1>
-          <p style={sloganStyle}>至關心你啲牙既牙科資訊平台</p>
+    <>
+      <header style={headerStyle}>
+        {/* 左側品牌區塊 */}
+        <div style={brandSectionStyle}>
+          <div style={brandTextStyle}>
+            <h1 style={brandNameStyle}>牙GoGo</h1>
+            <p style={sloganStyle}>至關心你啲牙既牙科資訊平台</p>
+          </div>
+        </div>
+        
+        {/* 右側Logo區塊 */}
+        <div style={logoContainerStyle}>
+          <Link href="/">
+            <img 
+              src={`/logo.png?v=${Date.now()}`} 
+              alt="牙GoGo Logo" 
+              style={logoStyle}
+            />
+          </Link>
+        </div>
+      </header>
+      
+      {/* 導航列，移至header下方 */}
+      <div style={navigationBarStyle}>
+        <div style={navigationContainerStyle}>
+          <nav style={navStyle}>
+            <Link href="/">
+              <span style={isHome ? activeNavItemStyle : navItemStyle}>首頁</span>
+            </Link>
+            <Link href="/articles">
+              <span style={isArticles ? activeNavItemStyle : navItemStyle}>關心你啲牙</span>
+            </Link>
+          </nav>
         </div>
       </div>
-      
-      {/* 中間導航區塊 */}
-      <div style={navContainerStyle}>
-        <nav style={navStyle}>
-          <Link href="/">
-            <span style={isHome ? activeNavItemStyle : navItemStyle}>首頁</span>
-          </Link>
-          <Link href="/articles">
-            <span style={isArticles ? activeNavItemStyle : navItemStyle}>關心你啲牙</span>
-          </Link>
-        </nav>
-      </div>
-      
-      {/* 右側Logo區塊 */}
-      <div style={logoContainerStyle}>
-        <Link href="/">
-          <img 
-            src={`/logo.svg?v=${Date.now()}`} 
-            alt="牙GoGo Logo" 
-            style={logoStyle}
-          />
-        </Link>
-      </div>
-    </header>
+    </>
   );
 };
 

@@ -98,7 +98,7 @@ const Footer: React.FC = () => {
       <div style={footerContentStyle}>
         <div style={footerBrandStyle}>
           <img 
-            src={`/logo.svg?v=${Date.now()}`} 
+            src={`/logo.png?v=${Date.now()}`} 
             alt="牙GoGo Logo" 
             style={logoStyle} 
           />
