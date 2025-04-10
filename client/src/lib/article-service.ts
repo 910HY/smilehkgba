@@ -6,9 +6,8 @@ import { apiRequest } from './queryClient';
  */
 export async function getAllArticles(): Promise<ArticleList> {
   try {
-    const response = await apiRequest('/api/articles', {
-      method: 'GET',
-    });
+    // 使用GET請求獲取文章列表
+    const response = await apiRequest('GET', '/api/articles');
     const data = await response.json();
     return data as ArticleList;
   } catch (error) {
@@ -24,9 +23,8 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
   if (!slug) return null;
   
   try {
-    const response = await apiRequest(`/api/articles/${slug}`, {
-      method: 'GET',
-    });
+    // 使用GET請求獲取單篇文章
+    const response = await apiRequest('GET', `/api/articles/${slug}`);
     const data = await response.json();
     return data as Article;
   } catch (error) {
