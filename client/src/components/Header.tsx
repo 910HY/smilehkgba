@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link, useLocation } from 'wouter'; 
-import logo from '@assets/LOGO_UPDATED.png';
+import { Link, useLocation } from 'wouter';
+import './Header.css';
 
 const Header: React.FC = () => {
   const [location] = useLocation();
@@ -10,44 +10,29 @@ const Header: React.FC = () => {
   const isArticles = location.startsWith('/articles');
   
   return (
-    <header className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
-      <div className="flex items-center">
+    <div className="header">
+      <div className="logo-section">
         <Link href="/">
-          <div className="flex items-center cursor-pointer">
-            <img 
-              src={logo}
-              alt="牙點 Dento Logo" 
-              className="w-[80px] h-auto"
-            />
-            <h1 className="text-[#FF7A00] text-3xl font-bold ml-4 tracking-wider">牙點 Dento</h1>
-          </div>
+          <img src="/logo.svg" alt="牙GoGo Logo" className="logo" />
         </Link>
+        <div className="brand-text">
+          <h1>牙GoGo</h1>
+          <p className="slogan">至關心你啲牙既牙科資訊平台</p>
+        </div>
       </div>
       
-      <div className="flex flex-col md:flex-row items-start md:items-center mt-4 md:mt-0">
-        {/* 主導航 */}
-        <nav className="flex space-x-6 mb-2 md:mb-0 md:mr-8">
-          <Link href="/">
-            <span className={`text-lg font-medium transition-colors cursor-pointer ${isHome ? 'text-[#FF7A00]' : 'text-white hover:text-[#FDBA74]'}`}>
-              首頁
-            </span>
-          </Link>
-          <Link href="/articles">
-            <span className={`text-lg font-medium transition-colors cursor-pointer ${isArticles ? 'text-[#FF7A00]' : 'text-white hover:text-[#FDBA74]'}`}>
-              健康文章
-            </span>
-          </Link>
-          <Link href="/report">
-            <span className={`text-lg font-medium transition-colors cursor-pointer ${location === '/report' ? 'text-[#FF7A00]' : 'text-white hover:text-[#FDBA74]'}`}>
-              報錯
-            </span>
-          </Link>
-        </nav>
-        
-        {/* 標語 */}
-        <h2 className="text-[#FDBA74] text-xl tracking-wide">至關心你啲牙點既牙科資訊平台</h2>
-      </div>
-    </header>
+      <nav className="main-nav">
+        <Link href="/">
+          <span className={isHome ? 'active' : ''}>首頁</span>
+        </Link>
+        <Link href="/articles">
+          <span className={isArticles ? 'active' : ''}>健康文章</span>
+        </Link>
+        <Link href="/report">
+          <span className={location === '/report' ? 'active' : ''}>報錯</span>
+        </Link>
+      </nav>
+    </div>
   );
 };
 

@@ -1,0 +1,137 @@
+幫我將網站全面重構為「牙GoGo」牙科資訊平台，請做以下所有更改：
+1. 品牌更新
+將網站名稱改為「牙GoGo」
+移除所有出現的「SmileHK」或「牙點 Dento」
+網站口號改為：至關心你啲牙既牙科資訊平台
+2. 重寫 Header 組件
+修改 src/components/Header.tsx 為以下內容：
+import React from 'react';
+import './Header.css';
+
+const Header = () => {
+  return (
+    <div className="header">
+      <div className="logo-section">
+        <img src="/logo.svg" alt="牙GoGo Logo" className="logo" />
+        <div className="brand-text">
+          <h1>牙GoGo</h1>
+          <p className="slogan">至關心你啲牙既牙科資訊平台</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Header;
+並建立 src/components/Header.css：
+.header {
+  display: flex;
+  align-items: center;
+  padding: 1.25rem 1rem;
+  background: #000;
+  color: #ffaa40;
+  border-bottom: 1px solid #333;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 48px;
+  margin-right: 12px;
+}
+
+.brand-text h1 {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+.slogan {
+  font-size: 0.9rem;
+  color: #ffbb66;
+  margin-top: 2px;
+}
+3. 重寫 SearchPanel 組件
+修改 src/components/SearchPanel.tsx 為以下內容：
+import React from 'react';
+import './SearchPanel.css';
+
+const SearchPanel = () => {
+  return (
+    <div className="search-panel">
+      <h2>搜尋牙科診所</h2>
+      <div className="filters">
+        <select><option>全部地區</option></select>
+        <select><option>全部類型</option></select>
+        <input type="text" placeholder="診所名稱／地址／電話" />
+        <button>搜尋</button>
+      </div>
+    </div>
+  );
+};
+
+export default SearchPanel;
+並新增 src/components/SearchPanel.css：
+.search-panel {
+  background: #111;
+  padding: 1.5rem 1rem;
+  border-radius: 8px;
+  margin: 1rem;
+  color: #fff;
+}
+
+.search-panel h2 {
+  margin-bottom: 1rem;
+  color: #ffaa40;
+  font-size: 1.2rem;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.filters select,
+.filters input {
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #444;
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.filters button {
+  background: #ffaa40;
+  border: none;
+  padding: 0.6rem;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+}
+4. SEO 與網站設定更新
+在 /index.html 或 /public/index.html 中加入：
+<title>牙GoGo｜香港及大灣區牙科資訊平台</title>
+<meta name="description" content="牙GoGo，至關心你啲牙既牙科資訊平台。提供香港及大灣區牙醫診所搜尋、收費查詢、用戶評價。" />
+5. 新增 robots.txt 和 sitemap.xml
+public/robots.txt：
+User-agent: *
+Allow: /
+Sitemap: https://yagogo.vercel.app/sitemap.xml
+public/sitemap.xml：
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://yagogo.vercel.app/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
+6. Vercel rewrite 支援
+新增 vercel.json 到根目錄：
+{
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}

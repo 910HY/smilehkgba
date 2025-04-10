@@ -1,0 +1,65 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1rem;
+  background: #000;
+  color: #ffaa40;
+  border-bottom: 1px solid #333;
+  margin-bottom: 1.5rem;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 48px;
+  margin-right: 12px;
+}
+
+.brand-text h1 {
+  font-size: 1.6rem;
+  margin: 0;
+  font-weight: bold;
+}
+
+.slogan {
+  font-size: 0.9rem;
+  color: #ffbb66;
+  margin-top: 2px;
+}
+
+.main-nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.main-nav span {
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.main-nav span:hover {
+  color: #ffbb66;
+}
+
+.main-nav span.active {
+  color: #ffaa40;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .main-nav {
+    margin-top: 1rem;
+    align-self: flex-start;
+  }
+}
