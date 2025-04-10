@@ -47,7 +47,11 @@ const bounceStyle = {
 const WelcomeMessage = () => (
   <div style={containerStyle}>
     <div style={iconContainerStyle}>
-      <MapPin size={48} color="#FF7A00" />
+      <img 
+        src={`/logo.png?v=${Date.now()}`} 
+        alt="牙GoGo Logo" 
+        style={{ height: '48px', width: '48px' }}
+      />
     </div>
     <h3 style={titleStyle} className="brand-title">歡迎使用牙GoGo</h3>
     <p style={textStyle}>

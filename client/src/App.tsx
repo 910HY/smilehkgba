@@ -300,7 +300,7 @@ function App() {
                       marginBottom: '1.5rem' 
                     }}>
                       <img 
-                        src={`/logo.svg?v=${Date.now()}`} 
+                        src={`/logo.png?v=${Date.now()}`} 
                         alt="牙GoGo Logo" 
                         style={{ height: '4rem', width: '4rem' }} 
                       />
