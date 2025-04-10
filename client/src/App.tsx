@@ -11,7 +11,6 @@ import ReportPage from "./pages/ReportPage";
 import NotFound from "./pages/not-found";
 import ArticleIndex from "./pages/articles/index";
 import ArticleDetail from "./pages/articles/[slug]";
-import TestArticlesPage from "./pages/test-articles";
 import { Clinic } from "./types/clinic";
 import { Toaster } from "@/components/ui/toaster";
 import { useQuery } from "@tanstack/react-query";
@@ -247,10 +246,6 @@ function App() {
           <Footer />
         </Route>
         
-        <Route path="/test-articles">
-          <TestArticlesPage />
-        </Route>
-        
         <Route path="/">
           <div className="container mx-auto px-4 py-6 max-w-7xl">
             <Header />
@@ -289,9 +284,6 @@ function App() {
             )}
             
             {/* 在首頁添加最新文章區塊 */}
-            <div className="bg-red-900 p-4 mb-4 rounded text-white">
-              <p className="font-bold">測試文章區塊可見性</p>
-            </div>
             <LatestArticles limit={3} />
             
             <Footer />
