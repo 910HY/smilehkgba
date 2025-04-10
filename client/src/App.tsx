@@ -11,6 +11,7 @@ import ReportPage from "./pages/ReportPage";
 import NotFound from "./pages/not-found";
 import ArticleIndex from "./pages/articles/index";
 import ArticleDetail from "./pages/articles/[slug]";
+import TestArticlesPage from "./pages/test-articles";
 import { Clinic } from "./types/clinic";
 import { Toaster } from "@/components/ui/toaster";
 import { useQuery } from "@tanstack/react-query";
@@ -244,6 +245,10 @@ function App() {
           <Header />
           <ArticleIndex />
           <Footer />
+        </Route>
+        
+        <Route path="/test-articles">
+          <TestArticlesPage />
         </Route>
         
         <Route path="/">
