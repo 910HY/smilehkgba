@@ -66,17 +66,35 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
     return 'bg-primary';
   };
 
+  // 檢查各種可能的條件
+  const isFiltered = !!clinic.isFiltered;
+  const isHighRated = !!clinic.isHighRated;
+  const isHighlighted = !!clinic.highlight;
+  const isChain = !!clinic.is_chain;
+  const hasRating = typeof clinic.rating === 'number';
+  const hasHighRating = hasRating && clinic.rating >= 4.5;
+  
   // 確定是否顯示高亮邊框（優質診所）
-  const cardBorderClass = clinic.isFiltered || clinic.isHighRated || clinic.highlight 
+  const cardBorderClass = isFiltered || isHighRated || isHighlighted || hasHighRating || isChain
     ? "border-[#ff9020] border-2" 
     : "border-[#ffbb66]/30 border";
+
+  // 判斷診所類型顯示文字
+  const getQualityLabel = () => {
+    if (isChain) return '連鎖品牌診所';
+    if (hasHighRating && hasRating) return `評分 ${clinic.rating}⭐ 優質推薦`;
+    return '優質診所推薦';
+  };
+
+  // 判斷是否顯示優質標記
+  const shouldShowQualityLabel = isFiltered || isHighRated || isHighlighted || hasHighRating || isChain;
 
   return (
     <div className={`bg-[#111] ${cardBorderClass} rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow`}>
       {/* 優質診所標記 */}
-      {(clinic.isFiltered || clinic.isHighRated || clinic.highlight) && (
+      {shouldShowQualityLabel && (
         <div className="bg-gradient-to-r from-[#ff9020] to-[#ffaa40] text-black px-4 py-1 text-xs font-bold">
-          {clinic.is_chain ? '連鎖品牌診所' : '優質診所推薦'}
+          {getQualityLabel()}
         </div>
       )}
       
