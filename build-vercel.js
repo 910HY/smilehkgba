@@ -184,13 +184,12 @@ if (fs.existsSync(sitemapPath)) {
   }
 }
 
-// 構建後端
-console.log('🏗️ 開始構建後端...');
+// 確保API目錄被複製到構建目錄
+console.log('🏗️ 配置Serverless API...');
 try {
-  execSync('npx esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist', { stdio: 'inherit' });
-  console.log('✅ 後端構建成功');
+  console.log('✅ 使用Vercel API Routes，不需要單獨構建');
 } catch (error) {
-  console.error('❌ 後端構建失敗:', error);
+  console.error('❌ API配置失敗:', error);
   process.exit(1);
 }
 
