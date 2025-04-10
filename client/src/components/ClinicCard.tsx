@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Clinic } from '../types/clinic';
 import { 
-  MapPin, Phone, Clock, DollarSign, Map,
-  Navigation, Stethoscope, Building, HeartPulse
+  MapPin, Phone, Clock, DollarSign, Map, Star,
+  Navigation, Stethoscope, Building, HeartPulse, Award, Shield
 } from 'lucide-react';
 import MapDialog from './MapDialog';
 import ExpandableText from './ExpandableText';
@@ -66,8 +66,20 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
     return 'bg-primary';
   };
 
+  // 確定是否顯示高亮邊框（優質診所）
+  const cardBorderClass = clinic.isFiltered || clinic.isHighRated || clinic.highlight 
+    ? "border-[#ff9020] border-2" 
+    : "border-[#ffbb66]/30 border";
+
   return (
-    <div className="bg-[#111] border border-[#ffbb66]/30 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+    <div className={`bg-[#111] ${cardBorderClass} rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow`}>
+      {/* 優質診所標記 */}
+      {(clinic.isFiltered || clinic.isHighRated || clinic.highlight) && (
+        <div className="bg-gradient-to-r from-[#ff9020] to-[#ffaa40] text-black px-4 py-1 text-xs font-bold">
+          {clinic.is_chain ? '連鎖品牌診所' : '優質診所推薦'}
+        </div>
+      )}
+      
       <div className="pt-4 pl-4 pr-4 flex justify-between items-start">
         <h4 className="font-bold text-lg mb-2 text-[#ffaa40] tracking-wide">{clinic.name}</h4>
         <div className="flex items-center space-x-2">
@@ -80,6 +92,15 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
         </div>
       </div>
       <div className="p-4 pt-0">
+        {/* 評分顯示 */}
+        {clinic.rating && (
+          <div className="flex items-center mb-2">
+            <Star className="h-4 w-4 text-yellow-500 mr-1" fill="#FFBB33" />
+            <span className="text-yellow-500 font-medium">{clinic.rating}</span>
+            {clinic.is_chain && <Shield className="h-4 w-4 text-blue-500 ml-2" />}
+          </div>
+        )}
+        
         <p className="text-[#ffaa40] text-sm mb-3 line-clamp-2">{clinic.address}</p>
         
         <div className="space-y-2 mb-4">
@@ -106,6 +127,15 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
               label="價格信息"
               content={formatPrices(clinic.prices) || '無價格信息'}
               icon={<DollarSign className="h-5 w-5 text-[#ffaa40]" />}
+            />
+          )}
+          
+          {/* 提供的服務（如果有） */}
+          {clinic.services && clinic.services.length > 0 && (
+            <ExpandableText 
+              label="提供服務"
+              content={clinic.services.join('、')}
+              icon={<Award className="h-5 w-5 text-[#ffaa40]" />}
             />
           )}
         </div>

@@ -176,6 +176,29 @@ export async function fetchClinicData(): Promise<Clinic[]> {
     const clinics = await response.json();
     console.log("成功從API加載診所數據:", clinics.length);
     
+    // 嘗試獲取優質診所數據並合併
+    try {
+      const filteredResponse = await fetch(`${baseUrl}/api/filtered-clinics`);
+      if (filteredResponse.ok) {
+        const filteredClinics = await filteredResponse.json();
+        console.log("成功從API加載優質診所數據:", filteredClinics.length);
+        
+        // 將優質診所數據合併到現有數據中
+        // 先為每個診所添加標記，表示它是優質篩選後的診所
+        const markedFilteredClinics = filteredClinics.map((clinic: Clinic) => ({
+          ...clinic,
+          isFiltered: true,
+          isHighRated: true,
+          highlight: true,
+        }));
+        
+        // 合併兩個數據集
+        clinics.push(...markedFilteredClinics);
+      }
+    } catch (filteredError) {
+      console.error("獲取優質診所數據時發生錯誤:", filteredError);
+    }
+    
     // 處理每個診所數據，確保有必要的字段
     const enhancedClinics = clinics.map(enhanceClinicData);
     return enhancedClinics;
@@ -195,24 +218,35 @@ export const fetchClinicDataFallback = async (): Promise<Clinic[]> => {
       ? '' 
       : (import.meta.env.VITE_API_URL || '');
     
-    const [hkClinicsResp, ngoClinicsResp, szClinicsResp] = await Promise.all([
+    const [hkClinicsResp, ngoClinicsResp, szClinicsResp, filteredClinicsResp] = await Promise.all([
       fetch(`${baseUrl}/api/hk-clinics`),
       fetch(`${baseUrl}/api/ngo-clinics`),
-      fetch(`${baseUrl}/api/sz-clinics`)
+      fetch(`${baseUrl}/api/sz-clinics`),
+      fetch(`${baseUrl}/api/filtered-clinics`)
     ]);
 
     const hkClinics = hkClinicsResp.ok ? await hkClinicsResp.json() : [];
     const ngoClinics = ngoClinicsResp.ok ? await ngoClinicsResp.json() : [];
     const szClinics = szClinicsResp.ok ? await szClinicsResp.json() : [];
+    const filteredClinics = filteredClinicsResp.ok ? await filteredClinicsResp.json() : [];
 
     console.log("備用方法獲取資料:", {
       hk: hkClinics.length,
       ngo: ngoClinics.length,
-      sz: szClinics.length
+      sz: szClinics.length,
+      filtered: filteredClinics.length
     });
 
+    // 為優質診所添加標記
+    const markedFilteredClinics = filteredClinics.map((clinic: Clinic) => ({
+      ...clinic,
+      isFiltered: true,
+      isHighRated: true,
+      highlight: true,
+    }));
+
     // 合併所有診所數據並確保每個診所都有必要的字段
-    const allClinics = [...hkClinics, ...ngoClinics, ...szClinics];
+    const allClinics = [...hkClinics, ...ngoClinics, ...szClinics, ...markedFilteredClinics];
     const enhancedClinics = allClinics.map(enhanceClinicData);
     return enhancedClinics;
   } catch (error) {
