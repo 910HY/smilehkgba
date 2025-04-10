@@ -13,16 +13,47 @@ if (!fs.existsSync(apiDataDir)) {
   console.log('✅ 已創建API數據目錄');
 }
 
+// 確保文章目錄存在
+console.log('📂 確保文章目錄存在...');
+const contentDir = path.join(process.cwd(), 'content');
+const articlesDir = path.join(contentDir, 'articles');
+if (!fs.existsSync(contentDir)) {
+  fs.mkdirSync(contentDir, { recursive: true });
+  console.log('✅ 已創建content目錄');
+}
+if (!fs.existsSync(articlesDir)) {
+  fs.mkdirSync(articlesDir, { recursive: true });
+  console.log('✅ 已創建articles目錄');
+}
+
 // 如果attached_assets目錄中有JSON文件，複製到API數據目錄
 const attachedAssetsDir = path.join(process.cwd(), 'attached_assets');
 if (fs.existsSync(attachedAssetsDir)) {
-  const jsonFiles = fs.readdirSync(attachedAssetsDir).filter(file => file.endsWith('.json'));
+  // 複製診所數據JSON
+  const jsonFiles = fs.readdirSync(attachedAssetsDir).filter(file => 
+    file.endsWith('.json') && 
+    !file.includes('article') &&  // 排除文章相關的JSON
+    !file.startsWith('article')
+  );
   for (const file of jsonFiles) {
     fs.copyFileSync(
       path.join(attachedAssetsDir, file),
       path.join(apiDataDir, file)
     );
     console.log(`✅ 已複製 ${file} 到API數據目錄`);
+  }
+  
+  // 複製文章相關JSON到articles目錄
+  const articleFiles = fs.readdirSync(attachedAssetsDir).filter(file => 
+    file.endsWith('.json') && 
+    (file.includes('article') || file.startsWith('article'))
+  );
+  for (const file of articleFiles) {
+    fs.copyFileSync(
+      path.join(attachedAssetsDir, file),
+      path.join(articlesDir, file)
+    );
+    console.log(`✅ 已複製 ${file} 到文章目錄`);
   }
 }
 
