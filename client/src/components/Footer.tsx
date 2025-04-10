@@ -127,6 +127,15 @@ const Footer: React.FC = () => {
               關心你啲牙
             </a>
           </Link>
+          <Link href="/promotions">
+            <a 
+              style={navLinkStyle} 
+              onMouseEnter={handleNavLinkHover} 
+              onMouseLeave={handleNavLinkLeave}
+            >
+              優惠牙
+            </a>
+          </Link>
           <Link href="/report">
             <a 
               style={navLinkStyle} 
@@ -145,7 +154,7 @@ const Footer: React.FC = () => {
       </div>
       
       <div style={footerDisclaimerStyle}>
-        <p>聯絡我們：<a href="mailto:info@yagogo.com" style={linkStyle}>info@yagogo.com</a></p>
+        <p>聯絡我們：<a href="mailto:smilehkgba@gmail.com" style={linkStyle}>smilehkgba@gmail.com</a></p>
         <p>免責聲明：本平台提供資訊僅供參考，實際診所資訊請以官方為準。</p>
       </div>
     </footer>
