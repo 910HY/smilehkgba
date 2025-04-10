@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://yagogo.vercel.app/sitemap.xml
+Sitemap: https://smilehkgba.vercel.app/sitemap.xml
