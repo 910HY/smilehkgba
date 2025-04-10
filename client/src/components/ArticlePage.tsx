@@ -11,8 +11,33 @@ interface ArticlePageProps {
 }
 
 const ArticlePage: React.FC<ArticlePageProps> = ({ article, onTagClick }) => {
-  // 將文章內容按段落分割
-  const contentParagraphs = article.content.split('\n\n').filter(p => p.trim().length > 0);
+  // 判斷文章內容是否為HTML格式
+  const isHtmlContent = article.content.includes('<') && article.content.includes('>');
+  
+  // 根據內容類型處理顯示
+  const renderContent = () => {
+    if (isHtmlContent) {
+      // 如果是HTML，使用dangerouslySetInnerHTML渲染
+      return (
+        <div 
+          className="prose prose-invert prose-lg max-w-none mb-12"
+          dangerouslySetInnerHTML={{ __html: article.content }}
+        />
+      );
+    } else {
+      // 如果是純文本，按段落分割顯示
+      const contentParagraphs = article.content.split('\n\n').filter(p => p.trim().length > 0);
+      return (
+        <div className="prose prose-invert prose-lg max-w-none mb-12">
+          {contentParagraphs.map((paragraph, index) => (
+            <p key={index} className="text-slate-300">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      );
+    }
+  };
   
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -53,14 +78,8 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ article, onTagClick }) => {
         </p>
       </div>
       
-      {/* 文章內容 */}
-      <div className="prose prose-invert prose-lg max-w-none mb-12">
-        {contentParagraphs.map((paragraph, index) => (
-          <p key={index} className="text-slate-300">
-            {paragraph}
-          </p>
-        ))}
-      </div>
+      {/* 文章內容 - 使用條件渲染 */}
+      {renderContent()}
       
       {/* 文章來源 */}
       {article.sources && article.sources.length > 0 && (
