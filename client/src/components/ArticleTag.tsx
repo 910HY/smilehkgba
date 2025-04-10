@@ -2,7 +2,7 @@ import React from 'react';
 
 interface ArticleTagProps {
   tag: string;
-  onClick?: (e: React.MouseEvent) => void;
+  onClick?: (e: React.MouseEvent<HTMLSpanElement>) => void;
   isActive?: boolean;
 }
 

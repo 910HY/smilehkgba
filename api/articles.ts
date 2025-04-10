@@ -1,42 +1,32 @@
 import fs from 'fs';
 import path from 'path';
+import { Article } from '../client/src/types/article';
+
+const articlesDir = path.join(process.cwd(), 'content/articles');
 
 /**
  * 獲取所有文章的API端點
  */
 export default function handler(req: any, res: any) {
   try {
-    const contentDir = path.join(process.cwd(), 'content', 'articles');
+    // 讀取articles目錄
+    const files = fs.readdirSync(articlesDir).filter(file => file.endsWith('.json'));
     
-    // 確保目錄存在
-    if (!fs.existsSync(contentDir)) {
-      console.error('文章目錄不存在:', contentDir);
-      return res.status(404).json({ error: '找不到文章' });
-    }
-    
-    const files = fs.readdirSync(contentDir);
-    const articles = files
-      .filter(file => file.endsWith('.json'))
-      .map(file => {
-        const filePath = path.join(contentDir, file);
-        const fileContent = fs.readFileSync(filePath, 'utf8');
-        try {
-          return JSON.parse(fileContent);
-        } catch (error) {
-          console.error(`解析文章時出錯: ${file}`, error);
-          return null;
-        }
-      })
-      .filter(article => article !== null);
+    // 讀取每個文章文件並解析JSON
+    const articles = files.map(file => {
+      const filePath = path.join(articlesDir, file);
+      const fileContent = fs.readFileSync(filePath, 'utf8');
+      return JSON.parse(fileContent) as Article;
+    });
     
     // 根據發佈日期排序（最新的在前）
-    articles.sort((a, b) => 
+    const sortedArticles = articles.sort((a, b) => 
       new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
     );
     
-    return res.status(200).json(articles);
+    res.status(200).json(sortedArticles);
   } catch (error) {
-    console.error('獲取文章時出錯:', error);
-    return res.status(500).json({ error: '服務器錯誤' });
+    console.error('讀取文章列表時出錯:', error);
+    res.status(500).json({ error: '無法獲取文章列表' });
   }
 }

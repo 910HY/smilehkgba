@@ -14,7 +14,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, onTagClick }) => {
   const { title, slug, summary, tags, publishedAt } = article;
   
   // 處理標籤點擊
-  const handleTagClick = (tag: string, e: React.MouseEvent) => {
+  const handleTagClick = (tag: string, e: React.MouseEvent<HTMLSpanElement>) => {
     e.preventDefault(); // 防止導航到文章詳情頁
     if (onTagClick) {
       onTagClick(tag);
@@ -41,7 +41,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, onTagClick }) => {
               <ArticleTag 
                 key={tag} 
                 tag={tag} 
-                onClick={onTagClick ? (e) => handleTagClick(tag, e as React.MouseEvent) : undefined}
+                onClick={onTagClick ? (e: React.MouseEvent<HTMLSpanElement>) => handleTagClick(tag, e) : undefined}
               />
             ))}
           </div>
