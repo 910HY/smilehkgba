@@ -8,9 +8,10 @@ import { formatDate } from '../lib/utils';
 interface ArticleCardProps {
   article: Article;
   onTagClick?: (tag: string) => void;
+  isPromotion?: boolean; // 新增屬性，用來標識是否為優惠文章
 }
 
-const ArticleCard: React.FC<ArticleCardProps> = ({ article, onTagClick }) => {
+const ArticleCard: React.FC<ArticleCardProps> = ({ article, onTagClick, isPromotion = false }) => {
   const { title, slug, summary, tags, publishedAt } = article;
   
   // 處理標籤點擊
@@ -21,9 +22,19 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, onTagClick }) => {
     }
   };
   
+  // 根據類型確定文章的URL路徑
+  const articlePath = isPromotion ? `/promotions/${slug}` : `/articles/${slug}`;
+  
   return (
     <div className="bg-slate-800 border border-slate-700 rounded-lg p-5 flex flex-col h-full">
       <div className="flex-grow">
+        {/* 文章類型標記 */}
+        {isPromotion && (
+          <div className="bg-orange-600 text-white text-xs font-bold py-1 px-2 rounded mb-2 inline-block">
+            優惠
+          </div>
+        )}
+        
         <h3 className="text-xl font-bold text-white mb-2 line-clamp-2">
           {title}
         </h3>
@@ -48,12 +59,12 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, onTagClick }) => {
         )}
       </div>
       
-      <Link href={`/articles/${slug}`}>
+      <Link href={articlePath}>
         <Button 
           variant="outline" 
           className="w-full border-orange-500 text-orange-400 hover:bg-orange-500 hover:text-white"
         >
-          閱讀全文
+          {isPromotion ? '查看優惠' : '閱讀全文'}
         </Button>
       </Link>
     </div>

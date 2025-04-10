@@ -120,7 +120,8 @@ const PromotionsPage: React.FC = () => {
             <ArticleCard 
               key={promotion.slug} 
               article={promotion} 
-              onTagClick={handleTagClick} 
+              onTagClick={handleTagClick}
+              isPromotion={true}
             />
           ))
         ) : (

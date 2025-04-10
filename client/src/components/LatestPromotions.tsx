@@ -102,6 +102,7 @@ const LatestPromotions: React.FC<LatestPromotionsProps> = ({ limit = 3 }) => {
             <ArticleCard 
               key={promotion.slug} 
               article={promotion}
+              isPromotion={true}
             />
           ))}
         </div>
