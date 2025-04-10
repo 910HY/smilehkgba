@@ -1,0 +1,30 @@
+[
+  {
+    "name": "仁樺口腔（福田店）",
+    "region": "福田區",
+    "address": "深圳市福田區xx街仁樺大廈1樓",
+    "rating": 4.6,
+    "is_chain": true,
+    "services": [
+      "洗牙",
+      "矯正",
+      "美白"
+    ],
+    "priceInfo": "洗牙 ¥138 起",
+    "sourceLink": "https://www.dianping.com/shop/xxx123"
+  },
+  {
+    "name": "維港口腔（南山中心）",
+    "region": "南山區",
+    "address": "深圳市南山區科技園北路8號",
+    "rating": 4.7,
+    "is_chain": true,
+    "services": [
+      "洗牙",
+      "補牙",
+      "種牙"
+    ],
+    "priceInfo": "冷光美白 ¥980 起",
+    "sourceLink": "https://www.dianping.com/shop/xxx456"
+  }
+]

@@ -26,7 +26,7 @@ export default function handler(req: any, res: any) {
     console.log('API 請求: /api/filtered-clinics');
     
     // 讀取優質深圳診所資料
-    const filteredClinicsPath = path.join(rootDir, 'attached_assets', 'shenzhen_clinics_filtered.json');
+    const filteredClinicsPath = path.join(rootDir, 'attached_assets', 'shenzhen_dental_clinics_filtered.json');
     console.log('使用優質深圳診所數據文件:', filteredClinicsPath);
     
     const filteredClinicsRaw = readJsonFile(filteredClinicsPath);
