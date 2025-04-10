@@ -7,10 +7,13 @@ import NoResults from "./components/NoResults";
 import Footer from "./components/Footer";
 import Pagination from "./components/Pagination";
 import LatestArticles from "./components/LatestArticles";
+import LatestPromotions from "./components/LatestPromotions";
 import ReportPage from "./pages/ReportPage";
 import NotFound from "./pages/not-found";
 import ArticleIndex from "./pages/articles/index";
 import ArticleDetail from "./pages/articles/[slug]";
+import PromotionIndex from "./pages/promotions/index";
+import PromotionDetail from "./pages/promotions/[slug]";
 import { Clinic } from "./types/clinic";
 import { Toaster } from "@/components/ui/toaster";
 import { useQuery } from "@tanstack/react-query";
@@ -246,6 +249,18 @@ function App() {
           <Footer />
         </Route>
         
+        <Route path="/promotions/:slug">
+          <Header />
+          <PromotionDetail />
+          <Footer />
+        </Route>
+        
+        <Route path="/promotions">
+          <Header />
+          <PromotionIndex />
+          <Footer />
+        </Route>
+        
         <Route path="/">
           <div className="container mx-auto px-4 py-6 max-w-7xl">
             <Header />
@@ -337,6 +352,9 @@ function App() {
             
             {/* 在首頁添加最新文章區塊 */}
             <LatestArticles limit={3} />
+            
+            {/* 在首頁添加最新優惠區塊 */}
+            <LatestPromotions limit={3} />
             
             <Footer />
           </div>

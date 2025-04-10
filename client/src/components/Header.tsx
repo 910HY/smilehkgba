@@ -9,6 +9,7 @@ const Header = () => {
   // 判斷當前頁面
   const isHome = location === '/';
   const isArticles = location.startsWith('/articles');
+  const isPromotions = location.startsWith('/promotions');
   const isReport = location === '/report';
   
   // 使用行內樣式確保顯示正確
@@ -130,6 +131,9 @@ const Header = () => {
             </Link>
             <Link href="/articles">
               <span style={isArticles ? activeNavItemStyle : navItemStyle}>關心你啲牙</span>
+            </Link>
+            <Link href="/promotions">
+              <span style={isPromotions ? activeNavItemStyle : navItemStyle}>優惠牙</span>
             </Link>
           </nav>
         </div>
