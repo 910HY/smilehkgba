@@ -79,6 +79,11 @@ async function startStaticServer() {
       
       // 處理深圳診所數據，添加缺失的字段
       const szData = szRawData.map((clinic) => {
+        // 將 is_chain 轉換為 isChain
+        if (clinic.is_chain !== undefined && clinic.isChain === undefined) {
+          clinic.isChain = clinic.is_chain;
+        }
+        
         if (!clinic.region_en) {
           // 根據region添加region_en和region_code
           let region = clinic.region || clinic.district || '';
@@ -240,6 +245,11 @@ async function startStaticServer() {
       
       // 處理深圳診所數據，添加缺失的字段
       const data = szRawData.map((clinic) => {
+        // 將 is_chain 轉換為 isChain
+        if (clinic.is_chain !== undefined && clinic.isChain === undefined) {
+          clinic.isChain = clinic.is_chain;
+        }
+        
         if (!clinic.region_en) {
           // 根據region添加region_en和region_code
           let region = clinic.region || clinic.district || '';
