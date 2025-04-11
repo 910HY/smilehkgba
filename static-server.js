@@ -410,12 +410,19 @@ async function startStaticServer() {
       const files = fs.readdirSync(articlesDir).filter(file => file.endsWith('.json'));
       console.log(`找到 ${files.length} 篇文章`);
       
-      // 讀取每個文章文件並解析JSON
-      const articles = files.map(file => {
-        const filePath = path.join(articlesDir, file);
-        const fileContent = fs.readFileSync(filePath, 'utf8');
-        return JSON.parse(fileContent);
-      });
+      // 讀取每個文章文件並解析JSON，忽略有錯誤的文件
+      const articles = [];
+      for (const file of files) {
+        try {
+          const filePath = path.join(articlesDir, file);
+          const fileContent = fs.readFileSync(filePath, 'utf8');
+          const article = JSON.parse(fileContent);
+          articles.push(article);
+        } catch (parseError) {
+          console.error(`解析文章文件失敗: ${file}`, parseError);
+          // 忽略錯誤的文件，繼續處理其他文件
+        }
+      }
       
       // 根據發佈日期排序（最新的在前）
       const sortedArticles = articles.sort((a, b) => 
@@ -453,13 +460,18 @@ async function startStaticServer() {
       let foundArticle = null;
       
       for (const file of files) {
-        const filePath = path.join(articlesDir, file);
-        const fileContent = fs.readFileSync(filePath, 'utf8');
-        const article = JSON.parse(fileContent);
-        
-        if (article.slug === slug) {
-          foundArticle = article;
-          break;
+        try {
+          const filePath = path.join(articlesDir, file);
+          const fileContent = fs.readFileSync(filePath, 'utf8');
+          const article = JSON.parse(fileContent);
+          
+          if (article.slug === slug) {
+            foundArticle = article;
+            break;
+          }
+        } catch (parseError) {
+          console.error(`解析文章文件失敗: ${file}`, parseError);
+          // 忽略錯誤的文件，繼續處理其他文件
         }
       }
       
@@ -491,12 +503,19 @@ async function startStaticServer() {
       const files = fs.readdirSync(promotionsDir).filter(file => file.endsWith('.json'));
       console.log(`找到 ${files.length} 篇優惠文章`);
       
-      // 讀取每個優惠文章文件並解析JSON
-      const promotions = files.map(file => {
-        const filePath = path.join(promotionsDir, file);
-        const fileContent = fs.readFileSync(filePath, 'utf8');
-        return JSON.parse(fileContent);
-      });
+      // 讀取每個優惠文章文件並解析JSON，忽略有錯誤的文件
+      const promotions = [];
+      for (const file of files) {
+        try {
+          const filePath = path.join(promotionsDir, file);
+          const fileContent = fs.readFileSync(filePath, 'utf8');
+          const promotion = JSON.parse(fileContent);
+          promotions.push(promotion);
+        } catch (parseError) {
+          console.error(`解析優惠文章文件失敗: ${file}`, parseError);
+          // 忽略錯誤的文件，繼續處理其他文件
+        }
+      }
       
       // 根據發佈日期排序（最新的在前）
       const sortedPromotions = promotions.sort((a, b) => 
@@ -534,13 +553,18 @@ async function startStaticServer() {
       let foundPromotion = null;
       
       for (const file of files) {
-        const filePath = path.join(promotionsDir, file);
-        const fileContent = fs.readFileSync(filePath, 'utf8');
-        const promotion = JSON.parse(fileContent);
-        
-        if (promotion.slug === slug) {
-          foundPromotion = promotion;
-          break;
+        try {
+          const filePath = path.join(promotionsDir, file);
+          const fileContent = fs.readFileSync(filePath, 'utf8');
+          const promotion = JSON.parse(fileContent);
+          
+          if (promotion.slug === slug) {
+            foundPromotion = promotion;
+            break;
+          }
+        } catch (parseError) {
+          console.error(`解析優惠文章文件失敗: ${file}`, parseError);
+          // 忽略錯誤的文件，繼續處理其他文件
         }
       }
       
