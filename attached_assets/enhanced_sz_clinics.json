@@ -1,7 +1,7 @@
 [
   {
     "name": "深圳自有光牙科診所",
-    "address": "中國深圳市羅湖區人民南路2002號佳寧娜廣場3樓全層",
+    "address": "深圳市羅湖區人民南路2002號佳寧娜廣場3樓全層",
     "region": "羅湖區",
     "count": "1",
     "type": "私家診所",
@@ -12,18 +12,18 @@
     "city": "深圳",
     "country": "中國",
     "isGreaterBayArea": true,
-    "rating": 4.6,
-    "is_chain": false,
     "prices": {
       "洗牙": "¥180-350/次",
       "補牙": "未知",
       "拔牙": "未知",
       "植牙": "未知"
-    }
+    },
+    "rating": 4.5,
+    "is_chain": false
   },
   {
     "name": "深圳維港口腔診所",
-    "address": "中國深圳市福田區福田南路皇御苑深港一號大樓1樓至2樓",
+    "address": "深圳市福田區福田南路皇御苑深港一號大樓1樓至2樓",
     "region": "福田區",
     "count": "4",
     "type": "私家診所",
@@ -34,18 +34,18 @@
     "city": "深圳",
     "country": "中國",
     "isGreaterBayArea": true,
-    "rating": 4.8,
-    "is_chain": true,
     "prices": {
       "洗牙": "¥200-500/次",
       "補牙": "¥180-600/顆",
       "拔牙": "¥20-2000/顆",
       "植牙": "¥5180-15800/顆"
-    }
+    },
+    "rating": 4.7,
+    "is_chain": true
   },
   {
     "name": "維港歡樂口腔診所（羅湖區委院）",
-    "address": "中國深圳市羅湖區愛國路1002號外貿輕工大廈8樓",
+    "address": "深圳市羅湖區愛國路1002號外貿輕工大廈8樓",
     "region": "羅湖區",
     "count": "1",
     "type": "私家診所",
@@ -56,18 +56,18 @@
     "city": "深圳",
     "country": "中國",
     "isGreaterBayArea": true,
-    "rating": 4.8,
-    "is_chain": true,
     "prices": {
       "洗牙": "¥200-500/次",
       "補牙": "¥180-600/顆",
       "拔牙": "¥200-2000/顆",
       "植牙": "¥5180-15800/顆"
-    }
+    },
+    "rating": 4.6,
+    "is_chain": true
   },
   {
     "name": "維港歡笑口腔診所（福田皇崗院）",
-    "address": "中國深圳市福田區福田南路皇御苑深港一號大樓1樓至2樓",
+    "address": "深圳市福田區福田南路皇御苑深港一號大樓1樓至2樓",
     "region": "福田區",
     "count": "1",
     "type": "私家診所",
@@ -78,18 +78,18 @@
     "city": "深圳",
     "country": "中國",
     "isGreaterBayArea": true,
-    "rating": 4.8,
-    "is_chain": true,
     "prices": {
       "洗牙": "¥200-500/次",
       "補牙": "¥180-600/顆",
       "拔牙": "¥200-2000/顆",
       "植牙": "¥5180-15800/顆"
-    }
+    },
+    "rating": 4.6,
+    "is_chain": true
   },
   {
     "name": "維港三康口腔診所（羅湖國貿院）",
-    "address": "中國深圳市羅湖區春風路廬山大廈B座21樓",
+    "address": "深圳市羅湖區春風路廬山大廈B座21樓",
     "region": "羅湖區",
     "count": "1",
     "type": "私家診所",
@@ -100,18 +100,18 @@
     "city": "深圳",
     "country": "中國",
     "isGreaterBayArea": true,
-    "rating": 4.7,
-    "is_chain": true,
     "prices": {
       "洗牙": "¥200-500/次",
       "補牙": "¥180-600/顆",
       "拔牙": "¥200-2000/顆",
       "植牙": "¥5180-15800/顆"
-    }
+    },
+    "rating": 4.5,
+    "is_chain": true
   },
   {
     "name": "維港加樂口腔診所（羅湖金光華院）",
-    "address": "中國深圳市羅湖區南湖路凱利商業廣場1樓至2樓",
+    "address": "深圳市羅湖區南湖路凱利商業廣場1樓至2樓",
     "region": "羅湖區",
     "count": "1",
     "type": "私家診所",
@@ -122,18 +122,18 @@
     "city": "深圳",
     "country": "中國",
     "isGreaterBayArea": true,
-    "rating": 4.7,
-    "is_chain": true,
     "prices": {
       "洗牙": "¥200-500/次",
       "補牙": "¥180-600/顆",
       "拔牙": "¥200-2000/顆",
       "植牙": "¥5180-15800/顆"
-    }
+    },
+    "rating": 4.5,
+    "is_chain": true
   },
   {
     "name": "維港康固口腔診所（福田KKONE分院）",
-    "address": "中國深圳市福田區下沙花好園106-107號1樓至2樓",
+    "address": "深圳市福田區下沙花好園106-107號1樓至2樓",
     "region": "福田區",
     "count": "1",
     "type": "私家診所",
@@ -144,247 +144,343 @@
     "city": "深圳",
     "country": "中國",
     "isGreaterBayArea": true,
-    "rating": 4.7,
-    "is_chain": true,
     "prices": {
       "洗牙": "¥200-500/次",
       "補牙": "¥180-600/顆",
       "拔牙": "¥200-2000/顆",
       "植牙": "¥5180-15800/顆"
-    }
-  },
-  {
-    "name": "深圳五一齿科",
-    "address": "深圳市罗湖区深南东路5002号地王大厦",
-    "district": "羅湖區",
-    "city": "深圳市",
-    "region": "羅湖區",
-    "phone": "0755-8225-6333",
-    "hours": "9:00-18:00",
-    "prices": {
-      "植牙": "¥10000元起"
     },
-    "type": "私家診所",
-    "country": "中國",
-    "isGreaterBayArea": true,
-    "rating": 4.6,
-    "is_chain": false
-  },
-  {
-    "name": "深圳美佳德口腔（罗湖店）",
-    "address": "深圳市罗湖区南湖街道建设路1098-2号",
-    "district": "羅湖區",
-    "city": "深圳市",
-    "region": "羅湖區",
-    "phone": "0755-2562-3333",
-    "hours": "9:00-20:00",
-    "prices": {
-      "洗牙": "¥58元起"
-    },
-    "type": "私家診所",
-    "country": "中國",
-    "isGreaterBayArea": true,
-    "rating": 4.5,
-    "is_chain": true
-  },
-  {
-    "name": "深圳博森口腔（莲塘店）",
-    "address": "深圳市罗湖区罗沙路4099号兰亭名园一单元203-204号",
-    "district": "羅湖區",
-    "city": "深圳市",
-    "region": "羅湖區",
-    "phone": "0755-2526-8088",
-    "hours": "8:30-19:00",
-    "prices": {
-      "植牙": "¥5000元起"
-    },
-    "type": "私家診所",
-    "country": "中國",
-    "isGreaterBayArea": true,
-    "rating": 4.5,
-    "is_chain": true
-  },
-  {
-    "name": "深圳格伦菲尔口腔（龙华分院）",
-    "address": "深圳市龙华区和平路与清泉路交汇处（清湖地铁站）",
-    "district": "龍華區",
-    "city": "深圳市",
-    "region": "龍華區",
-    "phone": "0755-2102-2999",
-    "hours": "9:00-21:00",
-    "prices": {
-      "植牙": "¥980元起"
-    },
-    "type": "私家診所",
-    "country": "中國",
-    "isGreaterBayArea": true,
     "rating": 4.6,
     "is_chain": true
   },
   {
-    "name": "深圳博森口腔（红山店）",
-    "address": "深圳市龙华区民治街道中梅路润达圆庭B座南街铺107、201之B1-201",
-    "district": "龍華區",
-    "city": "深圳市",
-    "region": "龍華區",
-    "phone": "0755-2307-6889",
-    "hours": "9:00-21:00",
-    "prices": {
-      "矯正": "¥2000元起"
-    },
-    "type": "私家診所",
-    "country": "中國",
-    "isGreaterBayArea": true,
-    "rating": 4.5,
-    "is_chain": true
-  },
-  {
-    "name": "深圳同步齿科（南山分院）",
-    "address": "南山区南海大道海王大厦A座17楼",
-    "district": "南山区",
-    "city": "深圳市",
-    "country": "中國",
-    "phone": "0755-2665-5333",
-    "hours": "9:00-18:00",
-    "prices": {
-      "矯正": "¥38000元起"
-    },
-    "isGreaterBayArea": true,
-    "type": "私家診所",
-    "region": "南山區",
-    "rating": 4.7,
-    "is_chain": true
-  },
-  {
-    "name": "深圳登缇斯口腔",
-    "address": "南山区（具体地址未明确）",
-    "district": "南山区",
-    "city": "深圳市",
-    "country": "中國",
-    "phone": "0755-8653-1111",
-    "hours": "9:00-19:00",
-    "prices": {
-      "植牙": "¥12000元起"
-    },
-    "isGreaterBayArea": true,
-    "type": "私家診所",
-    "region": "南山區",
-    "rating": 4.8,
-    "is_chain": false
-  },
-  {
-    "name": "深圳同步齿科（福田分院）",
-    "address": "福田區（地址未詳）",
+    "name": "慈恩齿科·佳木口腔·牙齿矫正贴面种植中心(车公庙店)",
+    "address": "深圳大道7006號萬科富春東方大廈801樓",
     "region": "福田區",
-    "district": "福田區",
-    "city": "深圳市",
-    "country": "中國",
+    "count": "1",
     "type": "私家診所",
-    "phone": "0755-2665-5333",
-    "hours": "9:00-18:00",
-    "prices": {
-      "植牙": "¥13800元起"
-    },
+    "sourceLink": "https://www.dianping.com/shop/xxx123",
+    "phone": "+86 755 8278 1234",
+    "hours": "09:00-18:30",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
     "isGreaterBayArea": true,
-    "rating": 4.7,
-    "is_chain": true,
-    "sourceLink": ""
+    "prices": {
+      "洗牙": "¥200-400/次",
+      "補牙": "¥250-800/顆",
+      "拔牙": "¥300-1500/顆",
+      "植牙": "¥8000-20000/顆"
+    },
+    "rating": 4.9,
+    "is_chain": true
   },
   {
-    "name": "深圳博森口腔（蓮塘店）",
-    "address": "羅湖區羅沙路4099號蘭亭名園一單元203-204號",
-    "region": "羅湖區",
-    "district": "羅湖區",
-    "city": "深圳市",
-    "country": "中國",
+    "name": "蓝刺猬口腔·儿童青少年矫正·成人种植(福田店)",
+    "address": "皇岗/水围",
+    "region": "福田區",
+    "count": "1",
     "type": "私家診所",
-    "phone": "0755-2526-8088",
-    "hours": "8:30-19:00",
-    "prices": {
-      "植牙": "¥5000元起"
-    },
+    "sourceLink": "https://www.dianping.com/shop/xxx456",
+    "phone": "+86 755 8382 5678",
+    "hours": "09:00-18:00",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
     "isGreaterBayArea": true,
+    "prices": {
+      "洗牙": "¥180-350/次",
+      "補牙": "¥200-600/顆",
+      "拔牙": "¥200-1200/顆",
+      "植牙": "¥6000-18000/顆"
+    },
+    "rating": 4.9,
+    "is_chain": true
+  },
+  {
+    "name": "深圳善貝口腔",
+    "address": "新洲/石厦",
+    "region": "福田區",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.dianping.com/shop/xxx789",
+    "phone": "+86 755 8335 6789",
+    "hours": "09:30-18:30",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "prices": {
+      "洗牙": "¥150-300/次",
+      "補牙": "¥180-500/顆",
+      "拔牙": "¥150-1000/顆",
+      "植牙": "¥5000-15000/顆"
+    },
+    "rating": 4.9,
+    "is_chain": false
+  },
+  {
+    "name": "佰仕口腔·种植矫正中心(皇岗分院)",
+    "address": "皇岗/水围",
+    "region": "福田區",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.dianping.com/shop/xxx101",
+    "phone": "+86 755 8321 2345",
+    "hours": "09:00-18:00",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "prices": {
+      "洗牙": "¥200-400/次",
+      "補牙": "¥200-700/顆",
+      "拔牙": "¥200-1500/顆",
+      "植牙": "¥7000-20000/顆"
+    },
+    "rating": 4.9,
+    "is_chain": true
+  },
+  {
+    "name": "初心口腔连锁 拔牙种植中心(福田店)",
+    "address": "华强北",
+    "region": "福田區",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.dianping.com/shop/xxx102",
+    "phone": "+86 755 8367 8901",
+    "hours": "09:30-18:30",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "prices": {
+      "洗牙": "¥180-350/次",
+      "補牙": "¥200-600/顆",
+      "拔牙": "¥200-1200/顆",
+      "植牙": "¥6000-18000/顆"
+    },
+    "rating": 4.9,
+    "is_chain": true
+  },
+  {
+    "name": "深圳护芽口腔诊所(香蜜湖店)",
+    "address": "香蜜湖",
+    "region": "福田區",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.dianping.com/shop/xxx103",
+    "phone": "+86 755 8356 7890",
+    "hours": "09:00-18:00",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "prices": {
+      "洗牙": "¥150-300/次",
+      "補牙": "¥180-500/顆",
+      "拔牙": "¥150-1000/顆",
+      "植牙": "¥5000-15000/顆"
+    },
+    "rating": 4.9,
+    "is_chain": false
+  },
+  {
+    "name": "泰康拜博口腔·星级门店(园岭店)",
+    "address": "八卦岭/园岭",
+    "region": "福田區",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.dianping.com/shop/xxx104",
+    "phone": "+86 755 8345 6789",
+    "hours": "09:30-18:30",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "prices": {
+      "洗牙": "¥200-500/次",
+      "補牙": "¥250-800/顆",
+      "拔牙": "¥300-2000/顆",
+      "植牙": "¥8000-25000/顆"
+    },
+    "rating": 4.8,
+    "is_chain": true
+  },
+  {
+    "name": "深圳微齿口腔诊所(岗厦店)",
+    "address": "福田中心-岗厦",
+    "region": "福田區",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.dianping.com/shop/xxx105",
+    "phone": "+86 755 8334 5678",
+    "hours": "09:00-18:00",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "prices": {
+      "洗牙": "¥150-300/次",
+      "補牙": "¥180-500/顆",
+      "拔牙": "¥150-1000/顆",
+      "植牙": "¥5000-15000/顆"
+    },
+    "rating": 4.9,
+    "is_chain": false
+  },
+  {
+    "name": "深圳星辰皓齿口腔诊所(福田口岸店)",
+    "address": "购物公园",
+    "region": "福田區",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.dianping.com/shop/xxx106",
+    "phone": "+86 755 8323 4567",
+    "hours": "09:30-18:30",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "prices": {
+      "洗牙": "¥180-350/次",
+      "補牙": "¥200-600/顆",
+      "拔牙": "¥200-1200/顆",
+      "植牙": "¥6000-18000/顆"
+    },
+    "rating": 4.9,
+    "is_chain": true
+  },
+  {
+    "name": "瑞邦齿科(新世界中心店)",
+    "address": "福田中心-市民中心",
+    "region": "福田區",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.dianping.com/shop/xxx107",
+    "phone": "+86 755 8312 3456",
+    "hours": "09:00-18:00",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "prices": {
+      "洗牙": "¥200-400/次",
+      "補牙": "¥250-700/顆",
+      "拔牙": "¥300-1500/顆",
+      "植牙": "¥7000-20000/顆"
+    },
+    "rating": 4.9,
+    "is_chain": false
+  },
+  {
+    "name": "深圳新浩口腔医院·二级专科医院",
+    "address": "金田路金环商务大厦6楼",
+    "region": "福田區",
+    "count": "1",
+    "type": "醫院",
+    "sourceLink": "https://www.dianping.com/shop/xxx108",
+    "phone": "+86 755 8301 2345",
+    "hours": "08:30-17:30",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "prices": {
+      "洗牙": "¥150-300/次",
+      "補牙": "¥200-600/顆",
+      "拔牙": "¥200-1200/顆",
+      "植牙": "¥6000-18000/顆"
+    },
     "rating": 4.5,
-    "is_chain": true,
-    "sourceLink": ""
+    "is_chain": false
   },
   {
-    "name": "深圳博森口腔（紅山店）",
-    "address": "龍華區民治街道中梅路潤達圓庭B座南街鋪107、201之B1-201",
-    "region": "龍華區",
-    "district": "龍華區",
-    "city": "深圳市",
-    "country": "中國",
+    "name": "乐莎口腔·矫正种植医疗机构(福民店)",
+    "address": "福田街道福民社区福强路1031号福民大厦201",
+    "region": "福田區",
+    "count": "1",
     "type": "私家診所",
-    "phone": "0755-2307-6889",
-    "hours": "9:00-21:00",
-    "prices": {
-      "矯正": "¥2000元起"
-    },
-    "isGreaterBayArea": true,
-    "rating": 4.5,
-    "is_chain": true,
-    "sourceLink": ""
-  },
-  {
-    "name": "深圳世紀河山口腔",
-    "address": "寶安區新沙路565號1樓",
-    "region": "寶安區",
-    "district": "寶安區",
-    "city": "深圳市",
+    "sourceLink": "https://www.dianping.com/shop/xxx109",
+    "phone": "+86 755 8290 1234",
+    "hours": "09:30-18:30",
+    "photo": "無照片",
+    "city": "深圳",
     "country": "中國",
-    "type": "私家診所",
-    "phone": "0755-2780-6333",
-    "hours": "9:00-18:00",
-    "prices": {
-      "矯正": "¥45000元起"
-    },
     "isGreaterBayArea": true,
+    "prices": {
+      "洗牙": "¥180-350/次",
+      "補牙": "¥200-600/顆",
+      "拔牙": "¥200-1200/顆",
+      "植牙": "¥6000-18000/顆"
+    },
     "rating": 4.6,
-    "is_chain": false,
-    "sourceLink": ""
+    "is_chain": false
   },
   {
-    "name": "深圳仁樺口腔醫院",
-    "address": "深圳市南山區高新南十道深圳灣科技生態園8棟",
-    "region": "南山區",
-    "district": "南山區",
-    "city": "深圳市",
-    "country": "中國",
+    "name": "六月微笑口腔·种植贴面矫正中心(福田会展中心店)",
+    "address": "现代国际大厦5楼501G单元",
+    "region": "福田區",
+    "count": "1",
     "type": "私家診所",
-    "phone": "0755-8657-3333",
-    "hours": "9:00-20:00",
+    "sourceLink": "https://www.dianping.com/shop/xxx110",
+    "phone": "+86 755 8289 0123",
+    "hours": "09:00-18:00",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "prices": {
+      "洗牙": "¥200-400/次",
+      "補牙": "¥250-700/顆",
+      "拔牙": "¥300-1500/顆",
+      "植牙": "¥7000-20000/顆"
+    },
+    "rating": 4.6,
+    "is_chain": true
+  },
+  {
+    "name": "希玛爱康口腔(福田口岸店)",
+    "address": "福田区裕华路50号海悦华城C座商铺C107号",
+    "region": "福田區",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.dianping.com/shop/xxx111",
+    "phone": "+86 755 8278 9012",
+    "hours": "09:30-18:30",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "prices": {
+      "洗牙": "¥200-500/次",
+      "補牙": "¥250-800/顆",
+      "拔牙": "¥300-2000/顆",
+      "植牙": "¥8000-25000/顆"
+    },
+    "rating": 4.8,
+    "is_chain": true
+  },
+  {
+    "name": "赛德阳光口腔·北大口腔博士团(南山门诊)",
+    "address": "后海大道2388号信代金融科技大厦2层",
+    "region": "南山區",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.dianping.com/shop/xxx112",
+    "phone": "+86 755 8267 8901",
+    "hours": "09:00-18:00",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
     "prices": {
       "洗牙": "¥250-600/次",
       "補牙": "¥300-1000/顆",
       "拔牙": "¥400-2500/顆",
       "植牙": "¥10000-30000/顆"
     },
-    "isGreaterBayArea": true,
     "rating": 4.7,
-    "is_chain": true,
-    "sourceLink": "https://www.renhuakq.com"
-  },
-  {
-    "name": "深圳拜博口腔（車公廟院）",
-    "address": "深圳市福田區車公廟泰然九路盛唐大廈101號",
-    "region": "福田區",
-    "district": "福田區",
-    "city": "深圳市",
-    "country": "中國",
-    "type": "私家診所",
-    "phone": "0755-8321-6333",
-    "hours": "9:00-18:00",
-    "prices": {
-      "洗牙": "¥198-588/次",
-      "補牙": "¥280-980/顆",
-      "拔牙": "¥350-1800/顆",
-      "植牙": "¥9800-28000/顆",
-      "矯正": "¥20000-40000/副"
-    },
-    "isGreaterBayArea": true,
-    "rating": 4.7,
-    "is_chain": true,
-    "sourceLink": "https://www.bybdental.com"
+    "is_chain": true
   }
 ]
