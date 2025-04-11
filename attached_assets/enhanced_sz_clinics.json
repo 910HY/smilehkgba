@@ -1,0 +1,92 @@
+[
+  {
+    "name": "深圳自有光牙科診所",
+    "address": "深圳市羅湖區人民南路2002號佳寧娜廣場3樓全層",
+    "region": "羅湖區",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://mybeame.com/",
+    "phone": "+852 5388 7318",
+    "hours": "09:00-19:00",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "prices": {
+      "洗牙": "¥180-350/次",
+      "補牙": "未知",
+      "拔牙": "未知",
+      "植牙": "未知"
+    },
+    "rating": 4.6,
+    "isChain": false
+  },
+  {
+    "name": "維港口腔深圳羅湖旗艦店",
+    "address": "深圳市羅湖區火車站廣場榮超商務中心8樓",
+    "region": "羅湖區",
+    "count": "1", 
+    "type": "私家診所",
+    "sourceLink": "https://www.vibrantdental.com.hk/cn/shenzhen/",
+    "phone": "135 3089 9630",
+    "hours": "09:00-19:00",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "prices": {
+      "洗牙": "¥380-600/次",
+      "補牙": "¥380-1000/顆",
+      "拔牙": "¥280-1500/顆",
+      "植牙": "¥15000-25000/顆",
+      "矯正": "¥15000-30000/副"
+    },
+    "rating": 4.8,
+    "isChain": true
+  },
+  {
+    "name": "仁樺口腔萬象天地店",
+    "address": "深圳市南山區萬象天地B館L4-19B",
+    "region": "南山區",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.renhuakq.com",
+    "phone": "0755-2682-9333",
+    "hours": "10:00-21:00",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "prices": {
+      "洗牙": "¥360-600/次",
+      "補牙": "¥360-980/顆",
+      "拔牙": "¥300-2000/顆",
+      "植牙": "¥12000-30000/顆",
+      "矯正": "¥8000-60000/副"
+    },
+    "rating": 4.9,
+    "isChain": true
+  },
+  {
+    "name": "美奧口腔南山旗艦店",
+    "address": "南山区南海大道2289号天利中央广场A座3楼",
+    "region": "南山區",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.dianping.com/shop/l9tTM4yc1UTukgYo",
+    "phone": "0755-2683-1919",
+    "hours": "09:30-18:30",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "prices": {
+      "洗牙": "¥300-600/次",
+      "補牙": "¥350-900/顆",
+      "拔牙": "¥400-2200/顆",
+      "植牙": "¥9800-28000/顆"
+    },
+    "rating": 4.8,
+    "isChain": true
+  }
+]
