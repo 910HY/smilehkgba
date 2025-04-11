@@ -7,7 +7,8 @@ export default function handler(req: any, res: any) {
     console.log('API 請求: /api/sz-clinics');
     
     // 嘗試讀取深圳診所數據文件（使用增強版深圳診所數據）
-    // 優先使用enhanced_sz_clinics.json，如果不存在則嘗試其他選項
+    // 嘗試在多個位置查找診所數據文件，優先使用public/api/data目錄中的文件（Vercel部署時使用）
+    const publicApiEnhancedSzPath = path.join(rootDir, 'public', 'api', 'data', 'enhanced_sz_clinics.json');
     const enhancedSzFilePath = path.join(rootDir, 'attached_assets', 'enhanced_sz_clinics.json');
     const fixedSzFilePath = path.join(rootDir, 'attached_assets', 'fixed_sz_clinics.json');
     const validSzFilePath = path.join(rootDir, 'attached_assets', 'shenzhen_dental_clinics_valid.json');
@@ -16,6 +17,7 @@ export default function handler(req: any, res: any) {
     
     // 按優先順序選擇第一個可用的文件
     const szFilePath = 
+          fs.existsSync(publicApiEnhancedSzPath) ? publicApiEnhancedSzPath :
           fs.existsSync(enhancedSzFilePath) ? enhancedSzFilePath :
           fs.existsSync(fixedSzFilePath) ? fixedSzFilePath :
           fs.existsSync(validSzFilePath) ? validSzFilePath :

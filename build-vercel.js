@@ -26,33 +26,77 @@ const promotionsDir = path.join(rootContentDir, 'promotions');
 // 處理診所數據文件
 console.log('📂 處理診所數據文件...');
 const attachedAssetsDir = path.join(process.cwd(), 'attached_assets');
+const publicApiDir = path.join(process.cwd(), 'public', 'api');
+const apiDataDir = path.join(publicApiDir, 'data');
+
+// 確保API數據目錄存在
+if (!fs.existsSync(publicApiDir)) {
+  fs.mkdirSync(publicApiDir, { recursive: true });
+  console.log(`✅ 已創建API目錄: ${publicApiDir}`);
+}
+
+if (!fs.existsSync(apiDataDir)) {
+  fs.mkdirSync(apiDataDir, { recursive: true });
+  console.log(`✅ 已創建API數據目錄: ${apiDataDir}`);
+}
+
 if (fs.existsSync(attachedAssetsDir)) {
-  // 處理深圳診所數據
-  const szFileName = 'shenzhen_dental_clinics_20250407.json';
-  const szFilePath = path.join(attachedAssetsDir, szFileName);
+  // 處理深圳診所數據 - 依照優先順序複製
+  const szFileNames = [
+    'enhanced_sz_clinics.json',  // 優先使用增強版
+    'fixed_sz_clinics.json',     // 備選使用修復版
+    'shenzhen_dental_clinics_valid.json',  // 備選使用有效版
+    'shenzhen_dental_clinics_20250407.json'  // 最後使用原始版
+  ];
   
-  if (fs.existsSync(szFilePath)) {
-    console.log(`✅ 找到深圳診所數據: ${szFileName}`);
-  } else {
-    console.log(`⚠️ 找不到深圳診所數據: ${szFileName}`);
+  let szFileCopied = false;
+  for (const fileName of szFileNames) {
+    const srcPath = path.join(attachedAssetsDir, fileName);
+    const destPath = path.join(apiDataDir, 'enhanced_sz_clinics.json'); // 統一目標名稱
+    
+    if (fs.existsSync(srcPath) && !szFileCopied) {
+      try {
+        fs.copyFileSync(srcPath, destPath);
+        console.log(`✅ 已複製深圳診所數據: ${fileName} -> enhanced_sz_clinics.json`);
+        szFileCopied = true;
+      } catch (e) {
+        console.log(`⚠️ 複製深圳診所數據失敗: ${fileName}`, e);
+      }
+    }
+  }
+  
+  if (!szFileCopied) {
+    console.log(`⚠️ 未能找到任何可用的深圳診所數據文件`);
   }
   
   // 處理香港診所數據
   const hkFileName = 'clinic_list_hkcss_cleaned.json';
-  const hkFilePath = path.join(attachedAssetsDir, hkFileName);
+  const hkSrcPath = path.join(attachedAssetsDir, hkFileName);
+  const hkDestPath = path.join(apiDataDir, hkFileName);
   
-  if (fs.existsSync(hkFilePath)) {
-    console.log(`✅ 找到香港診所數據: ${hkFileName}`);
+  if (fs.existsSync(hkSrcPath)) {
+    try {
+      fs.copyFileSync(hkSrcPath, hkDestPath);
+      console.log(`✅ 已複製香港診所數據: ${hkFileName}`);
+    } catch (e) {
+      console.log(`⚠️ 複製香港診所數據失敗: ${hkFileName}`, e);
+    }
   } else {
     console.log(`⚠️ 找不到香港診所數據: ${hkFileName}`);
   }
   
   // 處理NGO診所數據
   const ngoFileName = 'ngo_clinics_cleaned.json';
-  const ngoFilePath = path.join(attachedAssetsDir, ngoFileName);
+  const ngoSrcPath = path.join(attachedAssetsDir, ngoFileName);
+  const ngoDestPath = path.join(apiDataDir, ngoFileName);
   
-  if (fs.existsSync(ngoFilePath)) {
-    console.log(`✅ 找到NGO診所數據: ${ngoFileName}`);
+  if (fs.existsSync(ngoSrcPath)) {
+    try {
+      fs.copyFileSync(ngoSrcPath, ngoDestPath);
+      console.log(`✅ 已複製NGO診所數據: ${ngoFileName}`);
+    } catch (e) {
+      console.log(`⚠️ 複製NGO診所數據失敗: ${ngoFileName}`, e);
+    }
   } else {
     console.log(`⚠️ 找不到NGO診所數據: ${ngoFileName}`);
   }
