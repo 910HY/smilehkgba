@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../src/components/Header";
 import SearchPanel from "../src/components/SearchPanel";
 import ClinicCard from "../src/components/ClinicCard";
@@ -8,10 +8,10 @@ import Pagination from "../src/components/Pagination";
 import LatestArticles from "../src/components/LatestArticles";
 import LatestPromotions from "../src/components/LatestPromotions";
 import { Clinic } from "../src/types/clinic";
-import { Toaster } from "@/components/ui/toaster";
 import { useQuery } from "@tanstack/react-query";
 import { fetchClinicData } from "../src/lib/clinic-data";
 import { detailedRegions } from "../src/lib/regions";
+import Toaster from "../src/components/ui/toaster";
 
 export default function HomePage() {
   const [searchParams, setSearchParams] = useState({
