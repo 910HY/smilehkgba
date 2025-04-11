@@ -110,7 +110,7 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
         </div>
         
         {/* 大眾評分與連鎖經營顯示（針對大灣區診所） - 這部分在地圖按鈕前面 */}
-        {clinic.isGreaterBayArea && (clinic.rating || clinic.isChain) && (
+        {clinic.isGreaterBayArea && (clinic.rating || clinic.isChain || clinic.is_chain) && (
           <div className="mb-3 flex flex-wrap justify-between items-center p-2 bg-[#1a1a1a] rounded-lg border border-[#333]">
             {clinic.rating && (
               <div className="flex items-center text-[#ffaa40]">
@@ -119,7 +119,7 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
               </div>
             )}
             
-            {clinic.isChain && (
+            {(clinic.isChain || clinic.is_chain) && (
               <div className="bg-blue-600 text-white text-xs px-2 py-1 rounded">
                 連鎖經營
               </div>

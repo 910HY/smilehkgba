@@ -120,8 +120,8 @@ app.get('/api/clinics', (req, res) => {
         const hours = clinic.hours || clinic.opening_hours || '';
         const type = clinic.type === '私營' ? '私家診所' : (clinic.type || '私家診所');
         
-        // 判斷診所是否為連鎖經營
-        let isChain = false;
+        // 保留現有的連鎖經營標識，但是使用is_chain字段
+        let is_chain = false;
         // 根據診所名稱判斷是否為連鎖店
         if (
           clinic.name.includes('維港') || 
@@ -134,7 +134,7 @@ app.get('/api/clinics', (req, res) => {
           clinic.name.includes('同步齿科') ||
           clinic.count && parseInt(clinic.count) > 1
         ) {
-          isChain = true;
+          is_chain = true;
         }
         
         // 隨機生成4.5到5.0之間的評分(4.5星以上是平台收錄標準)
@@ -154,7 +154,7 @@ app.get('/api/clinics', (req, res) => {
           isGreaterBayArea: true,
           photo: clinic.photo || '無照片',
           rating: rating,
-          isChain: isChain
+          is_chain: is_chain
         };
       }
       return clinic;

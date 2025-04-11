@@ -18,7 +18,8 @@ export interface Clinic {
   slug?: string;       // 診所唯一網址識別碼
   url?: string;        // 該診所的獨立網址
   rating?: number;     // 大眾點評或其他平台評分
-  isChain?: boolean;   // 是否為連鎖診所
+  isChain?: boolean;   // 是否為連鎖診所 (舊)
+  is_chain?: boolean;  // 是否為連鎖診所 (新)
   
   location?: {
     lat: number;
