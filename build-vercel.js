@@ -28,16 +28,55 @@ console.log('📂 處理診所數據文件...');
 const attachedAssetsDir = path.join(process.cwd(), 'attached_assets');
 const publicApiDir = path.join(process.cwd(), 'public', 'api');
 const apiDataDir = path.join(publicApiDir, 'data');
+const clientPublicDir = path.join(process.cwd(), 'client', 'public', 'api', 'data');
 
-// 確保API數據目錄存在
-if (!fs.existsSync(publicApiDir)) {
-  fs.mkdirSync(publicApiDir, { recursive: true });
-  console.log(`✅ 已創建API目錄: ${publicApiDir}`);
+// 確保API數據目錄存在 - 同時創建Vercel部署和開發環境都能訪問的目錄
+[publicApiDir, apiDataDir, clientPublicDir].forEach(dir => {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+    console.log(`✅ 已創建API目錄: ${dir}`);
+  }
+});
+
+// 獲取Vercel輸出目錄 - 用於確保最終構建產物也包含數據
+const vercelOutputDir = path.join(process.cwd(), '.vercel', 'output', 'static', 'api', 'data');
+const vercelApiDirExists = fs.existsSync(path.dirname(vercelOutputDir));
+
+if (vercelApiDirExists) {
+  if (!fs.existsSync(vercelOutputDir)) {
+    fs.mkdirSync(vercelOutputDir, { recursive: true });
+    console.log(`✅ 已創建Vercel輸出API數據目錄: ${vercelOutputDir}`);
+  }
 }
 
-if (!fs.existsSync(apiDataDir)) {
-  fs.mkdirSync(apiDataDir, { recursive: true });
-  console.log(`✅ 已創建API數據目錄: ${apiDataDir}`);
+// 定義所有需要向其複製數據文件的路徑
+const allApiDataDirs = [
+  apiDataDir,                   // /public/api/data
+  clientPublicDir,              // /client/public/api/data
+  vercelApiDirExists ? vercelOutputDir : null  // /.vercel/output/static/api/data (如果存在)
+].filter(Boolean);
+
+// 統一數據複製函數 - 複製到所有目標目錄
+function copyToAllApiDirs(srcPath, targetFileName, description) {
+  if (!fs.existsSync(srcPath)) {
+    console.log(`⚠️ 找不到源文件: ${srcPath}`);
+    return false;
+  }
+  
+  let anySuccess = false;
+  
+  for (const dir of allApiDataDirs) {
+    try {
+      const destPath = path.join(dir, targetFileName);
+      fs.copyFileSync(srcPath, destPath);
+      console.log(`✅ 已複製${description}到 ${dir}`);
+      anySuccess = true;
+    } catch (e) {
+      console.log(`⚠️ 複製${description}到 ${dir} 失敗:`, e);
+    }
+  }
+  
+  return anySuccess;
 }
 
 if (fs.existsSync(attachedAssetsDir)) {
@@ -45,23 +84,26 @@ if (fs.existsSync(attachedAssetsDir)) {
   const szFileNames = [
     'enhanced_sz_clinics.json',  // 優先使用增強版
     'fixed_sz_clinics.json',     // 備選使用修復版
+    'shenzhen_dental_clinics_fixed.json',  // 備選使用修復版 (另一名稱)
     'shenzhen_dental_clinics_valid.json',  // 備選使用有效版
     'shenzhen_dental_clinics_20250407.json'  // 最後使用原始版
   ];
   
+  // 嘗試複製每個文件直到成功
   let szFileCopied = false;
   for (const fileName of szFileNames) {
     const srcPath = path.join(attachedAssetsDir, fileName);
-    const destPath = path.join(apiDataDir, 'enhanced_sz_clinics.json'); // 統一目標名稱
     
     if (fs.existsSync(srcPath) && !szFileCopied) {
-      try {
-        fs.copyFileSync(srcPath, destPath);
-        console.log(`✅ 已複製深圳診所數據: ${fileName} -> enhanced_sz_clinics.json`);
-        szFileCopied = true;
-      } catch (e) {
-        console.log(`⚠️ 複製深圳診所數據失敗: ${fileName}`, e);
-      }
+      // 以統一名稱保存，確保API始終查找相同文件名
+      szFileCopied = copyToAllApiDirs(
+        srcPath, 
+        'enhanced_sz_clinics.json', 
+        `深圳診所數據(${fileName})`
+      );
+      
+      // 為安全起見，同時複製原始名稱的文件
+      copyToAllApiDirs(srcPath, fileName, `原始深圳診所數據(${fileName})`);
     }
   }
   
@@ -72,49 +114,103 @@ if (fs.existsSync(attachedAssetsDir)) {
   // 處理香港診所數據
   const hkFileName = 'clinic_list_hkcss_cleaned.json';
   const hkSrcPath = path.join(attachedAssetsDir, hkFileName);
-  const hkDestPath = path.join(apiDataDir, hkFileName);
-  
-  if (fs.existsSync(hkSrcPath)) {
-    try {
-      fs.copyFileSync(hkSrcPath, hkDestPath);
-      console.log(`✅ 已複製香港診所數據: ${hkFileName}`);
-    } catch (e) {
-      console.log(`⚠️ 複製香港診所數據失敗: ${hkFileName}`, e);
-    }
-  } else {
-    console.log(`⚠️ 找不到香港診所數據: ${hkFileName}`);
-  }
+  copyToAllApiDirs(hkSrcPath, hkFileName, '香港診所數據');
   
   // 處理NGO診所數據
   const ngoFileName = 'ngo_clinics_cleaned.json';
   const ngoSrcPath = path.join(attachedAssetsDir, ngoFileName);
-  const ngoDestPath = path.join(apiDataDir, ngoFileName);
+  copyToAllApiDirs(ngoSrcPath, ngoFileName, 'NGO診所數據');
   
-  if (fs.existsSync(ngoSrcPath)) {
+  // 添加直接複製整個attached_assets目錄到public下，確保所有數據都可用
+  const publicAssetsDir = path.join(process.cwd(), 'public', 'attached_assets');
+  if (!fs.existsSync(publicAssetsDir)) {
+    fs.mkdirSync(publicAssetsDir, { recursive: true });
+  }
+  
+  // 複製attached_assets目錄下的所有json文件到public/attached_assets
+  console.log('📦 複製所有JSON數據文件到public目錄...');
+  const jsonFiles = fs.readdirSync(attachedAssetsDir).filter(file => file.endsWith('.json'));
+  
+  for (const file of jsonFiles) {
     try {
-      fs.copyFileSync(ngoSrcPath, ngoDestPath);
-      console.log(`✅ 已複製NGO診所數據: ${ngoFileName}`);
+      fs.copyFileSync(
+        path.join(attachedAssetsDir, file),
+        path.join(publicAssetsDir, file)
+      );
+      console.log(`✅ 已複製 ${file} 到 public/attached_assets`);
     } catch (e) {
-      console.log(`⚠️ 複製NGO診所數據失敗: ${ngoFileName}`, e);
+      console.log(`⚠️ 複製 ${file} 失敗:`, e);
     }
-  } else {
-    console.log(`⚠️ 找不到NGO診所數據: ${ngoFileName}`);
   }
 }
 
 // 複製所有內容文件
 console.log('📂 複製內容文件...');
 
-// 複製所有文章文件
-// 已經在上面定義了 rootContentDir，所以不需要重複定義
-const attachedContentDir = path.join(attachedAssetsDir, 'content');
+// 確保內容目錄結構存在
+const publicContentDir = path.join(process.cwd(), 'public', 'content');
+const publicArticlesDir = path.join(publicContentDir, 'articles');
+const clientPublicContentDir = path.join(process.cwd(), 'client', 'public', 'content');
+const clientPublicArticlesDir = path.join(clientPublicContentDir, 'articles');
 
-// 嘗試從不同位置複製文章
-const possibleSourceLocations = [
-  path.join(process.cwd(), 'content'),  // Repo根目錄下的content
-  path.join(attachedAssetsDir, 'content'),  // attached_assets/content
-  attachedAssetsDir  // 直接使用attached_assets中的JSON檔案
-];
+// 確保所有必需的目錄存在
+[
+  publicContentDir,
+  publicArticlesDir, 
+  clientPublicContentDir,
+  clientPublicArticlesDir
+].forEach(dir => {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+    console.log(`✅ 已創建目錄: ${dir}`);
+  }
+});
+
+// 獲取Vercel輸出內容目錄
+const vercelContentDir = path.join(process.cwd(), '.vercel', 'output', 'static', 'content');
+const vercelArticlesDir = path.join(vercelContentDir, 'articles');
+const vercelDirExists = fs.existsSync(path.dirname(vercelContentDir));
+
+if (vercelDirExists) {
+  if (!fs.existsSync(vercelContentDir)) {
+    fs.mkdirSync(vercelContentDir, { recursive: true });
+  }
+  if (!fs.existsSync(vercelArticlesDir)) {
+    fs.mkdirSync(vercelArticlesDir, { recursive: true });
+  }
+  console.log(`✅ 已創建Vercel輸出內容目錄`);
+}
+
+// 所有需要複製文章的目標目錄
+const allArticlesDirs = [
+  articlesDir,                    // /content/articles (主要目錄)
+  publicArticlesDir,              // /public/content/articles
+  clientPublicArticlesDir,        // /client/public/content/articles
+  vercelDirExists ? vercelArticlesDir : null  // /.vercel/output/static/content/articles
+].filter(Boolean);
+
+// 複製文章到所有目標目錄的通用函數
+function copyArticleToAllDirs(srcPath, fileName, articleTitle) {
+  if (!fs.existsSync(srcPath)) {
+    console.log(`⚠️ 找不到文章源文件: ${srcPath}`);
+    return false;
+  }
+  
+  let anySuccess = false;
+  
+  for (const dir of allArticlesDirs) {
+    try {
+      const destPath = path.join(dir, fileName);
+      fs.copyFileSync(srcPath, destPath);
+      console.log(`✅ 已複製文章「${articleTitle}」到 ${dir}`);
+      anySuccess = true;
+    } catch (e) {
+      console.log(`⚠️ 複製文章「${articleTitle}」到 ${dir} 失敗:`, e);
+    }
+  }
+  
+  return anySuccess;
+}
 
 // 記錄已複製的文章，避免重複
 const copiedArticles = new Set();
@@ -123,77 +219,141 @@ const copiedArticles = new Set();
 try {
   console.log('正在處理文章...');
   
-  // 1. 嘗試從attached_assets中查找特定文章
-  const articlePaths = [
+  // 1. 首先嘗試從attached_assets中查找特定文章
+  const knownArticles = [
     {
       name: "2025年深圳牙科診所的推薦",
-      src: path.join(attachedAssetsDir, '2025-shenzhen-dental-clinics-recommendations.json'),
-      dest: path.join(articlesDir, '2025-shenzhen-dental-clinics-recommendations.json')
+      fileName: "2025-shenzhen-dental-clinics-recommendations.json",
+      possibleLocations: [
+        path.join(attachedAssetsDir, '2025-shenzhen-dental-clinics-recommendations.json')
+      ]
     },
     {
       name: "2025年深圳睇牙性價比分析",
-      src: path.join(attachedAssetsDir, '2025-shenzhen-dental-value-analysis.json'),
-      dest: path.join(articlesDir, '2025-shenzhen-dental-value-analysis.json')
+      fileName: "2025-shenzhen-dental-value-analysis.json",
+      possibleLocations: [
+        path.join(attachedAssetsDir, '2025-shenzhen-dental-value-analysis.json'),
+        path.join(attachedAssetsDir, '2025-shenzhen-dental-value.json')
+      ]
     }
   ];
   
-  // 複製特定已知文章
-  for (const article of articlePaths) {
-    try {
-      if (fs.existsSync(article.src)) {
-        fs.copyFileSync(article.src, article.dest);
-        console.log(`✅ 已複製文章: ${article.name}`);
-        copiedArticles.add(path.basename(article.dest));
-      } else {
-        console.log(`⚠️ 找不到文章源文件: ${article.src}`);
+  // 嘗試複製已知的特定文章
+  for (const article of knownArticles) {
+    let articleCopied = false;
+    
+    // 嘗試所有可能的位置
+    for (const srcPath of article.possibleLocations) {
+      if (fs.existsSync(srcPath) && !articleCopied) {
+        articleCopied = copyArticleToAllDirs(srcPath, article.fileName, article.name);
+        if (articleCopied) {
+          copiedArticles.add(article.fileName);
+          break;
+        }
       }
-    } catch (e) {
-      console.log(`⚠️ 複製文章失敗: ${article.name}`, e);
+    }
+    
+    if (!articleCopied) {
+      console.log(`⚠️ 未能找到文章「${article.name}」的任何源文件`);
     }
   }
   
   // 2. 嘗試從content/articles目錄複製所有文章
-  const repoArticlesDir = path.join(process.cwd(), 'content', 'articles');
-  if (fs.existsSync(repoArticlesDir)) {
-    const articleFiles = fs.readdirSync(repoArticlesDir).filter(f => f.endsWith('.json'));
-    console.log(`在原始目錄找到 ${articleFiles.length} 篇文章`);
-    
-    for (const file of articleFiles) {
-      if (!copiedArticles.has(file)) {
-        try {
-          fs.copyFileSync(path.join(repoArticlesDir, file), path.join(articlesDir, file));
-          console.log(`✅ 從原始目錄複製文章: ${file}`);
-          copiedArticles.add(file);
-        } catch (e) {
-          console.log(`⚠️ 複製文章失敗: ${file}`, e);
+  const repoDirs = [
+    path.join(process.cwd(), 'content', 'articles'),
+    path.join(attachedAssetsDir, 'content', 'articles')
+  ];
+  
+  for (const repoDir of repoDirs) {
+    if (fs.existsSync(repoDir)) {
+      const articleFiles = fs.readdirSync(repoDir).filter(f => f.endsWith('.json'));
+      console.log(`在 ${repoDir} 找到 ${articleFiles.length} 篇文章`);
+      
+      for (const file of articleFiles) {
+        if (!copiedArticles.has(file)) {
+          const filePath = path.join(repoDir, file);
+          if (copyArticleToAllDirs(filePath, file, `文件 ${file}`)) {
+            copiedArticles.add(file);
+          }
         }
       }
     }
-  } else {
-    console.log(`⚠️ 找不到文章原始目錄: ${repoArticlesDir}`);
   }
   
-  // 如果沒有文章被複製，創建一個默認文章
+  // 3. 嘗試直接從attachedAssets目錄查找可能的文章文件
+  const potentialArticleFiles = fs.readdirSync(attachedAssetsDir)
+    .filter(f => f.endsWith('.json') && !f.includes('clinic') && !f.includes('dental'));
+  
+  for (const file of potentialArticleFiles) {
+    if (!copiedArticles.has(file)) {
+      const filePath = path.join(attachedAssetsDir, file);
+      try {
+        // 嘗試讀取文件內容，判斷是否為文章
+        const content = fs.readFileSync(filePath, 'utf8');
+        const data = JSON.parse(content);
+        
+        // 檢查是否包含文章必需字段
+        if (data.title && data.content && (data.slug || file.replace('.json', ''))) {
+          // 這是文章文件，複製到所有目標目錄
+          if (copyArticleToAllDirs(filePath, file, data.title)) {
+            copiedArticles.add(file);
+          }
+        }
+      } catch (e) {
+        // 讀取或解析錯誤，跳過此文件
+        console.log(`⚠️ 檢查可能的文章文件失敗: ${file}`, e.message);
+      }
+    }
+  }
+  
+  // 如果沒有文章被複製，創建一些默認文章
   if (copiedArticles.size === 0) {
     console.log('⚠️ 未能複製任何文章，創建默認文章');
-    const defaultArticle = {
+    
+    // 2025年深圳牙科診所的推薦
+    const article1 = {
+      title: "2025年深圳牙科診所的推薦",
+      slug: "2025-shenzhen-dental-clinics-recommendations",
+      summary: "精選5間2025年深圳口碑最好牙科診所，全部評分4.5分以上，靠近香港口岸，附WhatsApp預約方法！",
+      content: "以下是2025年深圳牙科診所的推薦，這些診所均符合大眾評分4.5分以上、連鎖經營、有真人分享評價，並且交通便利（靠近香港關口），同時附上香港預約方法：\n\n<h2>1. 自有光口腔診所（深圳佳寧娜廣場店）</h2>\n<p><strong>評分：4.7/5（Google & 大眾點評）</strong></p>\n\n<p><strong>特色：</strong>香港品牌，由香港牙醫團隊管理，提供洗牙、植牙、美白等服務。</p>",
+      tags: ["深圳牙科診所推薦", "深圳口腔醫院", "深圳植牙", "深圳洗牙", "香港人北上睇牙"],
+      sources: [{ title: "大眾點評", url: "https://www.dianping.com" }],
+      publishedAt: "2025-04-07T00:00:00Z"
+    };
+    
+    // 2025年深圳睇牙性價比分析
+    const article2 = {
       title: "2025年深圳睇牙性價比分析：平得嚟值唔值？",
       slug: "2025-shenzhen-dental-value-analysis",
       summary: "深圳洗牙真係又快又平？睇牙醫包矯正仲有套餐？呢篇幫你由價錢、診所質素、潛在風險一次拆解！",
-      content: "<h2>1. 深圳洗牙幾錢？</h2>\n<p>根據大眾點評顯示，深圳一般洗牙收費約為 <strong>¥98 ～ ¥198 人民幣</strong>，部分優惠套餐甚至低至 ¥68，換算成港幣大約 HK$75～HK$200。</p>\n<p>比起香港動輒 HK$500 起跳，絕對係「半價甚至更低」。</p>\n\n<h2>2. 整牙 / 箍牙價錢比較</h2>\n<p>透明牙箍（如隱適美）香港私家報價約 HK$30,000～HK$60,000；而深圳正規診所如仁樺口腔、維港口腔等，報價約 ¥15,000～¥25,000（即 HK$16,000～HK$28,000）。</p>\n<p>再加上部分平台仲包定期覆診、拍片記錄，性價比相當吸引。</p>\n\n<h2>3. 有伏位？你要知風險</h2>\n<ul>\n<li>部分「平價診所」可能用低質材料或冇正式牌照</li>\n<li>言語溝通、術後跟進唔及香港貼身</li>\n<li>部分廣告價格未含 X 光、檢查費、加建牙托等</li>\n</ul>\n\n<h2>4. 小貼士：點樣揀診所先穩陣？</h2>\n<ol>\n<li>查清楚診所係咪有 <strong>正規醫療牌照</strong>（可上中國國家衛健委查）</li>\n<li>睇大眾點評 / 美團評分是否超過 4.5 星</li>\n<li>優先揀有連鎖品牌、實體店多嘅診所（如維港、仁樺、拜博）</li>\n</ol>\n\n<p>總結：深圳睇牙係平，但都唔可以「貪平中伏」。搵啱診所，就真係可以慳錢又安心。</p>",
+      content: "<h2>1. 深圳洗牙幾錢？</h2>\n<p>根據大眾點評顯示，深圳一般洗牙收費約為 <strong>¥98 ～ ¥198 人民幣</strong>，部分優惠套餐甚至低至 ¥68，換算成港幣大約 HK$75～HK$200。</p>\n<p>比起香港動輒 HK$500 起跳，絕對係「半價甚至更低」。</p>",
       tags: ["深圳洗牙", "深圳整牙", "深圳睇牙性價比", "深圳睇牙風險"],
-      sources: [
-        { title: "大眾點評", url: "https://www.dianping.com" }
-      ],
+      sources: [{ title: "大眾點評", url: "https://www.dianping.com" }],
       publishedAt: "2025-04-01T12:00:00Z"
     };
     
-    // 寫入默認文章
-    fs.writeFileSync(path.join(articlesDir, 'default-article.json'), JSON.stringify(defaultArticle, null, 2));
-    console.log(`✅ 已創建默認文章`);
+    const defaultArticles = [
+      { data: article1, fileName: 'shenzhen-dental-clinics-recommendations.json' },
+      { data: article2, fileName: 'shenzhen-dental-value-analysis.json' }
+    ];
+    
+    // 寫入默認文章到所有目標目錄
+    for (const article of defaultArticles) {
+      const articleJson = JSON.stringify(article.data, null, 2);
+      
+      for (const dir of allArticlesDirs) {
+        try {
+          fs.writeFileSync(path.join(dir, article.fileName), articleJson);
+          console.log(`✅ 已在 ${dir} 創建默認文章: ${article.data.title}`);
+          copiedArticles.add(article.fileName);
+        } catch (e) {
+          console.log(`⚠️ 創建默認文章失敗: ${article.data.title} 在 ${dir}`, e);
+        }
+      }
+    }
   }
   
-  console.log(`✅ 總共複製了 ${copiedArticles.size} 篇文章`);
+  console.log(`✅ 總共複製/創建了 ${copiedArticles.size} 篇文章`);
 } catch (error) {
   console.error(`❌ 處理文章失敗:`, error);
 }

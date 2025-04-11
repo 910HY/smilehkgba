@@ -38,7 +38,7 @@ export default function handler(req: any, res: any) {
     ].filter(Boolean); // 移除null值
     
     // 找到第一個存在的文件
-    let szFilePath: string | null = null;
+    let szFilePath = '';
     for (const filePath of possiblePaths) {
       if (filePath && fs.existsSync(filePath)) {
         szFilePath = filePath;
