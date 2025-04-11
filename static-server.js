@@ -55,10 +55,10 @@ async function startStaticServer() {
       const hkFilePath = path.join(process.cwd(), 'api', 'data', 'clinic_list_hkcss_cleaned.json');
       const ngoFilePath = path.join(process.cwd(), 'api', 'data', 'ngo_clinics_cleaned.json');
       
-      // 嘗試讀取2025深圳牙科診所數據
-      let szFilePath = path.join(process.cwd(), 'attached_assets', '2025-shenzhen-dental-value.json');
+      // 使用提供的2025深圳牙科診所數據
+      let szFilePath = path.join(process.cwd(), 'attached_assets', 'shenzhen_dental_clinics_20250407.json.json');
       if (!fs.existsSync(szFilePath)) {
-        console.log('找不到2025深圳牙科診所數據，嘗試備用數據');
+        console.log('找不到最新深圳診所數據，嘗試backup文件');
         szFilePath = path.join(process.cwd(), 'attached_assets', 'shenzhen_dental_clinics_20250407.json');
       }
       if (!fs.existsSync(szFilePath)) {
@@ -218,10 +218,10 @@ async function startStaticServer() {
     try {
       console.log('API 請求: /api/sz-clinics');
       
-      // 嘗試讀取2025深圳牙科診所數據
-      let filePath = path.join(process.cwd(), 'attached_assets', '2025-shenzhen-dental-value.json');
+      // 使用提供的2025深圳牙科診所數據
+      let filePath = path.join(process.cwd(), 'attached_assets', 'shenzhen_dental_clinics_20250407.json.json');
       if (!fs.existsSync(filePath)) {
-        console.log('找不到2025深圳牙科診所數據，嘗試備用數據');
+        console.log('找不到最新深圳診所數據，嘗試backup文件');
         filePath = path.join(process.cwd(), 'attached_assets', 'shenzhen_dental_clinics_20250407.json');
       }
       if (!fs.existsSync(filePath)) {
