@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Clinic } from '../types/clinic';
 import { 
   MapPin, Phone, Clock, DollarSign, Map,
-  Navigation, Stethoscope, Building, HeartPulse
+  Navigation, Stethoscope, Building, HeartPulse,
+  Star
 } from 'lucide-react';
 import MapDialog from './MapDialog';
 import ExpandableText from './ExpandableText';
@@ -68,6 +69,7 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
 
   return (
     <div className="bg-[#111] border border-[#ffbb66]/30 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+      {/* 診所名稱和類型 */}
       <div className="pt-4 pl-4 pr-4 flex justify-between items-start">
         <h4 className="font-bold text-lg mb-2 text-[#ffaa40] tracking-wide">{clinic.name}</h4>
         <div className="flex items-center space-x-2">
@@ -79,10 +81,13 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
           </div>
         </div>
       </div>
+      
       <div className="p-4 pt-0">
+        {/* 診所地址 */}
         <p className="text-[#ffaa40] text-sm mb-3 line-clamp-2">{clinic.address}</p>
         
-        <div className="space-y-2 mb-4">
+        {/* 診所詳細信息 */}
+        <div className="space-y-2 mb-3">
           <div className="flex items-start">
             <MapPin className="h-5 w-5 text-[#ffaa40] mr-2 mt-0.5 flex-shrink-0" />
             <span className="text-[#94a3b8] text-sm">{clinic.region}</span>
@@ -108,28 +113,27 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
               icon={<DollarSign className="h-5 w-5 text-[#ffaa40]" />}
             />
           )}
-          
-          {/* 大眾評分與連鎖經營顯示（針對大灣區診所） - 移至價格信息下方 */}
-          {clinic.isGreaterBayArea && (
-            <div className="mt-3 flex flex-wrap justify-between items-center">
-              {clinic.rating && (
-                <div className="flex items-center text-[#ffaa40]">
-                  <span className="text-sm font-medium">大眾評分: {clinic.rating}</span>
-                  {clinic.rating >= 4.5 && (
-                    <span className="ml-1 text-yellow-400">★</span>
-                  )}
-                </div>
-              )}
-              
-              {clinic.isChain && (
-                <div className="bg-blue-600 text-white text-xs px-2 py-1 rounded">
-                  連鎖經營
-                </div>
-              )}
-            </div>
-          )}
         </div>
         
+        {/* 大眾評分與連鎖經營顯示（針對大灣區診所） */}
+        {clinic.isGreaterBayArea && (clinic.rating || clinic.isChain) && (
+          <div className="mb-3 flex flex-wrap justify-between items-center">
+            {clinic.rating && (
+              <div className="flex items-center text-[#ffaa40]">
+                <Star className="h-4 w-4 mr-1 text-yellow-400" />
+                <span className="text-sm font-medium">大眾評分: {clinic.rating}</span>
+              </div>
+            )}
+            
+            {clinic.isChain && (
+              <div className="bg-blue-600 text-white text-xs px-2 py-1 rounded">
+                連鎖經營
+              </div>
+            )}
+          </div>
+        )}
+        
+        {/* 地圖按鈕 */}
         <div className="flex space-x-2">
           {/* 內部Leaflet地圖按鈕 */}
           <button
@@ -176,6 +180,7 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
             </a>
           )}
         </div>
+        
         {/* 地圖提示 */}
         {!clinic.location && (
           <p className="text-xs text-red-500 mt-2">
