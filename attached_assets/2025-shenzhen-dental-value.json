@@ -1,194 +1,27 @@
-[
-  {
-    "name": "深圳維港口腔診所",
-    "address": "深圳市福田區福田南路皇御苑深港一號大樓1樓至2樓",
-    "region": "福田區",
-    "count": "4",
-    "type": "私家診所",
-    "sourceLink": "https://www.vickongdental.cn/Price-list.html",
-    "phone": "+86 132 6696 2630",
-    "hours": "09:30-18:30",
-    "photo": "無照片",
-    "city": "深圳",
-    "country": "中國",
-    "isGreaterBayArea": true,
-    "prices": {
-      "洗牙": "¥200-500/次",
-      "補牙": "¥180-600/顆",
-      "拔牙": "¥20-2000/顆",
-      "植牙": "¥5180-15800/顆"
+{
+  "title": "2025年深圳睇牙性價比分析：平得嚟值唔值？",
+  "slug": "2025-shenzhen-dental-value-analysis",
+  "summary": "深圳洗牙真係又快又平？睇牙醫包矯正仲有套餐？呢篇幫你由價錢、診所質素、潛在風險一次拆解！",
+  "tags": [
+    "深圳洗牙",
+    "深圳整牙",
+    "深圳睇牙性價比",
+    "深圳睇牙風險"
+  ],
+  "content": "\n<h2>1. 深圳洗牙幾錢？</h2>\n<p>根據大眾點評顯示，深圳一般洗牙收費約為 <strong>¥98 ～ ¥198 人民幣</strong>，部分優惠套餐甚至低至 ¥68，換算成港幣大約 HK$75～HK$200。</p>\n<p>比起香港動輒 HK$500 起跳，絕對係「半價甚至更低」。</p>\n\n<h2>2. 整牙 / 箍牙價錢比較</h2>\n<p>透明牙箍（如隱適美）香港私家報價約 HK$30,000～HK$60,000；而深圳正規診所如仁樺口腔、維港口腔等，報價約 ¥15,000～¥25,000（即 HK$16,000～HK$28,000）。</p>\n<p>再加上部分平台仲包定期覆診、拍片記錄，性價比相當吸引。</p>\n\n<h2>3. 有伏位？你要知風險</h2>\n<ul>\n<li>部分「平價診所」可能用低質材料或冇正式牌照</li>\n<li>言語溝通、術後跟進唔及香港貼身</li>\n<li>部分廣告價格未含 X 光、檢查費、加建牙托等</li>\n</ul>\n\n<h2>4. 小貼士：點樣揀診所先穩陣？</h2>\n<ol>\n<li>查清楚診所係咪有 <strong>正規醫療牌照</strong>（可上中國國家衛健委查）</li>\n<li>睇大眾點評 / 美團評分是否超過 4.5 星</li>\n<li>優先揀有連鎖品牌、實體店多嘅診所（如維港、仁樺、拜博）</li>\n</ol>\n\n<p>總結：深圳睇牙係平，但都唔可以「貪平中伏」。搵啱診所，就真係可以慳錢又安心。</p>\n",
+  "sources": [
+    {
+      "title": "大眾點評 - 深圳口腔醫院搜尋結果",
+      "url": "https://www.dianping.com/shenzhen/ch71/g33822"
     },
-    "rating": 4.7,
-    "is_chain": true,
-    "isHighRated": true,
-    "highlight": true
-  },
-  {
-    "name": "慈恩齿科·佳木口腔·牙齿矫正贴面种植中心(车公庙店)",
-    "address": "深圳大道7006號萬科富春東方大廈801樓",
-    "region": "福田區",
-    "count": "1",
-    "type": "私家診所",
-    "sourceLink": "https://www.dianping.com/shop/xxx123",
-    "phone": "+86 755 8278 1234",
-    "hours": "09:00-18:30",
-    "photo": "無照片",
-    "city": "深圳",
-    "country": "中國",
-    "isGreaterBayArea": true,
-    "prices": {
-      "洗牙": "¥200-400/次",
-      "補牙": "¥250-800/顆",
-      "拔牙": "¥300-1500/顆",
-      "植牙": "¥8000-20000/顆"
+    {
+      "title": "仁樺口腔官方網站",
+      "url": "https://www.renhuakq.com"
     },
-    "rating": 4.9,
-    "is_chain": true,
-    "isHighRated": true,
-    "highlight": true
-  },
-  {
-    "name": "蓝刺猬口腔·儿童青少年矫正·成人种植(福田店)",
-    "address": "皇岗/水围",
-    "region": "福田區",
-    "count": "1",
-    "type": "私家診所",
-    "sourceLink": "https://www.dianping.com/shop/xxx456",
-    "phone": "+86 755 8382 5678",
-    "hours": "09:00-18:00",
-    "photo": "無照片",
-    "city": "深圳",
-    "country": "中國",
-    "isGreaterBayArea": true,
-    "prices": {
-      "洗牙": "¥180-350/次",
-      "補牙": "¥200-600/顆",
-      "拔牙": "¥200-1200/顆",
-      "植牙": "¥6000-18000/顆"
-    },
-    "rating": 4.9,
-    "is_chain": true,
-    "isHighRated": true,
-    "highlight": true
-  },
-  {
-    "name": "深圳善貝口腔",
-    "address": "新洲/石厦",
-    "region": "福田區",
-    "count": "1",
-    "type": "私家診所",
-    "sourceLink": "https://www.dianping.com/shop/xxx789",
-    "phone": "+86 755 8335 6789",
-    "hours": "09:30-18:30",
-    "photo": "無照片",
-    "city": "深圳",
-    "country": "中國",
-    "isGreaterBayArea": true,
-    "prices": {
-      "洗牙": "¥150-300/次",
-      "補牙": "¥180-500/顆",
-      "拔牙": "¥150-1000/顆",
-      "植牙": "¥5000-15000/顆"
-    },
-    "rating": 4.9,
-    "is_chain": false,
-    "isHighRated": true,
-    "highlight": true
-  },
-  {
-    "name": "佰仕口腔·种植矫正中心(皇岗分院)",
-    "address": "皇岗/水围",
-    "region": "福田區",
-    "count": "1",
-    "type": "私家診所",
-    "sourceLink": "https://www.dianping.com/shop/xxx101",
-    "phone": "+86 755 8321 2345",
-    "hours": "09:00-18:00",
-    "photo": "無照片",
-    "city": "深圳",
-    "country": "中國",
-    "isGreaterBayArea": true,
-    "prices": {
-      "洗牙": "¥200-400/次",
-      "補牙": "¥200-700/顆",
-      "拔牙": "¥200-1500/顆",
-      "植牙": "¥7000-20000/顆"
-    },
-    "rating": 4.9,
-    "is_chain": true,
-    "isHighRated": true,
-    "highlight": true
-  },
-  {
-    "name": "初心口腔连锁 拔牙种植中心(福田店)",
-    "address": "华强北",
-    "region": "福田區",
-    "count": "1",
-    "type": "私家診所",
-    "sourceLink": "https://www.dianping.com/shop/xxx102",
-    "phone": "+86 755 8367 8901",
-    "hours": "09:30-18:30",
-    "photo": "無照片",
-    "city": "深圳",
-    "country": "中國",
-    "isGreaterBayArea": true,
-    "prices": {
-      "洗牙": "¥180-350/次",
-      "補牙": "¥200-600/顆",
-      "拔牙": "¥200-1200/顆",
-      "植牙": "¥6000-18000/顆"
-    },
-    "rating": 4.9,
-    "is_chain": true,
-    "isHighRated": true,
-    "highlight": true
-  },
-  {
-    "name": "深圳阿特蒙口腔(南山海岸城店)",
-    "address": "深圳市南山区文心五路海岸城东座232号",
-    "region": "南山區",
-    "count": "1",
-    "type": "私家診所",
-    "sourceLink": "https://www.dianping.com/shop/xxx114",
-    "phone": "+86 755 8245 6789",
-    "hours": "09:30-18:30",
-    "photo": "無照片",
-    "city": "深圳",
-    "country": "中國",
-    "isGreaterBayArea": true,
-    "prices": {
-      "洗牙": "¥200-500/次",
-      "補牙": "¥250-800/顆",
-      "拔牙": "¥300-2000/顆",
-      "植牙": "¥8000-25000/顆"
-    },
-    "rating": 4.9,
-    "is_chain": false,
-    "isHighRated": true,
-    "highlight": true
-  },
-  {
-    "name": "微笑美科齿科(南山地铁站店)",
-    "address": "深圳市南山区南新路1088号",
-    "region": "南山區",
-    "count": "1",
-    "type": "私家診所",
-    "sourceLink": "https://www.dianping.com/shop/xxx116",
-    "phone": "+86 755 8223 4567",
-    "hours": "09:30-18:30",
-    "photo": "無照片",
-    "city": "深圳",
-    "country": "中國",
-    "isGreaterBayArea": true,
-    "prices": {
-      "洗牙": "¥180-350/次",
-      "補牙": "¥200-600/顆",
-      "拔牙": "¥200-1200/顆",
-      "植牙": "¥6000-18000/顆"
-    },
-    "rating": 4.9,
-    "is_chain": false,
-    "isHighRated": true,
-    "highlight": true
-  }
-]
+    {
+      "title": "港人北上睇牙經驗分享（香港討論區）",
+      "url": "https://www.discuss.com.hk/"
+    }
+  ],
+  "publishedAt": "2025-04-10"
+}

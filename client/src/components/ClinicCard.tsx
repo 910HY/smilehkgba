@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { Clinic } from '../types/clinic';
 import { 
-  MapPin, Phone, Clock, DollarSign, Map, Star,
-  Navigation, Stethoscope, Building, HeartPulse, Award, Shield
+  MapPin, Phone, Clock, DollarSign, Map,
+  Navigation, Stethoscope, Building, HeartPulse
 } from 'lucide-react';
 import MapDialog from './MapDialog';
 import ExpandableText from './ExpandableText';
 import { generateAmapSearchUrl } from '../lib/generateAmapLink';
 
-// 生成高德地圖標記URL
 function generateAmapMarkerUrl(clinic: Clinic): string | null {
   if (!clinic.location || !clinic.location.lng || !clinic.location.lat) return null;
 
@@ -67,40 +66,8 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
     return 'bg-primary';
   };
 
-  // 檢查各種可能的條件
-  const isFiltered = !!clinic.isFiltered;
-  const isHighRated = !!clinic.isHighRated;
-  const isHighlighted = !!clinic.highlight;
-  const isChain = !!clinic.is_chain;
-  const hasRating = clinic.rating !== undefined && typeof clinic.rating === 'number';
-  const hasHighRating = hasRating && clinic.rating !== undefined && clinic.rating >= 4.5;
-  
-  // 確定是否顯示高亮邊框（優質診所）
-  const cardBorderClass = isFiltered || isHighRated || isHighlighted || hasHighRating || isChain
-    ? "border-[#ff9020] border-2" 
-    : "border-[#ffbb66]/30 border";
-
-  // 判斷診所類型顯示文字
-  const getQualityLabel = () => {
-    if (isChain) return '連鎖品牌診所';
-    if (hasHighRating && hasRating && clinic.rating !== undefined) {
-      return `評分 ${clinic.rating}⭐ 優質推薦`;
-    }
-    return '優質診所推薦';
-  };
-
-  // 判斷是否顯示優質標記
-  const shouldShowQualityLabel = isFiltered || isHighRated || isHighlighted || hasHighRating || isChain;
-
   return (
-    <div className={`bg-[#111] ${cardBorderClass} rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow`}>
-      {/* 優質診所標記 */}
-      {shouldShowQualityLabel && (
-        <div className="bg-gradient-to-r from-[#ff9020] to-[#ffaa40] text-black px-4 py-1 text-xs font-bold">
-          {getQualityLabel()}
-        </div>
-      )}
-      
+    <div className="bg-[#111] border border-[#ffbb66]/30 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
       <div className="pt-4 pl-4 pr-4 flex justify-between items-start">
         <h4 className="font-bold text-lg mb-2 text-[#ffaa40] tracking-wide">{clinic.name}</h4>
         <div className="flex items-center space-x-2">
@@ -113,42 +80,18 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
         </div>
       </div>
       <div className="p-4 pt-0">
-        {/* 評分顯示 */}
-        {clinic.rating && (
-          <div className="flex items-center mb-2">
-            <Star className="h-4 w-4 text-yellow-500 mr-1" fill="#FFBB33" />
-            <span className="text-yellow-500 font-medium">大眾評分: {clinic.rating}</span>
-            {clinic.is_chain && (
-              <div className="flex items-center ml-2">
-                <Shield className="h-4 w-4 text-blue-500 mr-1" />
-                <span className="text-blue-500 text-xs font-medium">連鎖經營</span>
-              </div>
-            )}
-          </div>
-        )}
-        
-        {/* 使用ExpandableText顯示地址，永遠顯示完整內容 */}
-        <ExpandableText 
-          label="診所地址"
-          content={clinic.address}
-          icon={<MapPin className="h-5 w-5 text-[#ffaa40]" />}
-          alwaysShowFull={true}
-        />
+        <p className="text-[#ffaa40] text-sm mb-3 line-clamp-2">{clinic.address}</p>
         
         <div className="space-y-2 mb-4">
-          {/* 區域信息（可展開） */}
-          <ExpandableText 
-            label="所屬區域"
-            content={clinic.region}
-            icon={<MapPin className="h-5 w-5 text-[#ffaa40]" />}
-          />
+          <div className="flex items-start">
+            <MapPin className="h-5 w-5 text-[#ffaa40] mr-2 mt-0.5 flex-shrink-0" />
+            <span className="text-[#94a3b8] text-sm">{clinic.region}</span>
+          </div>
           
-          {/* 電話信息（可展開） */}
-          <ExpandableText 
-            label="聯絡電話"
-            content={formatPhone(clinic.phone)}
-            icon={<Phone className="h-5 w-5 text-[#ffaa40]" />}
-          />
+          <div className="flex items-start">
+            <Phone className="h-5 w-5 text-[#ffaa40] mr-2 mt-0.5 flex-shrink-0" />
+            <span className="text-[#94a3b8] text-sm">{formatPhone(clinic.phone)}</span>
+          </div>
           
           {/* 營業時間（可展開） */}
           <ExpandableText 
@@ -163,15 +106,6 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
               label="價格信息"
               content={formatPrices(clinic.prices) || '無價格信息'}
               icon={<DollarSign className="h-5 w-5 text-[#ffaa40]" />}
-            />
-          )}
-          
-          {/* 提供的服務（如果有） */}
-          {clinic.services && clinic.services.length > 0 && (
-            <ExpandableText 
-              label="提供服務"
-              content={clinic.services.join('、')}
-              icon={<Award className="h-5 w-5 text-[#ffaa40]" />}
             />
           )}
         </div>
@@ -229,6 +163,18 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
           </p>
         )}
         
+        {/* 診所詳情頁面連結 */}
+        {clinic.slug && clinic.url && (
+          <div className="mt-4 mb-2 text-center">
+            <a 
+              href={clinic.url}
+              className="text-[#ffaa40] text-sm font-medium hover:text-[#ffbb66] transition-colors"
+            >
+              查看診所詳細資訊 →
+            </a>
+          </div>
+        )}
+
         {/* 報錯按鈕 */}
         <div className="mt-4 pt-3 border-t border-[#ffbb66]/20 text-center">
           <button 

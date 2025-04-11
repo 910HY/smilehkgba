@@ -114,7 +114,7 @@ const Header = () => {
         <div style={logoContainerStyle}>
           <Link href="/">
             <img 
-              src="/logo.png"
+              src={`/logo.png?v=${Date.now()}`} 
               alt="牙GoGo Logo" 
               style={logoStyle}
             />
