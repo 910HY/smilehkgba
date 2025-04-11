@@ -54,6 +54,34 @@
       .brand-slogan {
         color: var(--primary-light) !important;
       }
+      
+      /* ================ 緊急修復 - 强制修改診所卡片評分和連鎖標籤位置 ================ */
+      div[class*="rounded-lg"][class*="shadow-lg"] {
+        /* 加橘色頂條 */
+        border-top: 2px solid var(--primary-color) !important;
+      }
+      
+      /* 將評分和連鎖標籤移到價格信息下方，地圖連結按鈕上方 */
+      div[class*="rounded-lg"][class*="shadow-lg"] > div > div:nth-of-type(1) ~ div {
+        position: relative;
+      }
+      
+      /* 找到所有含大眾評分和連鎖經營的元素 */
+      div[class*="rounded-lg"][class*="shadow-lg"] .mt-4.mb-2.flex.flex-wrap.justify-between.items-center {
+        /* 移動到地圖按鈕前面 */
+        order: -1;
+        margin-top: 0 !important;
+        margin-bottom: 12px !important;
+        background-color: #1a1a1a;
+        border-radius: 6px;
+        padding: 8px;
+        border: 1px solid #333;
+      }
+      
+      /* 填充星星圖標 */
+      div[class*="rounded-lg"][class*="shadow-lg"] .mt-4.mb-2.flex svg {
+        fill: #fcd34d;
+      }
     </style>
   </head>
   <body>
