@@ -71,7 +71,7 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
   const isHighRated = !!clinic.isHighRated;
   const isHighlighted = !!clinic.highlight;
   const isChain = !!clinic.is_chain;
-  const hasRating = typeof clinic.rating === 'number';
+  const hasRating = clinic.rating !== undefined && typeof clinic.rating === 'number';
   const hasHighRating = hasRating && clinic.rating >= 4.5;
   
   // 確定是否顯示高亮邊框（優質診所）
@@ -119,18 +119,28 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
           </div>
         )}
         
-        <p className="text-[#ffaa40] text-sm mb-3 line-clamp-2">{clinic.address}</p>
+        {/* 使用ExpandableText顯示地址，永遠顯示完整內容 */}
+        <ExpandableText 
+          label="診所地址"
+          content={clinic.address}
+          icon={<MapPin className="h-5 w-5 text-[#ffaa40]" />}
+          alwaysShowFull={true}
+        />
         
         <div className="space-y-2 mb-4">
-          <div className="flex items-start">
-            <MapPin className="h-5 w-5 text-[#ffaa40] mr-2 mt-0.5 flex-shrink-0" />
-            <span className="text-[#94a3b8] text-sm">{clinic.region}</span>
-          </div>
+          {/* 區域信息（可展開） */}
+          <ExpandableText 
+            label="所屬區域"
+            content={clinic.region}
+            icon={<MapPin className="h-5 w-5 text-[#ffaa40]" />}
+          />
           
-          <div className="flex items-start">
-            <Phone className="h-5 w-5 text-[#ffaa40] mr-2 mt-0.5 flex-shrink-0" />
-            <span className="text-[#94a3b8] text-sm">{formatPhone(clinic.phone)}</span>
-          </div>
+          {/* 電話信息（可展開） */}
+          <ExpandableText 
+            label="聯絡電話"
+            content={formatPhone(clinic.phone)}
+            icon={<Phone className="h-5 w-5 text-[#ffaa40]" />}
+          />
           
           {/* 營業時間（可展開） */}
           <ExpandableText 
@@ -211,17 +221,7 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
           </p>
         )}
         
-        {/* 診所詳情頁面連結 */}
-        {clinic.slug && clinic.url && (
-          <div className="mt-4 mb-2 text-center">
-            <a 
-              href={clinic.url}
-              className="text-[#ffaa40] text-sm font-medium hover:text-[#ffbb66] transition-colors"
-            >
-              查看診所詳細資訊 →
-            </a>
-          </div>
-        )}
+        {/* 移除診所詳情頁面連結，所有資訊通過下拉顯示 */}
 
         {/* 報錯按鈕 */}
         <div className="mt-4 pt-3 border-t border-[#ffbb66]/20 text-center">
