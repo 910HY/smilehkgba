@@ -15,6 +15,36 @@ async function startStaticServer() {
 
   // 靜態文件服務
   app.use(express.static(path.join(__dirname, 'client/dist')));
+  
+  // 為attached_assets目錄提供靜態服務
+  app.use('/attached_assets', express.static(path.join(__dirname, 'attached_assets')));
+  
+  // 允許CORS，使API能被跨域調用
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    
+    // 設置正確的MIME類型
+    if (req.path.endsWith('.js')) {
+      res.type('application/javascript');
+    } else if (req.path.endsWith('.css')) {
+      res.type('text/css');
+    } else if (req.path.endsWith('.json')) {
+      res.type('application/json');
+    } else if (req.path.endsWith('.html')) {
+      res.type('text/html');
+    } else if (req.path.endsWith('.png')) {
+      res.type('image/png');
+    } else if (req.path.endsWith('.jpg') || req.path.endsWith('.jpeg')) {
+      res.type('image/jpeg');
+    } else if (req.path.endsWith('.svg')) {
+      res.type('image/svg+xml');
+    } else if (req.path.endsWith('.ico')) {
+      res.type('image/x-icon');
+    }
+    
+    next();
+  });
 
   // API 路由處理
   // 所有診所資料
@@ -25,15 +55,20 @@ async function startStaticServer() {
       const hkFilePath = path.join(process.cwd(), 'api', 'data', 'clinic_list_hkcss_cleaned.json');
       const ngoFilePath = path.join(process.cwd(), 'api', 'data', 'ngo_clinics_cleaned.json');
       
-      // 嘗試讀取增強版的深圳診所數據文件，如果不存在則使用原始文件
-      let szFilePath = path.join(process.cwd(), 'api', 'data', 'shenzhen_dental_clinics_enhanced.json');
+      // 嘗試讀取2025深圳牙科診所數據
+      let szFilePath = path.join(process.cwd(), 'attached_assets', '2025-shenzhen-dental-value.json');
       if (!fs.existsSync(szFilePath)) {
-        console.log('找不到enhanced版深圳數據，嘗試updated版');
-        szFilePath = path.join(process.cwd(), 'api', 'data', 'shenzhen_dental_clinics_updated.json');
+        console.log('找不到2025深圳牙科診所數據，嘗試備用數據');
+        szFilePath = path.join(process.cwd(), 'attached_assets', 'shenzhen_dental_clinics_20250407.json');
       }
       if (!fs.existsSync(szFilePath)) {
-        console.log('找不到enhanced和updated版深圳數據，使用原始數據');
-        szFilePath = path.join(process.cwd(), 'attached_assets', 'shenzhen_dental_clinics_20250407.json');
+        console.log('找不到已知的深圳數據文件，使用內置診所數據');
+        szFilePath = path.join(process.cwd(), 'api', 'data', 'shenzhen_dental_clinics.json');
+        if (!fs.existsSync(szFilePath)) {
+          console.log('創建空的診所數據文件');
+          fs.mkdirSync(path.dirname(szFilePath), { recursive: true });
+          fs.writeFileSync(szFilePath, '[]', 'utf8');
+        }
       }
       
       console.log('使用深圳診所數據文件:', szFilePath);
@@ -183,15 +218,20 @@ async function startStaticServer() {
     try {
       console.log('API 請求: /api/sz-clinics');
       
-      // 嘗試讀取增強版的深圳診所數據文件，如果不存在則使用原始文件
-      let filePath = path.join(process.cwd(), 'api', 'data', 'shenzhen_dental_clinics_enhanced.json');
+      // 嘗試讀取2025深圳牙科診所數據
+      let filePath = path.join(process.cwd(), 'attached_assets', '2025-shenzhen-dental-value.json');
       if (!fs.existsSync(filePath)) {
-        console.log('找不到enhanced版深圳數據，嘗試updated版');
-        filePath = path.join(process.cwd(), 'api', 'data', 'shenzhen_dental_clinics_updated.json');
+        console.log('找不到2025深圳牙科診所數據，嘗試備用數據');
+        filePath = path.join(process.cwd(), 'attached_assets', 'shenzhen_dental_clinics_20250407.json');
       }
       if (!fs.existsSync(filePath)) {
-        console.log('找不到enhanced和updated版深圳數據，使用原始數據');
-        filePath = path.join(process.cwd(), 'attached_assets', 'shenzhen_dental_clinics_20250407.json');
+        console.log('找不到已知的深圳數據文件，使用內置診所數據');
+        filePath = path.join(process.cwd(), 'api', 'data', 'shenzhen_dental_clinics.json');
+        if (!fs.existsSync(filePath)) {
+          console.log('創建空的診所數據文件');
+          fs.mkdirSync(path.dirname(filePath), { recursive: true });
+          fs.writeFileSync(filePath, '[]', 'utf8');
+        }
       }
       
       console.log('使用深圳診所數據文件:', filePath);

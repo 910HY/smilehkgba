@@ -114,7 +114,7 @@ const SearchPanel: React.FC<SearchPanelProps> = ({ onSearch }) => {
           onKeyDown={handleKeyDown}
         />
         
-        <button onClick={handleSearch} className="flex justify-center items-center w-full" style={{display: 'flex', justifyContent: 'center', width: '100%', textAlign: 'center'}}>搜尋</button>
+        <button onClick={handleSearch} className="flex justify-center items-center w-full">搜尋</button>
       </div>
     </div>
   );

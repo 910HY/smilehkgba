@@ -1,0 +1,396 @@
+[
+  {
+    "name": "深圳自有光牙科診所",
+    "address": "中國深圳市羅湖區人民南路2002號佳寧娜廣場3樓全層",
+    "region": "羅湖區",
+    "region_en": "Luohu",
+    "region_code": "luohu",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://mybeame.com/",
+    "phone": "+852 5388 7318",
+    "hours": "09:00-19:00",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "slug": "beame-luohu-dental",
+    "url": "/dental/shenzhen/luohu/beame-luohu-dental",
+    "prices": {
+      "洗牙": "¥180-350/次",
+      "補牙": "未知",
+      "拔牙": "未知",
+      "植牙": "未知"
+    },
+    "location": {
+      "lat": 22.5431,
+      "lng": 114.0886
+    }
+  },
+  {
+    "name": "深圳維港口腔診所",
+    "address": "中國深圳市福田區福田南路皇御苑深港一號大樓1樓至2樓",
+    "region": "福田區",
+    "region_en": "Futian",
+    "region_code": "futian",
+    "count": "4",
+    "type": "私家診所",
+    "sourceLink": "https://www.vickongdental.cn/Price-list.html",
+    "phone": "+86 132 6696 2630",
+    "hours": "09:30-18:30",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "slug": "vickong-futian-dental",
+    "url": "/dental/shenzhen/futian/vickong-futian-dental",
+    "prices": {
+      "洗牙": "¥200-500/次",
+      "補牙": "¥180-600/顆",
+      "拔牙": "¥20-2000/顆",
+      "植牙": "¥5180-15800/顆"
+    },
+    "location": {
+      "lat": 22.5225,
+      "lng": 114.0578
+    }
+  },
+  {
+    "name": "維港歡樂口腔診所（羅湖區委院）",
+    "address": "中國深圳市羅湖區愛國路1002號外貿輕工大廈8樓",
+    "region": "羅湖區",
+    "region_en": "Luohu",
+    "region_code": "luohu",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.vickongdental.cn/",
+    "phone": "+86 132 6696 2630",
+    "hours": "09:30-18:30",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "slug": "vickong-luohu-committee-dental",
+    "url": "/dental/shenzhen/luohu/vickong-luohu-committee-dental",
+    "prices": {
+      "洗牙": "¥200-500/次",
+      "補牙": "¥180-600/顆",
+      "拔牙": "¥200-2000/顆",
+      "植牙": "¥5180-15800/顆"
+    },
+    "location": {
+      "lat": 22.5487,
+      "lng": 114.1202
+    }
+  },
+  {
+    "name": "維港歡笑口腔診所（福田皇崗院）",
+    "address": "中國深圳市福田區福田南路皇御苑深港一號大樓1樓至2樓",
+    "region": "福田區",
+    "region_en": "Futian",
+    "region_code": "futian",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.vickongdental.cn/",
+    "phone": "+86 132 6696 2630",
+    "hours": "09:30-18:30",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "slug": "vickong-futian-huanggang-dental",
+    "url": "/dental/shenzhen/futian/vickong-futian-huanggang-dental",
+    "prices": {
+      "洗牙": "¥200-500/次",
+      "補牙": "¥180-600/顆",
+      "拔牙": "¥200-2000/顆",
+      "植牙": "¥5180-15800/顆"
+    },
+    "location": {
+      "lat": 22.5230,
+      "lng": 114.0582
+    }
+  },
+  {
+    "name": "維港三康口腔診所（羅湖國貿院）",
+    "address": "中國深圳市羅湖區春風路廬山大廈B座21樓",
+    "region": "羅湖區",
+    "region_en": "Luohu",
+    "region_code": "luohu",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.vickongdental.cn/",
+    "phone": "+86 132 6696 2630",
+    "hours": "09:00-18:00",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "slug": "vickong-luohu-guomao-dental",
+    "url": "/dental/shenzhen/luohu/vickong-luohu-guomao-dental",
+    "prices": {
+      "洗牙": "¥200-500/次",
+      "補牙": "¥180-600/顆",
+      "拔牙": "¥200-2000/顆",
+      "植牙": "¥5180-15800/顆"
+    },
+    "location": {
+      "lat": 22.5445,
+      "lng": 114.1098
+    }
+  },
+  {
+    "name": "維港加樂口腔診所（羅湖金光華院）",
+    "address": "中國深圳市羅湖區南湖路凱利商業廣場1樓至2樓",
+    "region": "羅湖區",
+    "region_en": "Luohu",
+    "region_code": "luohu",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.vickongdental.cn/",
+    "phone": "+86 132 6696 2630",
+    "hours": "09:00-18:00",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "slug": "vickong-luohu-jinguanghua-dental",
+    "url": "/dental/shenzhen/luohu/vickong-luohu-jinguanghua-dental",
+    "prices": {
+      "洗牙": "¥200-500/次",
+      "補牙": "¥180-600/顆",
+      "拔牙": "¥200-2000/顆",
+      "植牙": "¥5180-15800/顆"
+    },
+    "location": {
+      "lat": 22.5389,
+      "lng": 114.1180
+    }
+  },
+  {
+    "name": "維港康固口腔診所（福田KKONE分院）",
+    "address": "中國深圳市福田區下沙花好園106-107號1樓至2樓",
+    "region": "福田區",
+    "region_en": "Futian",
+    "region_code": "futian",
+    "count": "1",
+    "type": "私家診所",
+    "sourceLink": "https://www.vickongdental.cn/",
+    "phone": "+86 132 6696 2630",
+    "hours": "09:30-18:30",
+    "photo": "無照片",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "slug": "vickong-futian-kkone-dental",
+    "url": "/dental/shenzhen/futian/vickong-futian-kkone-dental",
+    "prices": {
+      "洗牙": "¥200-500/次",
+      "補牙": "¥180-600/顆",
+      "拔牙": "¥200-2000/顆",
+      "植牙": "¥5180-15800/顆"
+    },
+    "location": {
+      "lat": 22.5326,
+      "lng": 114.0669
+    }
+  },
+  {
+    "name": "深圳五一齿科",
+    "address": "深圳市罗湖区深南东路5002号地王大厦",
+    "region": "羅湖區",
+    "region_en": "Luohu",
+    "region_code": "luohu",
+    "type": "私營診所",
+    "phone": "0755-8225-6333",
+    "hours": "9:00-18:00",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "slug": "wuyi-luohu-dental",
+    "url": "/dental/shenzhen/luohu/wuyi-luohu-dental",
+    "prices": {
+      "植牙": "10000元起"
+    },
+    "location": {
+      "lat": 22.5459,
+      "lng": 114.1149
+    }
+  },
+  {
+    "name": "深圳美佳德口腔（罗湖店）",
+    "address": "深圳市罗湖区南湖街道建设路1098-2号",
+    "region": "羅湖區",
+    "region_en": "Luohu",
+    "region_code": "luohu",
+    "type": "私營診所",
+    "phone": "",
+    "hours": "未明確",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "slug": "meijiade-luohu-dental",
+    "url": "/dental/shenzhen/luohu/meijiade-luohu-dental",
+    "prices": {
+      "洗牙": "58元起"
+    },
+    "location": {
+      "lat": 22.5381,
+      "lng": 114.1109
+    }
+  },
+  {
+    "name": "深圳博森口腔（莲塘店）",
+    "address": "深圳市罗湖区罗沙路4099号兰亭名园一单元203-204号",
+    "region": "羅湖區",
+    "region_en": "Luohu",
+    "region_code": "luohu",
+    "type": "私營診所",
+    "phone": "",
+    "hours": "8:30-19:00",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "slug": "bosen-luohu-liantang-dental",
+    "url": "/dental/shenzhen/luohu/bosen-luohu-liantang-dental",
+    "prices": {
+      "植牙": "老年人種牙5000元起"
+    },
+    "location": {
+      "lat": 22.5598,
+      "lng": 114.1573
+    }
+  },
+  {
+    "name": "深圳格伦菲尔口腔（龙华分院）",
+    "address": "深圳市龙华区和平路与清泉路交汇处（清湖地铁站）",
+    "region": "龍華區",
+    "region_en": "Longhua",
+    "region_code": "longhua",
+    "type": "私營診所",
+    "phone": "0755-2102-2999",
+    "hours": "9:00-21:00",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "slug": "glenfil-longhua-dental",
+    "url": "/dental/shenzhen/longhua/glenfil-longhua-dental",
+    "prices": {
+      "植牙": "韓國種植牙980元起"
+    },
+    "location": {
+      "lat": 22.6603,
+      "lng": 114.0271
+    }
+  },
+  {
+    "name": "深圳博森口腔（红山店）",
+    "address": "深圳市龙华区民治街道中梅路润达圆庭B座南街铺107、201之B1-201",
+    "region": "龍華區",
+    "region_en": "Longhua",
+    "region_code": "longhua",
+    "type": "私營診所",
+    "phone": "",
+    "hours": "9:00-21:00",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "slug": "bosen-longhua-hongshan-dental",
+    "url": "/dental/shenzhen/longhua/bosen-longhua-hongshan-dental",
+    "prices": {
+      "矯正": "學生矯正優惠2000元"
+    },
+    "location": {
+      "lat": 22.6298,
+      "lng": 114.0355
+    }
+  },
+  {
+    "name": "深圳同步齿科（南山分院）",
+    "address": "南山区南海大道海王大厦A座17楼",
+    "region": "南山區",
+    "region_en": "Nanshan",
+    "region_code": "nanshan",
+    "type": "私營診所",
+    "phone": "0755-2665-5333",
+    "hours": "9:00-18:00",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "slug": "tongbu-nanshan-dental",
+    "url": "/dental/shenzhen/nanshan/tongbu-nanshan-dental",
+    "prices": {
+      "矯正": "隐适美矫正38000元起"
+    },
+    "location": {
+      "lat": 22.5192,
+      "lng": 113.9267
+    }
+  },
+  {
+    "name": "深圳登缇斯口腔",
+    "address": "南山区（具体地址未明确）",
+    "region": "南山區",
+    "region_en": "Nanshan",
+    "region_code": "nanshan",
+    "type": "私營診所",
+    "phone": "",
+    "hours": "",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "slug": "dentice-nanshan-dental",
+    "url": "/dental/shenzhen/nanshan/dentice-nanshan-dental",
+    "prices": {
+      "植牙": "高難度穿顎穿翼種植"
+    },
+    "location": {
+      "lat": 22.5335,
+      "lng": 113.9342
+    }
+  },
+  {
+    "name": "深圳同步齿科（福田分院）",
+    "address": "福田區（地址未詳）",
+    "region": "福田區",
+    "region_en": "Futian",
+    "region_code": "futian",
+    "type": "私營診所",
+    "phone": "0755-2665-5333",
+    "hours": "9:00-18:00",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "slug": "tongbu-futian-dental",
+    "url": "/dental/shenzhen/futian/tongbu-futian-dental",
+    "prices": {
+      "植牙": "德國ICX種植牙13800元起"
+    },
+    "location": {
+      "lat": 22.5425,
+      "lng": 114.0565
+    }
+  },
+  {
+    "name": "深圳世紀河山口腔",
+    "address": "寶安區新沙路565號1樓",
+    "region": "寶安區",
+    "region_en": "Baoan",
+    "region_code": "baoan",
+    "type": "私營診所",
+    "phone": "0755-2780-6333",
+    "hours": "9:00-18:00",
+    "city": "深圳",
+    "country": "中國",
+    "isGreaterBayArea": true,
+    "slug": "shiji-baoan-dental",
+    "url": "/dental/shenzhen/baoan/shiji-baoan-dental",
+    "prices": {
+      "矯正": "隱適美矯正45000元起"
+    },
+    "location": {
+      "lat": 22.5653,
+      "lng": 113.8883
+    }
+  }
+]

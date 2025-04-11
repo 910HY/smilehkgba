@@ -163,15 +163,23 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
           </p>
         )}
         
-        {/* 診所詳情頁面連結 */}
-        {clinic.slug && clinic.url && (
-          <div className="mt-4 mb-2 text-center">
-            <a 
-              href={clinic.url}
-              className="text-[#ffaa40] text-sm font-medium hover:text-[#ffbb66] transition-colors"
-            >
-              查看診所詳細資訊 →
-            </a>
+        {/* 大眾評分與連鎖經營顯示（針對大灣區診所） */}
+        {clinic.isGreaterBayArea && (
+          <div className="mt-4 mb-2 flex flex-wrap justify-between items-center">
+            {clinic.rating && (
+              <div className="flex items-center text-[#ffaa40]">
+                <span className="text-sm font-medium">大眾評分: {clinic.rating}</span>
+                {clinic.rating >= 4.5 && (
+                  <span className="ml-1 text-yellow-400">★</span>
+                )}
+              </div>
+            )}
+            
+            {clinic.isChain && (
+              <div className="bg-blue-600 text-white text-xs px-2 py-1 rounded">
+                連鎖經營
+              </div>
+            )}
           </div>
         )}
 
