@@ -1,7 +1,8 @@
 {
   "version": 2,
-  "buildCommand": "node build-vercel.js",
-  "outputDirectory": "client/dist",
+  "rootDirectory": "client",
+  "buildCommand": "node ../build-vercel.js",
+  "outputDirectory": "dist",
   "framework": "nextjs",
   "functions": {
     "pages/api/**/*.ts": {
