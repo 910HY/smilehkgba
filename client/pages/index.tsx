@@ -1,26 +1,19 @@
 import { useState, useEffect } from "react";
-import { Route, Switch } from "wouter";
-import Header from "./components/Header";
-import SearchPanel from "./components/SearchPanel";
-import ClinicCard from "./components/ClinicCard";
-import NoResults from "./components/NoResults";
-import Footer from "./components/Footer";
-import Pagination from "./components/Pagination";
-import LatestArticles from "./components/LatestArticles";
-import LatestPromotions from "./components/LatestPromotions";
-import ReportPage from "./pages/ReportPage";
-import NotFound from "./pages/not-found";
-import ArticleIndex from "./pages/articles/index";
-import ArticleDetail from "./pages/articles/[slug]";
-import PromotionIndex from "./pages/promotions/index";
-import PromotionDetail from "./pages/promotions/[slug]";
-import { Clinic } from "./types/clinic";
+import Header from "../src/components/Header";
+import SearchPanel from "../src/components/SearchPanel";
+import ClinicCard from "../src/components/ClinicCard";
+import NoResults from "../src/components/NoResults";
+import Footer from "../src/components/Footer";
+import Pagination from "../src/components/Pagination";
+import LatestArticles from "../src/components/LatestArticles";
+import LatestPromotions from "../src/components/LatestPromotions";
+import { Clinic } from "../src/types/clinic";
 import { Toaster } from "@/components/ui/toaster";
 import { useQuery } from "@tanstack/react-query";
-import { fetchClinicData } from "./lib/clinic-data";
-import { detailedRegions } from "./lib/regions";
+import { fetchClinicData } from "../src/lib/clinic-data";
+import { detailedRegions } from "../src/lib/regions";
 
-function App() {
+export default function HomePage() {
   const [searchParams, setSearchParams] = useState({
     region: "",
     subRegion: "",
@@ -228,145 +221,103 @@ function App() {
 
   return (
     <div className="bg-black min-h-screen font-sans text-[#ffaa40]">
-      <Switch>
-        <Route path="/report">
-          <div className="container mx-auto px-4 py-6 max-w-7xl">
-            <Header />
-            <ReportPage />
-            <Footer />
+      <div className="container mx-auto px-4 py-6 max-w-7xl">
+        <Header />
+        
+        <SearchPanel onSearch={handleSearch} />
+        
+        {isLoading ? (
+          <div className="text-center py-20">
+            <div className="text-white text-xl">載入中...</div>
           </div>
-        </Route>
-        
-        <Route path="/articles/:slug">
-          <Header />
-          <ArticleDetail />
-          <Footer />
-        </Route>
-        
-        <Route path="/articles">
-          <Header />
-          <ArticleIndex />
-          <Footer />
-        </Route>
-        
-        <Route path="/promotions/:slug">
-          <Header />
-          <PromotionDetail />
-          <Footer />
-        </Route>
-        
-        <Route path="/promotions">
-          <Header />
-          <PromotionIndex />
-          <Footer />
-        </Route>
-        
-        <Route path="/">
-          <div className="container mx-auto px-4 py-6 max-w-7xl">
-            <Header />
+        ) : hasSearched && filteredClinics.length > 0 ? (
+          <div id="searchResults" className="mb-8">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-[#ffaa40] text-xl font-bold">搜尋結果</h3>
+              <p className="text-[#ffbb66]">
+                共找到 <span className="font-bold">{filteredClinics.length}</span> 間診所
+              </p>
+            </div>
             
-            <SearchPanel onSearch={handleSearch} />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {currentItems.map((clinic, index) => (
+                <ClinicCard key={index} clinic={clinic} />
+              ))}
+            </div>
             
-            {isLoading ? (
-              <div className="text-center py-20">
-                <div className="text-white text-xl">載入中...</div>
-              </div>
-            ) : hasSearched && filteredClinics.length > 0 ? (
-              <div id="searchResults" className="mb-8">
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-[#ffaa40] text-xl font-bold">搜尋結果</h3>
-                  <p className="text-[#ffbb66]">
-                    共找到 <span className="font-bold">{filteredClinics.length}</span> 間診所
-                  </p>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {currentItems.map((clinic, index) => (
-                    <ClinicCard key={index} clinic={clinic} />
-                  ))}
-                </div>
-                
-                {totalPages > 1 && (
-                  <Pagination 
-                    currentPage={currentPage} 
-                    totalPages={totalPages} 
-                    paginate={paginate} 
+            {totalPages > 1 && (
+              <Pagination 
+                currentPage={currentPage} 
+                totalPages={totalPages} 
+                paginate={paginate} 
+              />
+            )}
+          </div>
+        ) : (
+          <div style={{ 
+              padding: '4rem 0', 
+              textAlign: 'center',
+              maxWidth: '1200px',
+              margin: '0 auto'
+            }}>
+            {!hasSearched ? (
+              <div style={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center', 
+                justifyContent: 'center' 
+              }}>
+                <div style={{ 
+                  backgroundColor: 'rgba(255, 122, 0, 0.1)', 
+                  padding: '1.5rem', 
+                  borderRadius: '9999px', 
+                  marginBottom: '1.5rem' 
+                }}>
+                  <img 
+                    src="/logo.png"
+                    alt="牙GoGo Logo" 
+                    style={{ height: '4rem', width: '4rem' }} 
                   />
-                )}
+                </div>
+                <h2 style={{ 
+                  color: '#FF7A00', 
+                  fontSize: '2.25rem', 
+                  fontWeight: 'bold', 
+                  marginBottom: '0.5rem' 
+                }}>
+                  牙GoGo
+                </h2>
+                <p style={{ 
+                  color: '#FF9D45', 
+                  fontSize: '1.25rem', 
+                  marginBottom: '1.5rem' 
+                }}>
+                  至關心你啲牙既牙科資訊平台
+                </p>
+                <p style={{ 
+                  color: '#94a3b8', 
+                  maxWidth: '36rem', 
+                  marginBottom: '2rem',
+                  fontSize: '1.1rem'
+                }}>
+                  請使用上方搜尋欄位尋找香港及大灣區的牙科診所資訊。
+                </p>
               </div>
             ) : (
-              <div style={{ 
-                  padding: '4rem 0', 
-                  textAlign: 'center',
-                  maxWidth: '1200px',
-                  margin: '0 auto'
-                }}>
-                {!hasSearched ? (
-                  <div style={{ 
-                    display: 'flex', 
-                    flexDirection: 'column', 
-                    alignItems: 'center', 
-                    justifyContent: 'center' 
-                  }}>
-                    <div style={{ 
-                      backgroundColor: 'rgba(255, 122, 0, 0.1)', 
-                      padding: '1.5rem', 
-                      borderRadius: '9999px', 
-                      marginBottom: '1.5rem' 
-                    }}>
-                      <img 
-                        src="/logo.png"
-                        alt="牙GoGo Logo" 
-                        style={{ height: '4rem', width: '4rem' }} 
-                      />
-                    </div>
-                    <h2 style={{ 
-                      color: '#FF7A00', 
-                      fontSize: '2.25rem', 
-                      fontWeight: 'bold', 
-                      marginBottom: '0.5rem' 
-                    }}>
-                      牙GoGo
-                    </h2>
-                    <p style={{ 
-                      color: '#FF9D45', 
-                      fontSize: '1.25rem', 
-                      marginBottom: '1.5rem' 
-                    }}>
-                      至關心你啲牙既牙科資訊平台
-                    </p>
-                    <p style={{ 
-                      color: '#94a3b8', 
-                      maxWidth: '36rem', 
-                      marginBottom: '2rem',
-                      fontSize: '1.1rem'
-                    }}>
-                      請使用上方搜尋欄位尋找香港及大灣區的牙科診所資訊。
-                    </p>
-                  </div>
-                ) : (
-                  <NoResults hasSearched={true} />
-                )}
-              </div>
+              <NoResults hasSearched={true} />
             )}
-            
-            {/* 在首頁添加最新文章區塊 */}
-            <LatestArticles limit={3} />
-            
-            {/* 在首頁添加最新優惠區塊 */}
-            <LatestPromotions limit={3} />
-            
-            <Footer />
           </div>
-        </Route>
+        )}
         
-        <Route>
-          <NotFound />
-        </Route>
-      </Switch>
+        {/* 在首頁添加最新文章區塊 */}
+        <LatestArticles limit={3} />
+        
+        {/* 在首頁添加最新優惠區塊 */}
+        <LatestPromotions limit={3} />
+        
+        <Footer />
+      </div>
       <Toaster />
     </div>
   );
 }
-
-export default App;
