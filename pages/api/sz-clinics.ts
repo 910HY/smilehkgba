@@ -9,15 +9,17 @@ export default function handler(req: any, res: any) {
     // 嘗試讀取深圳診所數據文件（使用增強版深圳診所數據）
     // 優先使用enhanced_sz_clinics.json，如果不存在則嘗試其他選項
     const enhancedSzFilePath = path.join(rootDir, 'attached_assets', 'enhanced_sz_clinics.json');
+    const fixedSzFilePath = path.join(rootDir, 'attached_assets', 'fixed_sz_clinics.json');
     const validSzFilePath = path.join(rootDir, 'attached_assets', 'shenzhen_dental_clinics_valid.json');
-    const fixedSzFilePath = path.join(rootDir, 'attached_assets', 'fixed_dental_clinics.json');
+    const fixedDentalFilePath = path.join(rootDir, 'attached_assets', 'fixed_dental_clinics.json');
     const original2025SzFilePath = path.join(rootDir, 'attached_assets', '2025-shenzhen-dental-value.json');
     
     // 按優先順序選擇第一個可用的文件
     const szFilePath = 
           fs.existsSync(enhancedSzFilePath) ? enhancedSzFilePath :
-          fs.existsSync(validSzFilePath) ? validSzFilePath :
           fs.existsSync(fixedSzFilePath) ? fixedSzFilePath :
+          fs.existsSync(validSzFilePath) ? validSzFilePath :
+          fs.existsSync(fixedDentalFilePath) ? fixedDentalFilePath :
           original2025SzFilePath;
     
     console.log('使用深圳診所數據文件:', szFilePath);
