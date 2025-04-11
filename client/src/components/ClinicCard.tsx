@@ -8,6 +8,7 @@ import MapDialog from './MapDialog';
 import ExpandableText from './ExpandableText';
 import { generateAmapSearchUrl } from '../lib/generateAmapLink';
 
+// 生成高德地圖標記URL
 function generateAmapMarkerUrl(clinic: Clinic): string | null {
   if (!clinic.location || !clinic.location.lng || !clinic.location.lat) return null;
 
@@ -72,7 +73,7 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
   const isHighlighted = !!clinic.highlight;
   const isChain = !!clinic.is_chain;
   const hasRating = clinic.rating !== undefined && typeof clinic.rating === 'number';
-  const hasHighRating = hasRating && clinic.rating >= 4.5;
+  const hasHighRating = hasRating && clinic.rating !== undefined && clinic.rating >= 4.5;
   
   // 確定是否顯示高亮邊框（優質診所）
   const cardBorderClass = isFiltered || isHighRated || isHighlighted || hasHighRating || isChain
@@ -82,7 +83,9 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
   // 判斷診所類型顯示文字
   const getQualityLabel = () => {
     if (isChain) return '連鎖品牌診所';
-    if (hasHighRating && hasRating) return `評分 ${clinic.rating}⭐ 優質推薦`;
+    if (hasHighRating && hasRating && clinic.rating !== undefined) {
+      return `評分 ${clinic.rating}⭐ 優質推薦`;
+    }
     return '優質診所推薦';
   };
 
@@ -221,8 +224,6 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
           </p>
         )}
         
-        {/* 移除診所詳情頁面連結，所有資訊通過下拉顯示 */}
-
         {/* 報錯按鈕 */}
         <div className="mt-4 pt-3 border-t border-[#ffbb66]/20 text-center">
           <button 
