@@ -56,31 +56,46 @@
       }
       
       /* ================ 緊急修復 - 强制修改診所卡片評分和連鎖標籤位置 ================ */
-      div[class*="rounded-lg"][class*="shadow-lg"] {
-        /* 加橘色頂條 */
-        border-top: 2px solid var(--primary-color) !important;
+      .bg-\[\#111\].border.border-\[\#ffbb66\]\/30.rounded-lg.shadow-lg {
+        /* 添加橘色頂條 */
+        position: relative !important;
       }
       
-      /* 將評分和連鎖標籤移到價格信息下方，地圖連結按鈕上方 */
-      div[class*="rounded-lg"][class*="shadow-lg"] > div > div:nth-of-type(1) ~ div {
-        position: relative;
+      .bg-\[\#111\].border.border-\[\#ffbb66\]\/30.rounded-lg.shadow-lg::before {
+        content: "" !important;
+        display: block !important;
+        height: 3px !important;
+        width: 100% !important;
+        background-color: #FF7A00 !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        z-index: 10 !important;
       }
       
-      /* 找到所有含大眾評分和連鎖經營的元素 */
-      div[class*="rounded-lg"][class*="shadow-lg"] .mt-4.mb-2.flex.flex-wrap.justify-between.items-center {
-        /* 移動到地圖按鈕前面 */
-        order: -1;
-        margin-top: 0 !important;
+      /* 強制改變元素順序 */
+      .bg-\[\#111\].border.border-\[\#ffbb66\]\/30.rounded-lg.shadow-lg > div:last-child {
+        display: flex !important;
+        flex-direction: column !important;
+      }
+      
+      /* 提取並移動評分和連鎖標籤 */
+      #rating-chain-container-js {
         margin-bottom: 12px !important;
-        background-color: #1a1a1a;
-        border-radius: 6px;
-        padding: 8px;
-        border: 1px solid #333;
+        background-color: #1a1a1a !important; 
+        padding: 8px !important;
+        border-radius: 6px !important;
+        border: 1px solid #333 !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        flex-wrap: wrap !important;
+        order: -1 !important;
       }
       
-      /* 填充星星圖標 */
-      div[class*="rounded-lg"][class*="shadow-lg"] .mt-4.mb-2.flex svg {
-        fill: #fcd34d;
+      /* 覆蓋原始評分和連鎖標籤 */
+      .mt-4.mb-2.flex.flex-wrap.justify-between.items-center {
+        display: none !important;
       }
     </style>
   </head>
@@ -95,5 +110,63 @@
     <script type="module" src="/src/main.tsx"></script>
     <!-- This script injects a replit badge into the page, please feel free to remove this line -->
     <script type="text/javascript" src="https://replit.com/public/js/replit-badge-v3.js"></script>
+    
+    <!-- 診所卡片評分和連鎖標籤位置修正 -->
+    <script>
+      // 使用 MutationObserver 監視 DOM 變化
+      const observer = new MutationObserver((mutations) => {
+        // 找到所有診所卡片
+        const clinicCards = document.querySelectorAll('.bg-\\[\\#111\\].border.border-\\[\\#ffbb66\\]\\/30.rounded-lg.shadow-lg');
+        
+        clinicCards.forEach(card => {
+          // 檢查是否已經處理過
+          if (card.dataset.processed === 'true') return;
+          
+          // 標記為已處理
+          card.dataset.processed = 'true';
+          
+          // 找到大眾評分和連鎖經營標籤
+          const ratingChainContainer = card.querySelector('.mt-4.mb-2.flex.flex-wrap.justify-between.items-center');
+          
+          if (ratingChainContainer) {
+            // 找到地圖按鈕的容器
+            const mapButtonsContainer = card.querySelector('.flex.space-x-2');
+            
+            if (mapButtonsContainer) {
+              // 創建一個新的容器來放置評分和連鎖標籤
+              const newContainer = document.createElement('div');
+              newContainer.id = 'rating-chain-container-js';
+              newContainer.innerHTML = ratingChainContainer.innerHTML;
+              
+              // 在地圖按鈕前插入新的容器
+              mapButtonsContainer.parentNode.insertBefore(newContainer, mapButtonsContainer);
+              
+              // 找到五角星圖標並強制填充
+              const starIcons = newContainer.querySelectorAll('svg');
+              starIcons.forEach(icon => {
+                icon.style.fill = '#fcd34d';
+              });
+              
+              // 移除原有的容器
+              ratingChainContainer.style.display = 'none';
+            }
+          }
+        });
+      });
+      
+      // 開始觀察文檔變化
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+      
+      // 頁面加載完成後也執行一次
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const event = new Event('DOMContentLoaded');
+          document.dispatchEvent(event);
+        }, 500);
+      });
+    </script>
   </body>
 </html>
