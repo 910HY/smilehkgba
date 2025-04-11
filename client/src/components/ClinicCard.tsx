@@ -108,6 +108,26 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
               icon={<DollarSign className="h-5 w-5 text-[#ffaa40]" />}
             />
           )}
+          
+          {/* 大眾評分與連鎖經營顯示（針對大灣區診所） - 移至價格信息下方 */}
+          {clinic.isGreaterBayArea && (
+            <div className="mt-3 flex flex-wrap justify-between items-center">
+              {clinic.rating && (
+                <div className="flex items-center text-[#ffaa40]">
+                  <span className="text-sm font-medium">大眾評分: {clinic.rating}</span>
+                  {clinic.rating >= 4.5 && (
+                    <span className="ml-1 text-yellow-400">★</span>
+                  )}
+                </div>
+              )}
+              
+              {clinic.isChain && (
+                <div className="bg-blue-600 text-white text-xs px-2 py-1 rounded">
+                  連鎖經營
+                </div>
+              )}
+            </div>
+          )}
         </div>
         
         <div className="flex space-x-2">
@@ -161,26 +181,6 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
           <p className="text-xs text-red-500 mt-2">
             地圖未能開啟？請複製地址於 Google 或百度地圖搜尋。
           </p>
-        )}
-        
-        {/* 大眾評分與連鎖經營顯示（針對大灣區診所） */}
-        {clinic.isGreaterBayArea && (
-          <div className="mt-4 mb-2 flex flex-wrap justify-between items-center">
-            {clinic.rating && (
-              <div className="flex items-center text-[#ffaa40]">
-                <span className="text-sm font-medium">大眾評分: {clinic.rating}</span>
-                {clinic.rating >= 4.5 && (
-                  <span className="ml-1 text-yellow-400">★</span>
-                )}
-              </div>
-            )}
-            
-            {clinic.isChain && (
-              <div className="bg-blue-600 text-white text-xs px-2 py-1 rounded">
-                連鎖經營
-              </div>
-            )}
-          </div>
         )}
 
         {/* 報錯按鈕 */}
