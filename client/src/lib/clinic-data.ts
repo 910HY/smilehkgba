@@ -166,8 +166,19 @@ export async function fetchClinicData(): Promise<Clinic[]> {
     const baseUrl = import.meta.env.DEV 
       ? '' 
       : (import.meta.env.VITE_API_URL || '');
+    
+    // 添加時間戳和隨機數，強制瀏覽器不使用緩存
+    const cacheBreaker = `nocache=${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
+    
     // 直接從合併的API端點獲取資料
-    const response = await fetch(`${baseUrl}/api/clinics`);
+    const response = await fetch(`${baseUrl}/api/clinics?${cacheBreaker}`, {
+      headers: {
+        'Pragma': 'no-cache',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+      },
+      // 強制重新獲取，即使已經有緩存的內容
+      cache: 'no-store'
+    });
     
     if (!response.ok) {
       throw new Error(`API 回應錯誤: ${response.status}`);
@@ -178,6 +189,19 @@ export async function fetchClinicData(): Promise<Clinic[]> {
     
     // 處理每個診所數據，確保有必要的字段
     const enhancedClinics = clinics.map(enhanceClinicData);
+    
+    // 檢查是否有深圳診所數據
+    const szClinics = enhancedClinics.filter((c: Clinic) => 
+      c.isGreaterBayArea || c.city === '深圳' || c.city === '深圳市'
+    );
+    console.log("其中深圳診所數量:", szClinics.length);
+    
+    // 如果沒有深圳診所或數量太少，直接從sz-clinics端點獲取
+    if (szClinics.length < 20) {
+      console.log("深圳診所數量不足，嘗試直接獲取深圳診所數據...");
+      return fetchClinicDataFallback();
+    }
+    
     return enhancedClinics;
   } catch (error) {
     console.error("獲取診所資料時發生錯誤:", error);
@@ -195,15 +219,72 @@ export const fetchClinicDataFallback = async (): Promise<Clinic[]> => {
       ? '' 
       : (import.meta.env.VITE_API_URL || '');
     
-    const [hkClinicsResp, ngoClinicsResp, szClinicsResp] = await Promise.all([
-      fetch(`${baseUrl}/api/hk-clinics`),
-      fetch(`${baseUrl}/api/ngo-clinics`),
-      fetch(`${baseUrl}/api/sz-clinics`)
+    // 添加時間戳和隨機數，強制瀏覽器不使用緩存
+    const cacheBreaker = `nocache=${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
+    
+    // 構建API請求參數
+    const fetchOptions = {
+      headers: {
+        'Pragma': 'no-cache',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+      },
+      cache: 'no-store' as RequestCache
+    };
+    
+    // 優先獨立獲取深圳診所數據
+    console.log("直接從專門API獲取深圳診所數據...");
+    const szClinicsResp = await fetch(`${baseUrl}/api/sz-clinics?${cacheBreaker}`, fetchOptions);
+    const szClinics = szClinicsResp.ok ? await szClinicsResp.json() : [];
+    
+    // 如果深圳診所數據不足，嘗試直接請求文件
+    if (szClinics.length < 20) {
+      console.log("API返回深圳診所數據不足，嘗試直接請求JSON文件...");
+      try {
+        // 嘗試直接從靜態文件獲取
+        const directJsonResp = await fetch(`${baseUrl}/attached_assets/fixed_sz_clinics.json?${cacheBreaker}`, fetchOptions);
+        if (directJsonResp.ok) {
+          const directClinics = await directJsonResp.json();
+          if (Array.isArray(directClinics) && directClinics.length > 15) {
+            console.log(`成功從靜態文件獲取 ${directClinics.length} 間深圳診所`);
+            
+            // 標記這些診所為大灣區
+            const markedDirectClinics = directClinics.map(clinic => ({
+              ...clinic,
+              isGreaterBayArea: true,
+              city: clinic.city || '深圳',
+              country: clinic.country || '中國'
+            }));
+            
+            // 獲取香港和NGO診所
+            const [hkClinicsResp, ngoClinicsResp] = await Promise.all([
+              fetch(`${baseUrl}/api/hk-clinics?${cacheBreaker}`, fetchOptions),
+              fetch(`${baseUrl}/api/ngo-clinics?${cacheBreaker}`, fetchOptions)
+            ]);
+            
+            const hkClinics = hkClinicsResp.ok ? await hkClinicsResp.json() : [];
+            const ngoClinics = ngoClinicsResp.ok ? await ngoClinicsResp.json() : [];
+            
+            // 合併所有診所數據
+            const allClinics = [...hkClinics, ...ngoClinics, ...markedDirectClinics];
+            const enhancedClinics = allClinics.map(enhanceClinicData);
+            
+            console.log("總共獲取到診所:", enhancedClinics.length, "其中深圳診所:", markedDirectClinics.length);
+            return enhancedClinics;
+          }
+        }
+      } catch (directError) {
+        console.error("直接獲取JSON失敗:", directError);
+      }
+    }
+    
+    // 正常流程：獲取所有診所數據
+    const [hkClinicsResp, ngoClinicsResp] = await Promise.all([
+      fetch(`${baseUrl}/api/hk-clinics?${cacheBreaker}`, fetchOptions),
+      fetch(`${baseUrl}/api/ngo-clinics?${cacheBreaker}`, fetchOptions)
     ]);
 
     const hkClinics = hkClinicsResp.ok ? await hkClinicsResp.json() : [];
     const ngoClinics = ngoClinicsResp.ok ? await ngoClinicsResp.json() : [];
-    const szClinics = szClinicsResp.ok ? await szClinicsResp.json() : [];
 
     console.log("備用方法獲取資料:", {
       hk: hkClinics.length,
