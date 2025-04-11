@@ -117,8 +117,13 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
         {clinic.rating && (
           <div className="flex items-center mb-2">
             <Star className="h-4 w-4 text-yellow-500 mr-1" fill="#FFBB33" />
-            <span className="text-yellow-500 font-medium">{clinic.rating}</span>
-            {clinic.is_chain && <Shield className="h-4 w-4 text-blue-500 ml-2" />}
+            <span className="text-yellow-500 font-medium">大眾評分: {clinic.rating}</span>
+            {clinic.is_chain && (
+              <div className="flex items-center ml-2">
+                <Shield className="h-4 w-4 text-blue-500 mr-1" />
+                <span className="text-blue-500 text-xs font-medium">連鎖經營</span>
+              </div>
+            )}
           </div>
         )}
         
