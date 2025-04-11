@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { Clinic } from '../types/clinic';
 import { 
   MapPin, Phone, Clock, DollarSign, Map,
-  Navigation, Stethoscope, Building, HeartPulse,
-  Star
+  Stethoscope, Building, HeartPulse, Star
 } from 'lucide-react';
 import MapDialog from './MapDialog';
 import ExpandableText from './ExpandableText';
@@ -23,13 +22,6 @@ interface ClinicCardProps {
 const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
   const [isMapOpen, setIsMapOpen] = useState(false);
 
-  // 每個診所類型對應的圖標和顏色
-  const clinicTypeIcons = {
-    '私家診所': <Building className="h-5 w-5 text-primary" />,
-    'NGO社企': <Stethoscope className="h-5 w-5 text-primary" />,
-    '全部': <HeartPulse className="h-5 w-5 text-primary" />
-  };
-  
   // 格式化電話號碼以便顯示
   const formatPhone = (phone: string | number) => {
     if (!phone) return '無提供';
@@ -38,7 +30,6 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
       return phone.toString().replace(/(\d{4})(\d{4})/, '$1 $2');
     }
     
-    // 嘗試將字符串格式化為更易讀的形式
     const phoneStr = phone.toString().trim();
     if (phoneStr.length === 8) {
       return phoneStr.replace(/(\d{4})(\d{4})/, '$1 $2');
@@ -69,6 +60,9 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
 
   return (
     <div className="bg-[#111] border border-[#ffbb66]/30 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+      {/* 最上方的橘色條 */}
+      <div className="h-1 w-full bg-[#ffaa40]"></div>
+      
       {/* 診所名稱和類型 */}
       <div className="pt-4 pl-4 pr-4 flex justify-between items-start">
         <h4 className="font-bold text-lg mb-2 text-[#ffaa40] tracking-wide">{clinic.name}</h4>
@@ -115,12 +109,12 @@ const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
           )}
         </div>
         
-        {/* 大眾評分與連鎖經營顯示（針對大灣區診所） */}
+        {/* 大眾評分與連鎖經營顯示（針對大灣區診所） - 這部分在地圖按鈕前面 */}
         {clinic.isGreaterBayArea && (clinic.rating || clinic.isChain) && (
-          <div className="mb-3 flex flex-wrap justify-between items-center">
+          <div className="mb-3 flex flex-wrap justify-between items-center p-2 bg-[#1a1a1a] rounded-lg border border-[#333]">
             {clinic.rating && (
               <div className="flex items-center text-[#ffaa40]">
-                <Star className="h-4 w-4 mr-1 text-yellow-400" />
+                <Star className="h-4 w-4 mr-1 text-yellow-400 fill-yellow-400" />
                 <span className="text-sm font-medium">大眾評分: {clinic.rating}</span>
               </div>
             )}
