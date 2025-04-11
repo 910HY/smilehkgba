@@ -6,26 +6,53 @@ export default function handler(req: any, res: any) {
   try {
     console.log('API 請求: /api/sz-clinics');
     
+    // 設置響應頭，防止 Vercel 緩存
+    res.setHeader('Cache-Control', 'no-store, max-age=0');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    
+    // 版本號 - 每次部署時改變此數字，確保前端獲取新數據
+    const VERSION = "20250411-001";
+    console.log(`數據版本: ${VERSION}`);
+    
     // 嘗試讀取深圳診所數據文件（使用增強版深圳診所數據）
     // 嘗試在多個位置查找診所數據文件，優先使用public/api/data目錄中的文件（Vercel部署時使用）
-    const publicApiEnhancedSzPath = path.join(rootDir, 'public', 'api', 'data', 'enhanced_sz_clinics.json');
-    const enhancedSzFilePath = path.join(rootDir, 'attached_assets', 'enhanced_sz_clinics.json');
-    const fixedSzFilePath = path.join(rootDir, 'attached_assets', 'fixed_sz_clinics.json');
-    const validSzFilePath = path.join(rootDir, 'attached_assets', 'shenzhen_dental_clinics_valid.json');
-    const fixedDentalFilePath = path.join(rootDir, 'attached_assets', 'fixed_dental_clinics.json');
-    const original2025SzFilePath = path.join(rootDir, 'attached_assets', '2025-shenzhen-dental-value.json');
     
-    // 按優先順序選擇第一個可用的文件
-    const szFilePath = 
-          fs.existsSync(publicApiEnhancedSzPath) ? publicApiEnhancedSzPath :
-          fs.existsSync(enhancedSzFilePath) ? enhancedSzFilePath :
-          fs.existsSync(fixedSzFilePath) ? fixedSzFilePath :
-          fs.existsSync(validSzFilePath) ? validSzFilePath :
-          fs.existsSync(fixedDentalFilePath) ? fixedDentalFilePath :
-          original2025SzFilePath;
+    // Vercel 環境下使用的路徑特別處理
+    const isVercel = process.env.VERCEL === '1';
+    const vercelDataPath = isVercel ? path.join(process.cwd(), '.vercel', 'output', 'static', 'api', 'data') : '';
+    
+    // 嘗試所有可能的文件路徑，優先級順序從高到低
+    const possiblePaths = [
+      // Vercel 環境特定路徑
+      isVercel ? path.join(vercelDataPath, 'enhanced_sz_clinics.json') : null,
+      // 公共API目錄路徑
+      path.join(rootDir, 'public', 'api', 'data', 'enhanced_sz_clinics.json'),
+      // attached_assets 目錄下的各種可能檔案
+      path.join(rootDir, 'attached_assets', 'enhanced_sz_clinics.json'),
+      path.join(rootDir, 'attached_assets', 'fixed_sz_clinics.json'),
+      path.join(rootDir, 'attached_assets', 'shenzhen_dental_clinics_fixed.json'),
+      path.join(rootDir, 'attached_assets', 'shenzhen_dental_clinics_valid.json'),
+      path.join(rootDir, 'attached_assets', 'fixed_dental_clinics.json'),
+      path.join(rootDir, 'attached_assets', '2025-shenzhen-dental-value.json')
+    ].filter(Boolean); // 移除null值
+    
+    // 找到第一個存在的文件
+    let szFilePath: string | null = null;
+    for (const filePath of possiblePaths) {
+      if (filePath && fs.existsSync(filePath)) {
+        szFilePath = filePath;
+        break;
+      }
+    }
+    
+    if (!szFilePath) {
+      throw new Error('找不到任何可用的深圳診所數據文件');
+    }
     
     console.log('使用深圳診所數據文件:', szFilePath);
     
+    // 讀取原始數據
     const szRawData = readJsonFile(szFilePath);
     
     // 處理深圳診所數據，添加缺失的字段
