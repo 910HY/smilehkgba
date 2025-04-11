@@ -20,7 +20,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "/pages/index.tsx"
+      "dest": "/index.html"
     }
   ],
   "github": {
