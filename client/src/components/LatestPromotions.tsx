@@ -1,128 +1,114 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getLatestPromotions } from '../lib/promotion-service';
+import ArticleCard from './ArticleCard';
+import { Button } from './ui/button';
 import Link from 'next/link';
+import { Skeleton } from './ui/skeleton';
 
-interface Promotion {
-  title: string;
-  slug: string;
-  summary: string;
-  tags: string[];
-  publishedAt: string;
-}
+// 加載中的卡片骨架屏
+const ArticleCardSkeleton = () => (
+  <div className="bg-slate-800 border border-slate-700 rounded-lg p-5">
+    <Skeleton className="h-7 w-3/4 mb-2 bg-slate-700" />
+    <Skeleton className="h-4 w-1/4 mb-6 bg-slate-700" />
+    <Skeleton className="h-4 w-full mb-2 bg-slate-700" />
+    <Skeleton className="h-4 w-full mb-2 bg-slate-700" />
+    <Skeleton className="h-4 w-2/3 mb-6 bg-slate-700" />
+    <div className="flex gap-2 mb-4">
+      <Skeleton className="h-6 w-16 bg-slate-700" />
+      <Skeleton className="h-6 w-16 bg-slate-700" />
+    </div>
+    <Skeleton className="h-9 w-24 bg-slate-700" />
+  </div>
+);
 
 interface LatestPromotionsProps {
   limit?: number;
 }
 
-export default function LatestPromotions({ limit = 3 }: LatestPromotionsProps) {
-  const [promotions, setPromotions] = useState<Promotion[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const LatestPromotions: React.FC<LatestPromotionsProps> = ({ limit = 3 }) => {
+  // 獲取最新優惠文章
+  const { data: promotions, isLoading, error } = useQuery({
+    queryKey: ['/api/promotions', limit],
+    queryFn: () => getLatestPromotions(limit),
+    retry: 3,  // 失敗時嘗試重新請求3次
+    refetchOnMount: true,  // 組件掛載時重新獲取
+    staleTime: 60000  // 1分鐘內不會重新請求
+  });
 
-  useEffect(() => {
-    const fetchPromotions = async () => {
-      console.log('正在直接從API獲取最新' + limit + '篇優惠文章...');
-      try {
-        // 直接從API獲取所有優惠
-        console.log('API請求: GET /api/promotions');
-        const response = await fetch('/api/promotions');
-        
-        console.log('API回應: /api/promotions, 狀態:', response.status);
-        
-        if (!response.ok) {
-          throw new Error('無法獲取優惠數據');
-        }
-        
-        const allPromotions = await response.json();
-        console.log('原始優惠API數據:', allPromotions.length, '篇優惠文章');
-        
-        // 根據發佈日期排序，取最新的 limit 篇
-        const sortedPromotions = [...allPromotions].sort(
-          (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-        ).slice(0, limit);
-        
-        console.log('篩選後獲取到' + sortedPromotions.length + '篇最新優惠文章');
-        if (sortedPromotions.length > 0) {
-          console.log('第一篇優惠文章標題:', JSON.stringify(sortedPromotions[0].title));
-        }
-        
-        setPromotions(sortedPromotions);
-        setIsLoading(false);
-      } catch (err) {
-        console.error('獲取優惠時出錯:', err);
-        setError('無法加載最新優惠，請稍後再試');
-        setIsLoading(false);
-      }
-    };
+  // 如果正在加載或出錯，顯示對應的狀態
+  if (isLoading) {
+    return (
+      <div className="py-12 bg-slate-900">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-bold text-white mb-8">最新牙科優惠</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Array.from({ length: limit }).map((_, index) => (
+              <ArticleCardSkeleton key={index} />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
-    fetchPromotions();
-  }, [limit]);
-
-  // 如果沒有優惠，則不顯示此部分
-  if (!isLoading && (promotions.length === 0 || error)) {
-    return null;
+  // 如果發生錯誤，顯示錯誤信息
+  if (error) {
+    console.error('優惠文章加載錯誤:', error);
+    return (
+      <div className="py-12 bg-slate-900">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-bold text-white mb-8">最新牙科優惠</h2>
+          <div className="bg-red-900 p-4 rounded text-white mb-6">
+            <p>加載優惠文章時出錯。請稍後再試。</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+  // 如果沒有優惠文章，顯示提示信息
+  if (!promotions || promotions.length === 0) {
+    console.log('優惠文章列表為空');
+    return (
+      <div className="py-12 bg-slate-900">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-bold text-white mb-8">最新牙科優惠</h2>
+          <div className="bg-yellow-900 p-4 rounded text-white mb-6">
+            <p>目前沒有可用的優惠文章。</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="my-16">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-[#ffaa40]">牙科優惠</h2>
-        <Link href="/promotions" legacyBehavior>
-          <a className="text-sm text-[#ffbb66] hover:text-[#ffaa40] transition-colors">
-            查看全部 &rarr;
-          </a>
-        </Link>
-      </div>
-      
-      {isLoading ? (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[...Array(limit)].map((_, i) => (
-            <div key={i} className="animate-pulse bg-gray-800 rounded-lg overflow-hidden h-64"></div>
-          ))}
+    <section className="py-12 bg-slate-900">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl font-bold text-white">最新牙科優惠</h2>
+          <Link href="/promotions">
+            <Button 
+              variant="outline" 
+              className="border-orange-500 text-orange-400 hover:bg-orange-500 hover:text-white"
+            >
+              查看全部優惠
+            </Button>
+          </Link>
         </div>
-      ) : (
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {promotions.map((promotion) => (
-            <Link key={promotion.slug} href={`/promotions/${promotion.slug}`} legacyBehavior>
-              <a className="bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition duration-300 block h-full">
-                <div className="p-5 flex flex-col h-full">
-                  <div className="flex justify-between items-start mb-3">
-                    <h3 className="font-bold text-lg text-[#ffaa40] line-clamp-2">
-                      {promotion.title}
-                    </h3>
-                    <span className="bg-[#ff7a00] text-white text-xs px-2 py-1 rounded-full whitespace-nowrap ml-2">
-                      優惠
-                    </span>
-                  </div>
-                  
-                  <p className="text-gray-300 mb-4 text-sm line-clamp-3">
-                    {promotion.summary}
-                  </p>
-                  
-                  <div className="mt-auto flex justify-between items-end">
-                    <div className="flex flex-wrap gap-1">
-                      {promotion.tags && promotion.tags.slice(0, 2).map(tag => (
-                        <span 
-                          key={tag} 
-                          className="inline-block bg-gray-700 text-xs text-gray-300 px-2 py-1 rounded"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                      {promotion.tags && promotion.tags.length > 2 && (
-                        <span className="text-gray-400 text-xs">+{promotion.tags.length - 2}</span>
-                      )}
-                    </div>
-                    
-                    <time className="text-xs text-gray-400">
-                      {new Date(promotion.publishedAt).toLocaleDateString('zh-HK')}
-                    </time>
-                  </div>
-                </div>
-              </a>
-            </Link>
+          {promotions.map(promotion => (
+            <ArticleCard 
+              key={promotion.slug} 
+              article={promotion}
+              isPromotion={true}
+            />
           ))}
         </div>
-      )}
-    </div>
+      </div>
+    </section>
   );
-}
+};
+
+export default LatestPromotions;
