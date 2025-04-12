@@ -2,8 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import Head from 'next/head';
 import { GetStaticProps, GetStaticPaths } from 'next';
-import Header from '../../../components/Header';
-import Footer from '../../../components/Footer';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 interface Article {
   title: string;
