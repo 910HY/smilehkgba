@@ -59,16 +59,15 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, onTagClick, isPromot
         )}
       </div>
       
-      <Link href={articlePath} legacyBehavior>
-        <a className="w-full">
-          <Button 
-            variant="outline" 
-            className="w-full border-orange-500 text-orange-400 hover:bg-orange-500 hover:text-white"
-          >
-            {isPromotion ? '查看優惠' : '閱讀全文'}
-          </Button>
-        </a>
-      </Link>
+      <Button 
+        variant="outline" 
+        className="w-full border-orange-500 text-orange-400 hover:bg-orange-500 hover:text-white"
+        asChild
+      >
+        <Link href={articlePath} className="w-full">
+          {isPromotion ? '查看優惠' : '閱讀全文'}
+        </Link>
+      </Button>
     </div>
   );
 };

@@ -113,14 +113,12 @@ const Header = () => {
         
         {/* 右側Logo區塊 */}
         <div style={logoContainerStyle}>
-          <Link href="/" legacyBehavior>
-            <a>
-              <img 
-                src={`/logo.png?v=${Date.now()}`}
-                alt="牙GoGo Logo" 
-                style={logoStyle}
-              />
-            </a>
+          <Link href="/">
+            <img 
+              src={`/logo.png?v=${Date.now()}`}
+              alt="牙GoGo Logo" 
+              style={logoStyle}
+            />
           </Link>
         </div>
       </header>
@@ -129,14 +127,14 @@ const Header = () => {
       <div style={navigationBarStyle}>
         <div style={navigationContainerStyle}>
           <nav style={navStyle}>
-            <Link href="/" legacyBehavior>
-              <a style={isHome ? activeNavItemStyle : navItemStyle}>首頁</a>
+            <Link href="/" style={isHome ? activeNavItemStyle : navItemStyle}>
+              首頁
             </Link>
-            <Link href="/articles" legacyBehavior>
-              <a style={isArticles ? activeNavItemStyle : navItemStyle}>關心你啲牙</a>
+            <Link href="/articles" style={isArticles ? activeNavItemStyle : navItemStyle}>
+              關心你啲牙
             </Link>
-            <Link href="/promotions" legacyBehavior>
-              <a style={isPromotions ? activeNavItemStyle : navItemStyle}>優惠牙</a>
+            <Link href="/promotions" style={isPromotions ? activeNavItemStyle : navItemStyle}>
+              優惠牙
             </Link>
           </nav>
         </div>
