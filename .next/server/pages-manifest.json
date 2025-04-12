@@ -6,5 +6,7 @@
   "/": "pages/index.js",
   "/articles": "pages/articles.js",
   "/api/promotions": "pages/api/promotions.js",
-  "/promotions": "pages/promotions.js"
+  "/promotions": "pages/promotions.js",
+  "/articles/[slug]": "pages/articles/[slug].js",
+  "/api/articles/[slug]": "pages/api/articles/[slug].js"
 }
