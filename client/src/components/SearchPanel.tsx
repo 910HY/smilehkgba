@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { regions, RegionMapping, clinicTypes, regionDisplayNames, detailedRegions, DetailedRegionMapping, ntRegionGroups } from '../lib/regions';
-import './SearchPanel.css';
 
 interface SearchPanelProps {
   onSearch: (params: {

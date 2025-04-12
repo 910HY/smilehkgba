@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, useLocation } from 'wouter';
-import './Header.css';
 
 // 按照新設計重構的Header組件
 const Header = () => {

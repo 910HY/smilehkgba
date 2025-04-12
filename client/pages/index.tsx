@@ -1,15 +1,10 @@
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
+
+// 動態導入 App 組件，關閉 SSR
+const App = dynamic(() => import('../src/App'), { ssr: false });
 
 export default function Home() {
-  const router = useRouter();
-
-  // 將使用者重定向到原有的 Vite 應用首頁
-  useEffect(() => {
-    window.location.href = '/src';
-  }, []);
-
   return (
     <>
       <Head>
@@ -21,12 +16,7 @@ export default function Home() {
         <meta property="og:description" content="牙GoGo是香港牙科資訊平台，提供診所資料、洗牙價錢、牙醫推介等實用資訊" />
         <meta property="og:image" content="/og-image.png" />
       </Head>
-      <main>
-        <div className="flex min-h-screen flex-col items-center justify-center">
-          <h1 className="text-4xl font-bold">牙GoGo</h1>
-          <p className="mt-3">正在載入中，請稍候...</p>
-        </div>
-      </main>
+      <App />
     </>
   );
 }

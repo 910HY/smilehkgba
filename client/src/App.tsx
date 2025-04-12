@@ -15,7 +15,7 @@ import ArticleDetail from "./pages/articles/[slug]";
 import PromotionIndex from "./pages/promotions/index";
 import PromotionDetail from "./pages/promotions/[slug]";
 import { Clinic } from "./types/clinic";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "./components/ui/toaster";
 import { useQuery } from "@tanstack/react-query";
 import { fetchClinicData } from "./lib/clinic-data";
 import { detailedRegions } from "./lib/regions";

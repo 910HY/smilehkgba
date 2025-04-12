@@ -8,6 +8,10 @@ const nextConfig = {
     domains: ['vercel.app', 'yagogo.vercel.app'],
     unoptimized: true,
   },
+  // 忽略開發環境下的跨域警告
+  experimental: {
+    // Next.js 15 新版本的跨域配置待稍後研究
+  },
 };
 
 module.exports = nextConfig;
