@@ -13,8 +13,11 @@ async function startStaticServer() {
 
   console.log('📦 啟動靜態文件服務器...');
 
-  // 靜態文件服務
-  app.use(express.static(path.join(__dirname, 'client/dist')));
+  // 靜態文件服務 (Next.js 構建輸出目錄)
+  app.use(express.static(path.join(__dirname, 'client/.next')));
+  
+  // 靜態文件服務 (Next.js public 目錄)
+  app.use(express.static(path.join(__dirname, 'client/public')));
   
   // 為attached_assets目錄提供靜態服務
   app.use('/attached_assets', express.static(path.join(__dirname, 'attached_assets')));

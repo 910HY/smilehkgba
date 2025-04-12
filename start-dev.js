@@ -1,7 +1,7 @@
-// 啟動開發服務器
+// 啟動 Next.js 開發服務器
 import { execSync } from 'child_process';
 
-console.log('📦 啟動開發服務器...');
+console.log('📦 啟動 Next.js 開發服務器...');
 try {
   // 嘗試清理可能正在運行的進程
   try {
@@ -14,8 +14,8 @@ try {
   // 等待短暫的時間讓端口釋放
   execSync('sleep 2', { stdio: 'inherit' });
   
-  // 使用靜態服務器而不是Vite開發服務器
-  execSync('node static-server.js', { stdio: 'inherit' });
+  // 啟動 Next.js 開發服務器，指定端口 5000
+  execSync('cd client && PORT=5000 npm run dev', { stdio: 'inherit' });
 } catch (error) {
   console.error('❌ 啟動失敗:', error);
   process.exit(1);
