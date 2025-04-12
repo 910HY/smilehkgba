@@ -1,11 +1,10 @@
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Header from '../../components/Header';
 import { getAllPromotions, getPromotionsByTag } from '../../lib/promotion-service';
 import ArticleCard from '../../components/ArticleCard';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 import ArticleTag from '../../components/ArticleTag';
 import { Button } from '../../components/ui/button';
 import { Skeleton } from '../../components/ui/skeleton';

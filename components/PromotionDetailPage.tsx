@@ -79,6 +79,7 @@ const PromotionDetailPage: React.FC = () => {
     <ArticlePage 
       article={promotion} 
       onTagClick={handleTagClick}
+      isPromotion={true}
     />
   );
 };

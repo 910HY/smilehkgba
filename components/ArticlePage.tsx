@@ -8,9 +8,10 @@ import { formatDate } from '../lib/utils';
 interface ArticlePageProps {
   article: Article;
   onTagClick?: (tag: string) => void;
+  isPromotion?: boolean; // 新增屬性，用來標識是否為優惠文章
 }
 
-const ArticlePage: React.FC<ArticlePageProps> = ({ article, onTagClick }) => {
+const ArticlePage: React.FC<ArticlePageProps> = ({ article, onTagClick, isPromotion = false }) => {
   // 判斷文章內容是否為HTML格式
   const isHtmlContent = article.content.includes('<') && article.content.includes('>');
   
@@ -41,9 +42,11 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ article, onTagClick }) => {
   
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      {/* 返回按鈕 */}
+      {/* 返回按鈕 - 根據文章類型顯示不同的返回路徑 */}
       <Button variant="link" className="text-orange-400 hover:text-orange-500 p-0 mb-8" asChild>
-        <Link href="/articles">← 返回文章列表</Link>
+        <Link href={isPromotion ? "/promotions" : "/articles"}>
+          ← 返回{isPromotion ? "優惠" : "文章"}列表
+        </Link>
       </Button>
       
       {/* 文章標題 */}
