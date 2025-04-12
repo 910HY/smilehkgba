@@ -21,6 +21,9 @@ interface ClinicCardProps {
 
 const ClinicCard = ({ clinic }: ClinicCardProps) => {
   const [isMapOpen, setIsMapOpen] = useState(false);
+  
+  // 調試診所數據
+  console.log('診所數據:', clinic.name, '評分:', clinic.rating, '連鎖標籤:', clinic.is_chain, clinic.isChain);
 
   // 格式化電話號碼以便顯示
   const formatPhone = (phone: string | number) => {

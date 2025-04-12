@@ -47,7 +47,7 @@ export default function handler(req: any, res: any) {
     const ngoFilePath = path.join(rootDir, 'attached_assets', 'ngo_clinics_cleaned.json');
     
     // 嘗試讀取深圳診所數據文件
-    const szFilePath = path.join(rootDir, 'attached_assets', 'shenzhen_dental_clinics_20250407.json');
+    const szFilePath = path.join(rootDir, 'attached_assets', 'shenzhen_dental_clinics_fixed.json');
     
     console.log('使用深圳診所數據文件:', szFilePath);
     

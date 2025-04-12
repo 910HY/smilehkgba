@@ -130,7 +130,10 @@ export default function handler(req: any, res: any) {
           city: clinic.city || '深圳',
           country: clinic.country || '中國',
           isGreaterBayArea: true,
-          photo: clinic.photo || '無照片'
+          photo: clinic.photo || '無照片',
+          rating: clinic.rating,
+          is_chain: clinic.is_chain,
+          isChain: clinic.isChain
         };
       }
       return clinic;
