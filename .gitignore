@@ -1,26 +1,25 @@
-# .gitignore for Node.js projects
+# === Node.js & Next.js 基本設定 ===
 
 # Logs
 logs
 *.log
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 lerna-debug.log*
 
-# Dependency directories
-node_modules/
+# Build output
+client/.next
+client/out
+client/dist
+client/dist-ssr
+client/build
+*.local
+
+# Dependency
+client/node_modules/
 jspm_packages/
 
-# Build output
-dist
-dist-ssr
-*.local
-build
-out
-.next
-
-# Cache
+# Caches
 .npm
 .eslintcache
 .tsbuildinfo
@@ -28,21 +27,21 @@ out
 *.tgz
 .DS_Store
 
-# Coverage and tests
+# Coverage / Test
 coverage
 lib-cov
 *.lcov
 .nyc_output
 *.test.js
 
-# Environment
+# Environment files
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# IDE specific files
+# IDE / editor
 .idea
 .vscode
 *.suo
@@ -54,7 +53,7 @@ lib-cov
 .classpath
 .settings/
 
-# Replit specific
+# Replit 專用
 .replit
 .upm/
 .config/
