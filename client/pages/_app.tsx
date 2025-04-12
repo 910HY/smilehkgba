@@ -1,18 +1,15 @@
-import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { queryClient } from '../src/lib/queryClient';
-import '../src/index.css';
+import '../../index.css';
+
+import type { AppProps } from 'next/app';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>牙GoGo — 至關心你啲牙既牙科資訊平台</title>
       </Head>
-      <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
-      </QueryClientProvider>
+      <Component {...pageProps} />
     </>
   );
 }
