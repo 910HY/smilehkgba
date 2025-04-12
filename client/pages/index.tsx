@@ -8,7 +8,7 @@ import Footer from "../src/components/Footer";
 import Pagination from "../src/components/Pagination";
 import LatestArticles from "../src/components/LatestArticles";
 import LatestPromotions from "../src/components/LatestPromotions";
-import { Toaster } from "../src/components/ui/toaster";
+import { Toaster } from "../../components/ui/toaster";
 import { useQuery } from "@tanstack/react-query";
 import { fetchClinicData } from "../src/lib/clinic-data";
 import { detailedRegions } from "../src/lib/regions";
