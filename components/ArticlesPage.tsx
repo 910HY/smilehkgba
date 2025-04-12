@@ -121,9 +121,10 @@ const ArticlesPage: React.FC = () => {
     );
   });
   
+  // 渲染加載中狀態
   if (isLoading) {
     return (
-      <>
+      <div>
         <Header />
         <div className="max-w-7xl mx-auto px-4 py-12">
           <h1 className="text-3xl font-bold text-white mb-8">牙齒健康資訊</h1>
@@ -145,13 +146,14 @@ const ArticlesPage: React.FC = () => {
             ))}
           </div>
         </div>
-      </>
+      </div>
     );
   }
   
+  // 渲染錯誤狀態
   if (error) {
     return (
-      <>
+      <div>
         <Header />
         <div className="max-w-7xl mx-auto px-4 py-12">
           <h1 className="text-3xl font-bold text-white mb-8">牙齒健康資訊</h1>
@@ -166,159 +168,158 @@ const ArticlesPage: React.FC = () => {
             </Button>
           </div>
         </div>
-      </>
+      </div>
     );
   }
   
+  // 渲染正常狀態
   return (
-    <>
+    <div>
       <Header />
       <div className="max-w-7xl mx-auto px-4 py-12">
         <h1 className="text-3xl font-bold text-white mb-8">牙齒健康資訊</h1>
-      
-      {/* 搜索框 */}
-      <form onSubmit={handleSearch} className="mb-8">
-        <div className="flex gap-2">
-          <input
-            type="text"
-            placeholder="搜尋文章..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="flex-1 px-4 py-2 bg-slate-800 text-white border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-          />
-          <Button 
-            type="submit"
-            className="bg-orange-500 hover:bg-orange-600 text-white"
-          >
-            搜尋
-          </Button>
-        </div>
-      </form>
-      
-      {/* 標籤列表 */}
-      <div className="mb-8">
-        <h2 className="text-xl font-semibold text-white mb-4">熱門標籤</h2>
-        <div className="flex flex-wrap gap-2">
-          {popularTags.map(tag => (
-            <ArticleTag 
-              key={tag} 
-              tag={tag} 
-              onClick={() => handleTagClick(tag)}
-              isActive={tag === activeTag}
+        
+        {/* 搜索框 */}
+        <form onSubmit={handleSearch} className="mb-8">
+          <div className="flex gap-2">
+            <input
+              type="text"
+              placeholder="搜尋文章..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="flex-1 px-4 py-2 bg-slate-800 text-white border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
-          ))}
-        </div>
-      </div>
-      
-      {/* 篩選結果提示 */}
-      {activeTag && (
-        <div className="bg-slate-800 p-4 rounded-lg mb-8 flex justify-between items-center">
-          <p className="text-white">
-            顯示標籤「<span className="text-orange-400 font-semibold">{activeTag}</span>」的相關文章
-          </p>
-          <Button 
-            variant="outline" 
-            className="border-red-500 text-red-400 hover:bg-red-500 hover:text-white"
-            onClick={() => handleTagClick(activeTag)}
-          >
-            清除篩選
-          </Button>
-        </div>
-      )}
-      
-      {/* 文章列表 */}
-      {filteredArticles.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {filteredArticles.map(article => (
-            <ArticleCard 
-              key={article.slug} 
-              article={article}
-              onTagClick={handleTagClick}
-            />
-          ))}
-        </div>
-      ) : (
-        <div className="bg-slate-800 p-6 rounded-lg text-center mb-8">
-          <h2 className="text-xl font-semibold text-white mb-2">找不到相關文章</h2>
-          <p className="text-slate-400 mb-4">
-            {activeTag 
-              ? `沒有與標籤「${activeTag}」相關的文章。` 
-              : router.query.search 
-                ? `沒有與「${router.query.search}」相關的搜尋結果。`
-                : '目前沒有任何文章。'}
-          </p>
-          <Button 
-            className="bg-orange-500 hover:bg-orange-600 text-white"
-            onClick={() => {
-              setActiveTag(null);
-              router.push('/articles');
-            }}
-          >
-            查看所有文章
-          </Button>
-        </div>
-      )}
-      
-      {/* 分頁 */}
-      {totalPages > 1 && (
-        <div className="flex justify-center mt-8">
-          <div className="flex rounded-md">
-            <Button
-              variant="outline"
-              onClick={() => paginate(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="mr-1 border-slate-700 text-slate-300 hover:bg-slate-700"
+            <Button 
+              type="submit"
+              className="bg-orange-500 hover:bg-orange-600 text-white"
             >
-              上一頁
-            </Button>
-            
-            {/* 簡化的分頁顯示，只顯示當前頁和附近的頁碼 */}
-            {Array.from({ length: totalPages }).map((_, index) => {
-              const pageNumber = index + 1;
-              // 只顯示当前頁、第一頁、最後一頁，以及它們附近的頁碼
-              if (
-                pageNumber === 1 || 
-                pageNumber === totalPages || 
-                (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
-              ) {
-                return (
-                  <Button
-                    key={pageNumber}
-                    variant={pageNumber === currentPage ? "default" : "outline"}
-                    onClick={() => paginate(pageNumber)}
-                    className={`mx-1 ${
-                      pageNumber === currentPage 
-                        ? "bg-orange-500 hover:bg-orange-600" 
-                        : "border-slate-700 text-slate-300 hover:bg-slate-700"
-                    }`}
-                  >
-                    {pageNumber}
-                  </Button>
-                );
-              }
-              
-              // 添加省略號
-              if (
-                (pageNumber === currentPage - 2 && pageNumber > 2) || 
-                (pageNumber === currentPage + 2 && pageNumber < totalPages - 1)
-              ) {
-                return <span key={pageNumber} className="mx-1 flex items-center text-slate-500">...</span>;
-              }
-              
-              return null;
-            })}
-            
-            <Button
-              variant="outline"
-              onClick={() => paginate(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className="ml-1 border-slate-700 text-slate-300 hover:bg-slate-700"
-            >
-              下一頁
+              搜尋
             </Button>
           </div>
+        </form>
+        
+        {/* 標籤列表 */}
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold text-white mb-4">熱門標籤</h2>
+          <div className="flex flex-wrap gap-2">
+            {popularTags.map(tag => (
+              <ArticleTag 
+                key={tag} 
+                tag={tag} 
+                onClick={() => handleTagClick(tag)}
+                isActive={tag === activeTag}
+              />
+            ))}
+          </div>
         </div>
-      )}
+        
+        {/* 篩選結果提示 */}
+        {activeTag && (
+          <div className="bg-slate-800 p-4 rounded-lg mb-8 flex justify-between items-center">
+            <p className="text-white">
+              顯示標籤「<span className="text-orange-400 font-semibold">{activeTag}</span>」的相關文章
+            </p>
+            <Button 
+              variant="outline" 
+              className="border-red-500 text-red-400 hover:bg-red-500 hover:text-white"
+              onClick={() => handleTagClick(activeTag)}
+            >
+              清除篩選
+            </Button>
+          </div>
+        )}
+        
+        {/* 文章列表 */}
+        {filteredArticles.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {filteredArticles.map(article => (
+              <ArticleCard 
+                key={article.slug} 
+                article={article}
+                onTagClick={handleTagClick}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="bg-slate-800 p-6 rounded-lg text-center mb-8">
+            <h2 className="text-xl font-semibold text-white mb-2">找不到相關文章</h2>
+            <p className="text-slate-400 mb-4">
+              {activeTag 
+                ? `沒有與標籤「${activeTag}」相關的文章。` 
+                : router.query.search 
+                  ? `沒有與「${router.query.search}」相關的搜尋結果。`
+                  : '目前沒有任何文章。'}
+            </p>
+            <Button 
+              className="bg-orange-500 hover:bg-orange-600 text-white"
+              onClick={() => {
+                setActiveTag(null);
+                router.push('/articles');
+              }}
+            >
+              查看所有文章
+            </Button>
+          </div>
+        )}
+        
+        {/* 分頁 */}
+        {totalPages > 1 && (
+          <div className="flex justify-center mt-8">
+            <div className="flex rounded-md">
+              <Button
+                variant="outline"
+                onClick={() => paginate(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="mr-1 border-slate-700 text-slate-300 hover:bg-slate-700"
+              >
+                上一頁
+              </Button>
+              
+              {Array.from({ length: totalPages }).map((_, index) => {
+                const pageNumber = index + 1;
+                if (
+                  pageNumber === 1 || 
+                  pageNumber === totalPages || 
+                  (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
+                ) {
+                  return (
+                    <Button
+                      key={pageNumber}
+                      variant={pageNumber === currentPage ? "default" : "outline"}
+                      onClick={() => paginate(pageNumber)}
+                      className={`mx-1 ${
+                        pageNumber === currentPage 
+                          ? "bg-orange-500 hover:bg-orange-600" 
+                          : "border-slate-700 text-slate-300 hover:bg-slate-700"
+                      }`}
+                    >
+                      {pageNumber}
+                    </Button>
+                  );
+                }
+                
+                if (
+                  (pageNumber === currentPage - 2 && pageNumber > 2) || 
+                  (pageNumber === currentPage + 2 && pageNumber < totalPages - 1)
+                ) {
+                  return <span key={pageNumber} className="mx-1 flex items-center text-slate-500">...</span>;
+                }
+                
+                return null;
+              })}
+              
+              <Button
+                variant="outline"
+                onClick={() => paginate(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="ml-1 border-slate-700 text-slate-300 hover:bg-slate-700"
+              >
+                下一頁
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
