@@ -7,6 +7,7 @@ import ArticleTag from './ArticleTag';
 import { Button } from './ui/button';
 import { Skeleton } from './ui/skeleton';
 import Link from 'next/link';
+import Header from './Header';
 
 // 加載中的卡片骨架屏
 const ArticleCardSkeleton = () => (
@@ -122,50 +123,58 @@ const ArticlesPage: React.FC = () => {
   
   if (isLoading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <h1 className="text-3xl font-bold text-white mb-8">牙齒健康資訊</h1>
-        
-        {/* 標籤列表 - 加載中 */}
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">熱門標籤</h2>
-          <div className="flex flex-wrap gap-2">
-            {Array.from({ length: 8 }).map((_, index) => (
-              <Skeleton key={index} className="h-8 w-24 bg-slate-700 rounded-full" />
+      <>
+        <Header />
+        <div className="max-w-7xl mx-auto px-4 py-12">
+          <h1 className="text-3xl font-bold text-white mb-8">牙齒健康資訊</h1>
+          
+          {/* 標籤列表 - 加載中 */}
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold text-white mb-4">熱門標籤</h2>
+            <div className="flex flex-wrap gap-2">
+              {Array.from({ length: 8 }).map((_, index) => (
+                <Skeleton key={index} className="h-8 w-24 bg-slate-700 rounded-full" />
+              ))}
+            </div>
+          </div>
+          
+          {/* 文章列表 - 加載中 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Array.from({ length: 9 }).map((_, index) => (
+              <ArticleCardSkeleton key={index} />
             ))}
           </div>
         </div>
-        
-        {/* 文章列表 - 加載中 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Array.from({ length: 9 }).map((_, index) => (
-            <ArticleCardSkeleton key={index} />
-          ))}
-        </div>
-      </div>
+      </>
     );
   }
   
   if (error) {
     return (
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <h1 className="text-3xl font-bold text-white mb-8">牙齒健康資訊</h1>
-        <div className="bg-red-900 p-6 rounded-lg text-white">
-          <h2 className="text-xl font-bold mb-2">載入文章時發生錯誤</h2>
-          <p>抱歉，無法載入文章內容。請稍後再試。</p>
-          <Button 
-            className="mt-4 bg-white text-red-900 hover:bg-slate-200"
-            onClick={() => window.location.reload()}
-          >
-            重新整理頁面
-          </Button>
+      <>
+        <Header />
+        <div className="max-w-7xl mx-auto px-4 py-12">
+          <h1 className="text-3xl font-bold text-white mb-8">牙齒健康資訊</h1>
+          <div className="bg-red-900 p-6 rounded-lg text-white">
+            <h2 className="text-xl font-bold mb-2">載入文章時發生錯誤</h2>
+            <p>抱歉，無法載入文章內容。請稍後再試。</p>
+            <Button 
+              className="mt-4 bg-white text-red-900 hover:bg-slate-200"
+              onClick={() => window.location.reload()}
+            >
+              重新整理頁面
+            </Button>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
   
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold text-white mb-8">牙齒健康資訊</h1>
+    <>
+      <Header />
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        <h1 className="text-3xl font-bold text-white mb-8">牙齒健康資訊</h1>
       
       {/* 搜索框 */}
       <form onSubmit={handleSearch} className="mb-8">
