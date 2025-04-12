@@ -49,7 +49,8 @@ export default function handler(req: any, res: any) {
     // 嘗試讀取深圳診所數據文件
     const szFilePath = path.join(rootDir, 'attached_assets', 'shenzhen_dental_clinics_fixed.json');
     
-    console.log('使用深圳診所數據文件:', szFilePath);
+    console.log('使用深圳診所數據文件路徑:', szFilePath);
+    console.log('檢查文件是否存在:', require('fs').existsSync(szFilePath));
     
     const hkData = readJsonFile(hkFilePath);
     const ngoData = readJsonFile(ngoFilePath);
