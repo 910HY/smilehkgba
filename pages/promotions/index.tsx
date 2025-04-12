@@ -1,11 +1,8 @@
 import { useEffect } from 'react';
 import Head from 'next/head';
-import dynamic from 'next/dynamic';
+import PromotionsPage from '../../components/PromotionsPage';
 
-// 動態導入 PromotionIndex 組件，關閉 SSR
-const PromotionIndex = dynamic(() => import('../../src/pages/promotions/index'), { ssr: false });
-
-export default function PromotionsPage() {
+export default function PromotionsIndexPage() {
   return (
     <>
       <Head>
@@ -15,7 +12,7 @@ export default function PromotionsPage() {
         <meta property="og:description" content="牙GoGo提供各種牙科優惠資訊，包括洗牙優惠、牙科診所折扣和特別推廣活動" />
         <meta property="og:image" content="/og-image.png" />
       </Head>
-      <PromotionIndex />
+      <PromotionsPage />
     </>
   );
 }
