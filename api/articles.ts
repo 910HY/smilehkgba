@@ -2,6 +2,10 @@ import { rootDir, handleApiResponse, handleApiError, ensureDirectoryExists } fro
 import path from 'path';
 import fs from 'fs';
 
+// 輸出當前運行目錄，用於調試
+console.log('當前工作目錄:', process.cwd());
+console.log('rootDir:', rootDir);
+
 /**
  * 獲取所有文章的API端點
  */
@@ -15,8 +19,14 @@ export default function handler(req: any, res: any) {
       return handleApiResponse(res, []);
     }
     
+    // 確保 articlesDir 是正確的路徑
+    console.log("找到文章目錄:", articlesDir);
+    
     // 讀取articles目錄
-    const files = fs.readdirSync(articlesDir).filter(file => file.endsWith('.json'));
+    const allFiles = fs.readdirSync(articlesDir);
+    console.log(`目錄中所有文件: ${allFiles.join(', ')}`);
+    
+    const files = allFiles.filter(file => file.endsWith('.json'));
     console.log(`找到 ${files.length} 篇文章`);
     console.log(`文章文件列表: ${files.join(', ')}`);
     
