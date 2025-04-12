@@ -3,8 +3,9 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
+  "/articles/[slug]": "pages/articles/[slug].js",
   "/api/articles": "pages/api/articles.js",
   "/api/articles/[slug]": "pages/api/articles/[slug].js",
-  "/articles/[slug]": "pages/articles/[slug].js",
-  "/api/promotions": "pages/api/promotions.js"
+  "/api/promotions": "pages/api/promotions.js",
+  "/promotions": "pages/promotions.js"
 }
