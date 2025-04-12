@@ -2,6 +2,17 @@ import { rootDir, handleApiResponse, handleApiError, ensureDirectoryExists } fro
 import path from 'path';
 import fs from 'fs';
 
+// 用於文章類型的接口
+interface Article {
+  title: string;
+  slug: string;
+  summary: string;
+  content: string;
+  tags: string[];
+  sources: Array<{title: string, url: string}>;
+  publishedAt: string;
+}
+
 // 輸出當前運行目錄，用於調試
 console.log('當前工作目錄:', process.cwd());
 console.log('rootDir:', rootDir);
@@ -10,6 +21,7 @@ console.log('rootDir:', rootDir);
  * 獲取所有文章的API端點
  */
 export default function handler(req: any, res: any) {
+  console.log('文章數據版本: 20250412-002');
   try {
     console.log('API 請求: /api/articles');
     const articlesDir = path.join(rootDir, 'content', 'articles');
@@ -31,15 +43,30 @@ export default function handler(req: any, res: any) {
     console.log(`文章文件列表: ${files.join(', ')}`);
     
     // 讀取每個文章文件並解析JSON
-    const articles = [];
+    const articles: Article[] = [];
     for (const file of files) {
       try {
         const filePath = path.join(articlesDir, file);
+        console.log(`嘗試讀取文件: ${filePath}`);
+        
+        // 嘗試直接讀取文件內容並輸出前100個字符用於檢查
         const fileContent = fs.readFileSync(filePath, 'utf8');
-        const article = JSON.parse(fileContent);
-        articles.push(article);
+        console.log(`文件 ${file} 內容開頭: ${fileContent.substring(0, 100)}...`);
+        
+        // 嘗試解析JSON
+        try {
+          const article = JSON.parse(fileContent) as Article;
+          if (article && article.title && article.slug) {
+            articles.push(article);
+            console.log(`成功解析文章: ${article.title}`);
+          } else {
+            console.error(`文件 ${file} 解析後缺少必要字段`);
+          }
+        } catch (parseErr) {
+          console.error(`解析文件 ${file} 的JSON時出錯: ${parseErr}`);
+        }
       } catch (err) {
-        console.error(`解析文章文件 ${file} 時出錯:`, err);
+        console.error(`讀取文章文件 ${file} 時出錯:`, err);
       }
     }
     
