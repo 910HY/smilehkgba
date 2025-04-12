@@ -1,0 +1,281 @@
+/* 引入 Google Fonts - Orbitron 的高科技感字體和 Noto Sans TC 的漢字字體 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Orbitron', 'Noto Sans TC', sans-serif;
+    @apply antialiased;
+    background-color: #0f172a;
+    color: #fff;
+  }
+
+  h1, h2, h3 {
+    letter-spacing: 1px;
+  }
+
+  :root {
+    --primary: 33 100% 62%;
+    --primary-text: #ffaa40;
+    --secondary-text: #ffbb66;
+    --background-color: #0f172a;
+    --card-color: #1e293b;
+    --muted-text: #94a3b8;
+  }
+}
+
+/* Header 組件樣式 - 從 Header.css 整合 */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1rem;
+  background: #0f172a;
+  color: #fff;
+  border-bottom: 1px solid #1e293b;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 48px;
+  margin-right: 12px;
+  -webkit-filter: none;
+  filter: none;
+}
+
+.brand-text h1 {
+  font-size: 1.6rem;
+  margin: 0;
+  font-weight: bold;
+  color: #FF7A00;
+}
+
+.slogan {
+  font-size: 0.9rem;
+  color: #FDBA74;
+  margin-top: 2px;
+}
+
+.main-nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.main-nav span {
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.main-nav span:hover {
+  color: #FDBA74;
+}
+
+.main-nav span.active {
+  color: #FF7A00;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .main-nav {
+    margin-top: 1rem;
+    align-self: flex-start;
+  }
+}
+
+/* SearchPanel 組件樣式 - 從 SearchPanel.css 整合 */
+.search-panel {
+  background: #1e293b;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 1rem auto;
+  color: #fff;
+  max-width: 1200px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.search-panel h2 {
+  margin-bottom: 1.25rem;
+  color: #FF7A00;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.filters select,
+.filters input {
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.filters select:focus,
+.filters input:focus {
+  border-color: #FF7A00;
+  outline: none;
+}
+
+.filters button {
+  background: #FF7A00;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 0.95rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.filters button:hover {
+  background: #FF9D45;
+}
+
+@media (min-width: 768px) {
+  .filters {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .filters button {
+    grid-column: span 2;
+  }
+}
+
+@media (min-width: 992px) {
+  .filters {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .filters button {
+    grid-column: span 1;
+  }
+}
+
+/* 修正文章卡片和文章頁的樣式 */
+.prose {
+  color: #e2e8f0;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  color: #fff;
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+}
+
+.prose p, .prose ul, .prose ol {
+  color: #e2e8f0;
+  margin-bottom: 1em;
+}
+
+.prose strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.prose a {
+  color: #FF7A00;
+  text-decoration: underline;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5em;
+}
+
+.prose th, .prose td {
+  padding: 0.5em;
+  border: 1px solid #334155;
+  text-align: left;
+}
+
+.prose th {
+  background: #1e293b;
+  color: #fff;
+  font-weight: 600;
+}
+
+.prose blockquote {
+  border-left: 4px solid #FF7A00;
+  padding-left: 1em;
+  font-style: italic;
+  color: #94a3b8;
+}
+
+/* 確保文章卡片的樣式能夠正確顯示 */
+.bg-slate-800 {
+  background-color: #1e293b !important;
+}
+
+.border-slate-700 {
+  border-color: #334155 !important;
+}
+
+.text-slate-400 {
+  color: #94a3b8 !important;
+}
+
+.text-slate-300 {
+  color: #cbd5e1 !important;
+}
+
+.text-orange-400 {
+  color: #fb923c !important;
+}
+
+.text-orange-500 {
+  color: #f97316 !important;
+}
+
+.hover\:bg-orange-500:hover {
+  background-color: #f97316 !important;
+}
+
+.bg-orange-500 {
+  background-color: #f97316 !important;
+}
+
+.hover\:bg-orange-600:hover {
+  background-color: #ea580c !important;
+}
+
+.bg-orange-600 {
+  background-color: #ea580c !important;
+}
+
+.border-orange-500 {
+  border-color: #f97316 !important;
+}
