@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import Header from '../../components/Header';
-import { getAllArticles, getArticlesByTag } from '../../lib/article-service';
-import ArticleCard from '../../components/ArticleCard';
+import Header from '../../client/src/components/Header';
+import Footer from '../../client/src/components/Footer';
+import { getAllArticles, getArticlesByTag } from '../../client/src/lib/article-service';
+import ArticleCard from '../../client/src/components/ArticleCard';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import ArticleTag from '../../components/ArticleTag';
-import { Button } from '../../components/ui/button';
-import { Skeleton } from '../../components/ui/skeleton';
+import ArticleTag from '../../client/src/components/ArticleTag';
+import { Button } from '../../client/src/components/ui/button';
+import { Skeleton } from '../../client/src/components/ui/skeleton';
 
 // 加載中的卡片骨架屏
 const ArticleCardSkeleton = () => (
@@ -130,9 +131,11 @@ export default function ArticlesIndexPage() {
         <meta property="og:description" content="牙GoGo提供各種牙科健康資訊，了解口腔護理常識、牙齒保健方法和牙科治療資訊" />
         <meta property="og:image" content="/og-image.png" />
       </Head>
-      <Header />
-      
-      <div className="max-w-7xl mx-auto px-4 py-12">
+      <div className="bg-black min-h-screen font-sans text-[#ffaa40]">
+        <div className="container mx-auto px-4 py-6 max-w-7xl">
+          <Header />
+          
+          <div className="mt-8 mb-12">
         <h1 className="text-3xl font-bold text-white mb-8">牙齒健康資訊</h1>
         
         {/* 搜索框 */}

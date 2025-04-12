@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{\"components/MapView.tsx -> ./MapClient\":{\"id\":\"components/MapView.tsx -> ./MapClient\",\"files\":[\"static/chunks/_pages-dir-browser_components_MapClient_tsx.js\"]}}"
+self.__REACT_LOADABLE_MANIFEST="{\"client/src/components/MapDialog.tsx -> ./MapClient\":{\"id\":\"client/src/components/MapDialog.tsx -> ./MapClient\",\"files\":[\"static/chunks/_pages-dir-browser_client_src_components_MapClient_tsx.js\"]}}"
