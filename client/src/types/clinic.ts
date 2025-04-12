@@ -17,8 +17,6 @@ export interface Clinic {
   region_code?: string; // URL 友善格式（例：nanshan）
   slug?: string;       // 診所唯一網址識別碼
   url?: string;        // 該診所的獨立網址
-  district?: string;   // 額外的地區信息字段
-  opening_hours?: string; // 營業時間的替代字段
   rating?: number;     // 大眾點評或其他平台評分
   isChain?: boolean;   // 是否為連鎖診所 (舊)
   is_chain?: boolean;  // 是否為連鎖診所 (新)

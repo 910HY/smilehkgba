@@ -1,40 +1,88 @@
 import React from 'react';
+import { Search, MapPin, ArrowDown } from 'lucide-react';
 
 interface NoResultsProps {
   hasSearched?: boolean;
 }
 
-export default function NoResults({ hasSearched = false }: NoResultsProps) {
-  return (
-    <div className="text-center py-12">
-      <div className="flex flex-col items-center justify-center">
-        <div className="bg-gray-800 p-6 rounded-full mb-6">
-          <span className="text-5xl">🔍</span>
-        </div>
-        
-        <h3 className="text-2xl font-semibold text-[#ffaa40] mb-3">
-          {hasSearched ? '沒有找到符合條件的診所' : '請使用搜尋功能'}
-        </h3>
-        
-        <p className="text-gray-300 max-w-lg mx-auto mb-8">
-          {hasSearched 
-            ? '您的搜尋條件沒有匹配的結果。請嘗試調整搜尋條件，或選擇不同的地區。' 
-            : '請使用上方的搜尋功能來尋找您附近的牙科診所。'}
-        </p>
-        
-        {hasSearched && (
-          <div className="space-y-4 text-left bg-gray-700 p-4 rounded-lg max-w-md">
-            <h4 className="font-medium text-[#ffbb66]">搜尋建議：</h4>
-            <ul className="list-disc list-inside text-gray-300 space-y-2 text-sm">
-              <li>嘗試使用更廣的地區範圍</li>
-              <li>移除一些搜尋條件</li>
-              <li>檢查關鍵詞拼寫是否正確</li>
-              <li>嘗試使用診所名稱的一部分</li>
-              <li>若需查找特定地址附近的診所，可直接輸入該地址</li>
-            </ul>
-          </div>
-        )}
-      </div>
+// 定義樣式 - 使用原始橙色FF7A00
+const containerStyle = {
+  display: 'flex',
+  flexDirection: 'column' as const,
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '5rem 0',
+  textAlign: 'center' as const,
+  maxWidth: '1200px',
+  margin: '0 auto'
+};
+
+const iconContainerStyle = {
+  backgroundColor: 'rgba(255, 122, 0, 0.1)',
+  padding: '1.5rem',
+  borderRadius: '9999px',
+  marginBottom: '1.5rem'
+};
+
+const titleStyle = {
+  color: '#FF7A00',
+  fontSize: '1.5rem',
+  fontWeight: 'bold',
+  marginBottom: '0.5rem',
+  letterSpacing: '0.05em'
+};
+
+const textStyle = {
+  color: '#94a3b8',
+  maxWidth: '36rem',
+  marginBottom: '1rem',
+  fontSize: '1.1rem'
+};
+
+const bounceStyle = {
+  animation: 'bounce 1s infinite',
+  color: '#FF9D45'
+};
+
+const WelcomeMessage = () => (
+  <div style={containerStyle}>
+    <div style={iconContainerStyle}>
+      <img 
+        src={`/logo.png?v=${Date.now()}`} 
+        alt="牙GoGo Logo" 
+        style={{ height: '48px', width: '48px' }}
+      />
     </div>
-  );
-}
+    <h3 style={titleStyle} className="brand-title">歡迎使用牙GoGo</h3>
+    <p style={textStyle}>
+      請使用上方搜尋欄位尋找香港及大灣區的牙科診所資訊。
+    </p>
+    <div style={bounceStyle}>
+      <ArrowDown size={24} />
+    </div>
+  </div>
+);
+
+const EmptySearchResults = () => (
+  <div style={containerStyle}>
+    <div style={iconContainerStyle}>
+      <Search size={48} color="#FF7A00" />
+    </div>
+    <h3 style={titleStyle}>未找到符合條件的診所</h3>
+    <p style={textStyle}>
+      請嘗試調整您的搜尋條件，例如選擇不同的區域或移除部分篩選條件。
+    </p>
+  </div>
+);
+
+const NoResults: React.FC<NoResultsProps> = ({ hasSearched = false }) => {
+  // 如果尚未搜尋，顯示歡迎信息
+  if (!hasSearched) {
+    return <WelcomeMessage />;
+  }
+  
+  // 否則顯示無結果的信息
+  return <EmptySearchResults />;
+};
+
+export default NoResults;

@@ -1,75 +1,164 @@
 import React from 'react';
 import Link from 'next/link';
 
-export default function Footer() {
+// 使用行內樣式，不再依賴外部CSS
+const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
   
+  const footerStyle = {
+    backgroundColor: '#000000',
+    color: '#94a3b8',
+    padding: '2rem 1rem',
+    marginTop: '3rem',
+    borderTop: '1px solid #1e293b'
+  };
+  
+  const footerContentStyle = {
+    display: 'flex',
+    flexDirection: 'column' as const,
+    alignItems: 'center',
+    maxWidth: '1200px',
+    margin: '0 auto',
+    gap: '1.5rem'
+  };
+  
+  const footerBrandStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '1rem'
+  };
+  
+  const logoStyle = {
+    width: '50px',
+    height: 'auto',
+    marginRight: '1rem'
+  };
+  
+  const brandTextStyle = {
+    textAlign: 'center' as const
+  };
+  
+  const footerBrandTitleStyle = {
+    color: '#FF7A00',
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    margin: '0 0 0.5rem 0'
+  };
+  
+  const footerBrandSloganStyle = {
+    color: '#FF9D45',
+    fontSize: '0.9rem',
+    margin: '0'
+  };
+  
+  const navStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '2rem',
+    margin: '1rem 0'
+  };
+  
+  const navLinkStyle = {
+    color: '#e2e8f0',
+    textDecoration: 'none',
+    fontSize: '0.95rem',
+    transition: 'color 0.2s ease'
+  };
+  
+  const footerCopyrightStyle = {
+    fontSize: '0.9rem',
+    textAlign: 'center' as const
+  };
+  
+  const footerDisclaimerStyle = {
+    marginTop: '2rem',
+    fontSize: '0.8rem',
+    color: '#64748b',
+    borderTop: '1px solid #1e293b',
+    paddingTop: '1rem',
+    textAlign: 'center' as const,
+    width: '100%'
+  };
+  
+  const linkStyle = {
+    color: '#FF7A00',
+    textDecoration: 'none'
+  };
+  
+  const handleNavLinkHover = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.currentTarget.style.color = '#FF7A00';
+  };
+  
+  const handleNavLinkLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.currentTarget.style.color = '#e2e8f0';
+  };
+  
   return (
-    <footer className="mt-20 py-8 border-t border-gray-800 text-[#94a3b8]">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-6 md:mb-0">
-            <Link href="/" legacyBehavior>
-              <a className="flex items-center">
-                <img src="/logo.png" alt="牙GoGo Logo" className="h-8 w-8 mr-2" />
-                <span className="text-lg font-semibold text-[#ffaa40]">牙GoGo</span>
-              </a>
-            </Link>
-            <p className="mt-2 text-sm max-w-md">
-              牙GoGo是香港牙科資訊平台，為用戶提供全面的牙科服務資訊，包括診所資料、洗牙價錢、牙醫推介等實用資訊。
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-2 gap-8 md:gap-20">
-            <div>
-              <h4 className="text-[#ffaa40] font-semibold mb-3">資訊導航</h4>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="/" legacyBehavior>
-                    <a className="hover:text-[#ffaa40] transition-colors">診所搜尋</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/articles" legacyBehavior>
-                    <a className="hover:text-[#ffaa40] transition-colors">牙科健康資訊</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/promotions" legacyBehavior>
-                    <a className="hover:text-[#ffaa40] transition-colors">牙科優惠</a>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="text-[#ffaa40] font-semibold mb-3">關於我們</h4>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="mailto:info@yagogo.hk" className="hover:text-[#ffaa40] transition-colors">
-                    聯絡我們
-                  </a>
-                </li>
-                <li>
-                  <Link href="/privacy-policy" legacyBehavior>
-                    <a className="hover:text-[#ffaa40] transition-colors">私隱政策</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/terms-of-service" legacyBehavior>
-                    <a className="hover:text-[#ffaa40] transition-colors">服務條款</a>
-                  </Link>
-                </li>
-              </ul>
-            </div>
+    <footer style={footerStyle}>
+      <div style={footerContentStyle}>
+        <div style={footerBrandStyle}>
+          <img 
+            src={`/logo.png?v=${Date.now()}`} 
+            alt="牙GoGo Logo" 
+            style={logoStyle} 
+          />
+          <div style={brandTextStyle}>
+            <h3 style={footerBrandTitleStyle}>牙GoGo</h3>
+            <p style={footerBrandSloganStyle}>至關心你啲牙既牙科資訊平台</p>
           </div>
         </div>
         
-        <div className="text-center mt-8 pt-8 border-t border-gray-800 text-xs">
-          <p>© {currentYear} 牙GoGo. 版權所有。</p>
-          <p className="mt-1">本網站信息僅供參考，不構成任何診療建議。請向專業牙醫諮詢具體健康問題。</p>
+        <nav style={navStyle}>
+          <Link href="/" legacyBehavior>
+            <a 
+              style={navLinkStyle} 
+              onMouseEnter={handleNavLinkHover} 
+              onMouseLeave={handleNavLinkLeave}
+            >
+              首頁
+            </a>
+          </Link>
+          <Link href="/articles" legacyBehavior>
+            <a 
+              style={navLinkStyle} 
+              onMouseEnter={handleNavLinkHover} 
+              onMouseLeave={handleNavLinkLeave}
+            >
+              關心你啲牙
+            </a>
+          </Link>
+          <Link href="/promotions" legacyBehavior>
+            <a 
+              style={navLinkStyle} 
+              onMouseEnter={handleNavLinkHover} 
+              onMouseLeave={handleNavLinkLeave}
+            >
+              優惠牙
+            </a>
+          </Link>
+          <Link href="/report" legacyBehavior>
+            <a 
+              style={navLinkStyle} 
+              onMouseEnter={handleNavLinkHover} 
+              onMouseLeave={handleNavLinkLeave}
+            >
+              報錯
+            </a>
+          </Link>
+        </nav>
+        
+        <div style={footerCopyrightStyle}>
+          <p>© {currentYear} 牙GoGo. 版權所有</p>
+          <p>數據僅供參考，詳情請致電診所查詢</p>
         </div>
+      </div>
+      
+      <div style={footerDisclaimerStyle}>
+        <p>聯絡我們：<a href="mailto:smilehkgba@gmail.com" style={linkStyle}>smilehkgba@gmail.com</a></p>
+        <p>免責聲明：本平台提供資訊僅供參考，實際診所資訊請以官方為準。</p>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

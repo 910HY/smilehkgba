@@ -1,31 +1,39 @@
-import { Clinic } from '../types/clinic';
+import type { Clinic } from "../types/clinic";
 
 /**
  * 從 API 獲取診所數據
  */
 export async function fetchClinicData(): Promise<Clinic[]> {
-  console.log('嘗試從 API 獲取診所數據...');
-  
   try {
-    const res = await fetch('/api/clinics');
+    const response = await fetch(`/api/clinics?nocache=${Date.now()}-${Math.random().toString(36).substr(2, 9)}`);
+    if (!response.ok) throw new Error(`API 錯誤: ${response.status}`);
     
-    if (!res.ok) {
-      throw new Error('無法載入診所資料');
-    }
+    const data = await response.json();
     
-    const data = await res.json();
-    console.log('成功從API加載診所數據:', data.length);
+    // 將數據轉換為 Clinic 類型
+    const enhancedClinics = data.map((c: Clinic) => {
+      return {
+        ...c,
+        // 確保 isGreaterBayArea 字段存在
+        isGreaterBayArea: c.isGreaterBayArea || c.country === '中國' || false
+      };
+    });
     
-    // 可選：在這裡添加數據處理邏輯
-    const szClinics = data.filter((c: Clinic) => 
-      c.isGreaterBayArea || c.country === '中國'
+    // 過濾用於不同目的的診所
+    const szClinics = enhancedClinics.filter((c: Clinic) => 
+      c.isGreaterBayArea || c.country === '中國' || c.country === '澳門'
     );
-    console.log('其中深圳診所數量:', szClinics.length);
     
-    return data;
+    const hkClinics = enhancedClinics.filter((c: Clinic) => 
+      !c.isGreaterBayArea && c.country !== '中國' && c.country !== '澳門'
+    );
+    
+    console.log(`已載入 ${enhancedClinics.length} 間診所 (香港: ${hkClinics.length}, 大灣區: ${szClinics.length})`);
+    
+    return enhancedClinics;
   } catch (error) {
-    console.error('獲取診所數據時出錯:', error);
-    throw error;
+    console.error("獲取診所數據時出錯:", error);
+    return [];
   }
 }
 
@@ -33,9 +41,21 @@ export async function fetchClinicData(): Promise<Clinic[]> {
  * 替代方案：如果 API 請求失敗，使用此函數
  */
 export const fetchClinicDataFallback = async (): Promise<Clinic[]> => {
-  console.warn('使用診所數據的備用方案');
-  
-  // 這裡可以放置一些基本的診所數據，或者從本地存儲加載
-  // 或者返回空數組
-  return [];
+  try {
+    console.warn("使用備用方法獲取診所數據...");
+    const response = await fetch(
+      `/api/clinics.json?nocache=${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+    );
+    
+    if (!response.ok) {
+      console.error(`備用 API 錯誤: ${response.status}`);
+      return [];
+    }
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("備用方法獲取診所數據時出錯:", error);
+    return [];
+  }
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface PaginationProps {
   currentPage: number;
@@ -6,103 +7,96 @@ interface PaginationProps {
   paginate: (pageNumber: number) => void;
 }
 
-export default function Pagination({ currentPage, totalPages, paginate }: PaginationProps) {
-  // 計算要顯示的頁碼範圍
+const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPages, paginate }) => {
+  // 計算頁碼範圍（當頁數多時顯示當前頁附近的頁碼）
   const getPageNumbers = () => {
     const pageNumbers = [];
-    const maxPagesToShow = 5; // 最多顯示的頁碼數
+    const maxPagesToShow = 5; // 最多顯示的頁碼數量
     
-    let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
-    let endPage = startPage + maxPagesToShow - 1;
-    
-    if (endPage > totalPages) {
-      endPage = totalPages;
-      startPage = Math.max(1, endPage - maxPagesToShow + 1);
-    }
-    
-    for (let i = startPage; i <= endPage; i++) {
-      pageNumbers.push(i);
+    if (totalPages <= maxPagesToShow) {
+      // 如果總頁數少於或等於最大顯示數，則顯示所有頁碼
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i);
+      }
+    } else {
+      // 否則，計算起始和結束頁碼
+      let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+      let endPage = startPage + maxPagesToShow - 1;
+      
+      if (endPage > totalPages) {
+        endPage = totalPages;
+        startPage = Math.max(1, endPage - maxPagesToShow + 1);
+      }
+      
+      for (let i = startPage; i <= endPage; i++) {
+        pageNumbers.push(i);
+      }
+      
+      // 添加省略號
+      if (startPage > 1) {
+        pageNumbers.unshift('...');
+        pageNumbers.unshift(1);
+      }
+      
+      if (endPage < totalPages) {
+        pageNumbers.push('...');
+        pageNumbers.push(totalPages);
+      }
     }
     
     return pageNumbers;
   };
-
-  // 如果只有一頁，不顯示分頁
-  if (totalPages <= 1) return null;
-
+  
+  const pageNumbers = getPageNumbers();
+  
   return (
-    <nav className="flex justify-center mt-8">
-      <ul className="flex space-x-1">
-        {/* 首頁按鈕 */}
-        {currentPage > 1 && (
-          <li>
-            <button
-              onClick={() => paginate(1)}
-              className="px-3 py-1 rounded-md bg-gray-700 text-gray-300 hover:bg-gray-600 transition-colors"
-              aria-label="第一頁"
-            >
-              &laquo;
-            </button>
-          </li>
-        )}
+    <div className="flex justify-center mt-8">
+      <nav className="flex items-center space-x-1">
+        <button
+          onClick={() => currentPage > 1 && paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+          className={`p-2 rounded-md ${
+            currentPage === 1 
+              ? 'text-white/40 cursor-not-allowed' 
+              : 'text-white hover:bg-white/10'
+          }`}
+          aria-label="上一頁"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
         
-        {/* 上一頁按鈕 */}
-        {currentPage > 1 && (
-          <li>
-            <button
-              onClick={() => paginate(currentPage - 1)}
-              className="px-3 py-1 rounded-md bg-gray-700 text-gray-300 hover:bg-gray-600 transition-colors"
-              aria-label="上一頁"
-            >
-              &lsaquo;
-            </button>
-          </li>
-        )}
-        
-        {/* 頁碼按鈕 */}
-        {getPageNumbers().map(number => (
-          <li key={number}>
-            <button
-              onClick={() => paginate(number)}
-              className={`px-3 py-1 rounded-md transition-colors ${
-                currentPage === number
-                  ? 'bg-[#ff7a00] text-white'
-                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-              }`}
-              aria-label={`第 ${number} 頁`}
-              aria-current={currentPage === number ? 'page' : undefined}
-            >
-              {number}
-            </button>
-          </li>
+        {pageNumbers.map((page, index) => (
+          <button
+            key={index}
+            onClick={() => typeof page === 'number' && paginate(page)}
+            className={`px-3 py-1 rounded-md ${
+              page === currentPage
+                ? 'bg-[#ffaa40] text-black font-bold'
+                : page === '...'
+                ? 'text-white/60 cursor-default'
+                : 'text-white hover:bg-[#ffaa40]/10'
+            }`}
+            disabled={page === '...'}
+          >
+            {page}
+          </button>
         ))}
         
-        {/* 下一頁按鈕 */}
-        {currentPage < totalPages && (
-          <li>
-            <button
-              onClick={() => paginate(currentPage + 1)}
-              className="px-3 py-1 rounded-md bg-gray-700 text-gray-300 hover:bg-gray-600 transition-colors"
-              aria-label="下一頁"
-            >
-              &rsaquo;
-            </button>
-          </li>
-        )}
-        
-        {/* 最後一頁按鈕 */}
-        {currentPage < totalPages && (
-          <li>
-            <button
-              onClick={() => paginate(totalPages)}
-              className="px-3 py-1 rounded-md bg-gray-700 text-gray-300 hover:bg-gray-600 transition-colors"
-              aria-label="最後一頁"
-            >
-              &raquo;
-            </button>
-          </li>
-        )}
-      </ul>
-    </nav>
+        <button
+          onClick={() => currentPage < totalPages && paginate(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className={`p-2 rounded-md ${
+            currentPage === totalPages 
+              ? 'text-white/40 cursor-not-allowed' 
+              : 'text-white hover:bg-white/10'
+          }`}
+          aria-label="下一頁"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
+      </nav>
+    </div>
   );
-}
+};
+
+export default Pagination;
