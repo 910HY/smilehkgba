@@ -1,4 +1,3 @@
-import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getLatestArticles } from '../lib/article-service';
 import ArticleCard from './ArticleCard';
@@ -26,7 +25,7 @@ interface LatestArticlesProps {
   limit?: number;
 }
 
-const LatestArticles: React.FC<LatestArticlesProps> = ({ limit = 3 }) => {
+const LatestArticles = ({ limit = 3 }: LatestArticlesProps) => {
   // 獲取最新文章
   const { data: articles, isLoading, error } = useQuery({
     queryKey: ['/api/articles', limit],

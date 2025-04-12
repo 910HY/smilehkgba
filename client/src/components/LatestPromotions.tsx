@@ -1,4 +1,3 @@
-import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getLatestPromotions } from '../lib/promotion-service';
 import ArticleCard from './ArticleCard';
@@ -26,7 +25,7 @@ interface LatestPromotionsProps {
   limit?: number;
 }
 
-const LatestPromotions: React.FC<LatestPromotionsProps> = ({ limit = 3 }) => {
+const LatestPromotions = ({ limit = 3 }: LatestPromotionsProps) => {
   // 獲取最新優惠文章
   const { data: promotions, isLoading, error } = useQuery({
     queryKey: ['/api/promotions', limit],

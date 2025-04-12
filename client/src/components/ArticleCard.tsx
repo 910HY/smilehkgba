@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { formatDate } from '../lib/utils';
 import ArticleTag from './ArticleTag';
-import { Article } from '../../types/article';
+import { Article } from '../types/article';
 
 interface ArticleCardProps {
   article: Article;
