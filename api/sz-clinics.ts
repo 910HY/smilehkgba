@@ -15,29 +15,30 @@ export default function handler(req: any, res: any) {
     // 處理深圳診所數據，添加缺失的字段
     const data = szRawData.map((clinic: any) => {
       // 添加評分和連鎖診所標籤數據（如果沒有）
-      if (!clinic.rating) {
-        // 根據内容設置合理默認值
-        const clinicName = clinic.name || '';
-        
-        // 為連鎖診所設置評分和連鎖標籤
-        if (
-          clinicName.includes('益康') || 
-          clinicName.includes('維港') || 
-          clinicName.includes('仁樺') || 
-          clinicName.includes('拜博') || 
-          clinicName.includes('愛康健') || 
-          clinicName.includes('麥芽')
-        ) {
-          clinic.rating = 4.5; // 為連鎖品牌設置默認評分
-          clinic.is_chain = true; // 標記為連鎖診所
-        } else if (clinicName.includes('自有光')) {
-          clinic.rating = 4.7; // 根據文章中提到的評分
-          clinic.is_chain = true;
-        } else {
-          // 為其他診所設置評分
-          clinic.rating = 4.0; // 默認評分
-          clinic.is_chain = false;
-        }
+      // 根據内容設置合理默認值
+      const clinicName = clinic.name || '';
+      
+      // 為連鎖診所設置評分和連鎖標籤
+      if (
+        clinicName.includes('益康') || 
+        clinicName.includes('維港') || 
+        clinicName.includes('仁樺') || 
+        clinicName.includes('拜博') || 
+        clinicName.includes('愛康健') || 
+        clinicName.includes('麥芽')
+      ) {
+        clinic.rating = 4.5; // 為連鎖品牌設置默認評分
+        clinic.is_chain = true; // 標記為連鎖診所
+        clinic.isChain = true; // 兼容舊屬性
+      } else if (clinicName.includes('自有光')) {
+        clinic.rating = 4.7; // 根據文章中提到的評分
+        clinic.is_chain = true;
+        clinic.isChain = true; // 兼容舊屬性
+      } else {
+        // 為其他診所設置評分
+        clinic.rating = 4.0; // 默認評分
+        clinic.is_chain = false;
+        clinic.isChain = false; // 兼容舊屬性
       }
       
       if (!clinic.region_en) {
