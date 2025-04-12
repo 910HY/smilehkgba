@@ -1,11 +1,12 @@
 import { rootDir, handleApiResponse, handleApiError, ensureDirectoryExists } from './_utils';
 import path from 'path';
 import fs from 'fs';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 /**
  * 獲取所有文章的API端點
  */
-export default function handler(req: any, res: any) {
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     console.log('API 請求: /api/articles');
     
@@ -15,7 +16,7 @@ export default function handler(req: any, res: any) {
     res.setHeader('Expires', '0');
     
     // 版本號 - 每次部署時改變此數字，確保前端獲取新數據
-    const VERSION = "20250411-001";
+    const VERSION = "20250412-001";
     console.log(`文章數據版本: ${VERSION}`);
     
     // 在不同位置查找文章目錄

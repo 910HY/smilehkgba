@@ -1,5 +1,6 @@
 import { rootDir, handleApiResponse, handleApiError, readJsonFile } from './_utils';
 import path from 'path';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 interface Clinic {
   name: string;
@@ -22,8 +23,6 @@ interface Clinic {
   url?: string;        // 該診所的獨立網址
   district?: string;   // 額外的地區信息字段
   opening_hours?: string; // 營業時間的替代字段
-  rating?: number;     // 大眾點評或其他平台評分
-  isChain?: boolean;   // 是否為連鎖診所
   
   location?: {
     lat: number;
@@ -38,15 +37,21 @@ interface Clinic {
   };
 }
 
-export default function handler(req: any, res: any) {
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     console.log('API 請求: /api/clinics');
+    
+    // 設置響應頭，防止 Vercel 緩存
+    res.setHeader('Cache-Control', 'no-store, max-age=0');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    
     // 讀取所有診所資料
     const hkFilePath = path.join(rootDir, 'attached_assets', 'clinic_list_hkcss_cleaned.json');
     const ngoFilePath = path.join(rootDir, 'attached_assets', 'ngo_clinics_cleaned.json');
     
-    // 嘗試讀取深圳診所數據文件（使用更新的 2025 深圳牙科診所數據）
-    const szFilePath = path.join(rootDir, 'attached_assets', '2025-shenzhen-dental-value.json');
+    // 嘗試讀取深圳診所數據文件
+    const szFilePath = path.join(rootDir, 'attached_assets', 'shenzhen_dental_clinics_20250407.json');
     
     console.log('使用深圳診所數據文件:', szFilePath);
     
@@ -145,17 +150,10 @@ export default function handler(req: any, res: any) {
           city: clinic.city || '深圳',
           country: clinic.country || '中國',
           isGreaterBayArea: true,
-          photo: clinic.photo || '無照片',
-          // 根據評價結果添加評分和連鎖信息
-          rating: parseFloat(clinic.rating) || undefined,
-          isChain: clinic.isChain === true || clinic.isChain === 'true' || clinic.name.includes('連鎖') || clinic.name.includes('连锁') || false
+          photo: clinic.photo || '無照片'
         };
       }
-      return {
-        ...clinic,
-        rating: parseFloat(clinic.rating) || undefined,
-        isChain: clinic.isChain === true || clinic.isChain === 'true' || clinic.name.includes('連鎖') || clinic.name.includes('连锁') || false
-      };
+      return clinic;
     });
     
     // 合併所有診所資料

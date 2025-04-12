@@ -1,12 +1,8 @@
 import path from 'path';
 import fs from 'fs';
-import { fileURLToPath } from 'url';
-
-// 獲得當前文件的目錄路徑
-const __dirname = process.env.VERCEL ? process.cwd() : path.dirname(fileURLToPath(import.meta.url));
 
 // 確定應用根目錄
-export const rootDir = process.env.VERCEL ? process.cwd() : path.resolve(__dirname, '..');
+export const rootDir = process.env.VERCEL ? process.cwd() : path.resolve(process.cwd());
 
 // 獲取文件路徑的通用函數
 export function getFilePath(...pathSegments: string[]): string {
