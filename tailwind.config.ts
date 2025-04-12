@@ -15,7 +15,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Noto Sans TC', 'sans-serif'],
+        sans: ['Orbitron', 'Noto Sans TC', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",
