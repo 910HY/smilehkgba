@@ -1,13 +1,16 @@
-import type { Config } from "tailwindcss";
+/** @type {import('tailwindcss').Config} */
+const tailwindcssAnimate = require('tailwindcss-animate');
+const typography = require('@tailwindcss/typography');
 
-export default {
+module.exports = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{js,jsx,ts,tsx}",
     "./components/**/*.{js,jsx,ts,tsx}",
-    "./app/**/*.{js,jsx,ts,tsx}",
+    "./client/pages/**/*.{js,jsx,ts,tsx}",
+    "./client/src/**/*.{js,jsx,ts,tsx}",
+    "./client/components/**/*.{js,jsx,ts,tsx}",
     "./lib/**/*.{js,jsx,ts,tsx}",
-    "./styles/**/*.css"
   ],
   theme: {
     extend: {
@@ -92,5 +95,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
-} satisfies Config;
+  plugins: [tailwindcssAnimate, typography],
+};
