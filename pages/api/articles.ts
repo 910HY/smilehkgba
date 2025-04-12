@@ -16,7 +16,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     res.setHeader('Expires', '0');
     
     // 版本號 - 每次部署時改變此數字，確保前端獲取新數據
-    const VERSION = "20250412-001";
+    const VERSION = "20250412-003";
     console.log(`文章數據版本: ${VERSION}`);
     
     // 在不同位置查找文章目錄
@@ -49,9 +49,35 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     }
     
     // 讀取articles目錄
-    const files = fs.readdirSync(articlesDir)
-      .filter(file => file.endsWith('.json') && !file.includes('clinic'));
+    const allFiles = fs.readdirSync(articlesDir);
+    console.log(`目錄中所有文件: ${allFiles.join(', ')}`);
+    
+    // 過濾JSON文件，但排除特定的診所數據文件
+    const excludePatterns = [
+      'shenzhen_dental_clinics_',
+      'fixed_',
+      '_fixed',
+      'clinic_list_',
+      'ngo_clinics_',
+      'enhanced_sz_clinics'
+    ];
+    
+    const files = allFiles.filter(file => {
+      // 必須是JSON文件
+      if (!file.endsWith('.json')) return false;
+      
+      // 檢查是否包含任何排除模式
+      for (const pattern of excludePatterns) {
+        if (file.includes(pattern)) return false;
+      }
+      
+      // 特別包含包含"recommendations"的文件，即使包含"clinics"
+      if (file.includes('recommendations')) return true;
+      
+      return true;
+    });
     console.log(`找到 ${files.length} 篇文章`);
+    console.log(`文章文件列表: ${files.join(', ')}`);
     
     // 讀取每個文章文件並解析JSON
     const articles = files.map(file => {
