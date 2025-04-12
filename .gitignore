@@ -18,6 +18,7 @@ dist-ssr
 *.local
 build
 out
+.next
 
 # Cache
 .npm
