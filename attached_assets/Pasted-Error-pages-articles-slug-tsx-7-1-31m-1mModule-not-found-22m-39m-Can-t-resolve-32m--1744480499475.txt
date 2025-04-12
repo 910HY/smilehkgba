@@ -1,0 +1,23 @@
+Error: ./pages/articles/[slug].tsx:7:1
+[31m[1mModule not found[22m[39m: Can't resolve '[32m../../components/Header[39m'
+[0m [90m  5 |[39m [36mimport[39m { useQuery } [36mfrom[39m [32m'@tanstack/react-query'[39m[33m;[39m[0m
+[0m [90m  6 |[39m [36mimport[39m { getArticleBySlug } [36mfrom[39m [32m'../../lib/article-service'[39m[33m;[39m[0m
+[0m[31m[1m>[22m[39m[90m  7 |[39m [36mimport[39m [33mHeader[39m [36mfrom[39m [32m'../../components/Header'[39m[33m;[39m[0m
+[0m [90m    |[39m [31m[1m^[22m[39m[0m
+[0m [90m  8 |[39m [36mimport[39m [33mLatestArticles[39m [36mfrom[39m [32m'../../components/LatestArticles'[39m[33m;[39m[0m
+[0m [90m  9 |[39m[0m
+[0m [90m 10 |[39m [90m// 動態導入文章詳情組件，關閉 SSR[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+    at BuildError (webpack-internal:///(pages-dir-browser)/./node_modules/next/dist/client/components/react-dev-overlay/ui/container/build-error.js:43:41)
+    at renderWithHooks (webpack-internal:///(pages-dir-browser)/./node_modules/react-dom/cjs/react-dom.development.js:15486:18)
+    at updateFunctionComponent (webpack-internal:///(pages-dir-browser)/./node_modules/react-dom/cjs/react-dom.development.js:19612:20)
+    at beginWork (webpack-internal:///(pages-dir-browser)/./node_modules/react-dom/cjs/react-dom.development.js:21635:16)
+    at beginWork$1 (webpack-internal:///(pages-dir-browser)/./node_modules/react-dom/cjs/react-dom.development.js:27460:14)
+    at performUnitOfWork (webpack-internal:///(pages-dir-browser)/./node_modules/react-dom/cjs/react-dom.development.js:26591:12)
+    at workLoopSync (webpack-internal:///(pages-dir-browser)/./node_modules/react-dom/cjs/react-dom.development.js:26500:5)
+    at renderRootSync (webpack-internal:///(pages-dir-browser)/./node_modules/react-dom/cjs/react-dom.development.js:26468:7)
+    at performConcurrentWorkOnRoot (webpack-internal:///(pages-dir-browser)/./node_modules/react-dom/cjs/react-dom.development.js:25772:74)
+    at workLoop (webpack-internal:///(pages-dir-browser)/./node_modules/scheduler/cjs/scheduler.development.js:266:34)
+    at flushWork (webpack-internal:///(pages-dir-browser)/./node_modules/scheduler/cjs/scheduler.development.js:239:14)
+    at MessagePort.performWorkUntilDeadline (webpack-internal:///(pages-dir-browser)/./node_modules/scheduler/cjs/scheduler.development.js:533:21)

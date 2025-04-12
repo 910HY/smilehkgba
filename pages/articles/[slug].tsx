@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import { useQuery } from '@tanstack/react-query';
-import { getArticleBySlug } from '../../lib/article-service';
-import Header from '../../components/Header';
-import LatestArticles from '../../components/LatestArticles';
+import { getArticleBySlug } from '../../client/src/lib/article-service';
+import Header from '../../client/src/components/Header';
+import LatestArticles from '../../client/src/components/LatestArticles';
 
 // 動態導入文章詳情組件，關閉 SSR
 const ArticleDetailPage = dynamic(() => import('../../components/ArticleDetailPage'), { ssr: false });
