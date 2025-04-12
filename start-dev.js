@@ -15,7 +15,7 @@ try {
   execSync('sleep 2', { stdio: 'inherit' });
   
   // 啟動 Next.js 開發服務器，指定端口 5000
-  execSync('cd client && PORT=5000 npm run dev', { stdio: 'inherit' });
+  execSync('PORT=5000 npx next dev', { stdio: 'inherit' });
 } catch (error) {
   console.error('❌ 啟動失敗:', error);
   process.exit(1);
