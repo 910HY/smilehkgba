@@ -73,13 +73,16 @@ export default function handler(req: any, res: any) {
         ) {
           clinic.rating = 4.5; // 為連鎖品牌設置默認評分
           clinic.is_chain = true; // 標記為連鎖診所
+          clinic.isChain = true; // 兼容舊屬性
         } else if (clinicName.includes('自有光')) {
           clinic.rating = 4.7; // 根據文章中提到的評分
           clinic.is_chain = true;
+          clinic.isChain = true; // 兼容舊屬性
         } else {
           // 為其他診所設置評分
           clinic.rating = 4.0; // 默認評分
           clinic.is_chain = false;
+          clinic.isChain = false; // 兼容舊屬性
         }
       }
       

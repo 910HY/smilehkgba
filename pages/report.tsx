@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Head from 'next/head';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import Header from '../client/src/components/Header';
+import Footer from '../client/src/components/Footer';
 
 const ReportPage = () => {
   const router = useRouter();
