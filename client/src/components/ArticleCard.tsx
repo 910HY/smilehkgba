@@ -1,56 +1,56 @@
+import { useState } from 'react';
 import Link from 'next/link';
 import { formatDate } from '../lib/utils';
-import type { Article } from '../types/article';
 import ArticleTag from './ArticleTag';
+import { Article } from '../../types/article';
 
 interface ArticleCardProps {
   article: Article;
   onTagClick?: (tag: string) => void;
-  isPromotion?: boolean; // 新增屬性，用來標識是否為優惠文章
+  isPromotion?: boolean; // 用來標識是否為優惠文章
 }
 
-export default function ArticleCard({ article, onTagClick, isPromotion = false }: ArticleCardProps) {
-  const { title, slug, summary, tags, publishedAt } = article;
-  
-  // 確定文章的鏈接路徑
-  const articleLink = isPromotion 
-    ? `/promotions/${slug}` 
-    : `/articles/${slug}`;
+export default function ArticleCard({ 
+  article, 
+  onTagClick, 
+  isPromotion = false 
+}: ArticleCardProps) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const path = isPromotion 
+    ? `/promotions/${article.slug}` 
+    : `/articles/${article.slug}`;
 
   return (
-    <div className="bg-[#1e293b] rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
-      <Link href={articleLink} legacyBehavior>
-        <a className="block p-5">
-          <h3 className="text-[#FF7A00] text-xl font-bold mb-2 line-clamp-2">
-            {title}
+    <div 
+      className="overflow-hidden rounded-lg bg-[#1e293b] hover:shadow-lg transition-shadow duration-300 h-full flex flex-col"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Link href={path} className="block text-white no-underline flex-grow">
+        <div className="p-4 flex flex-col h-full">
+          <h3 className={`text-xl font-bold mb-2 ${isHovered ? 'text-[#FF7A00]' : 'text-white'} transition-colors`}>
+            {article.title}
           </h3>
-          
-          <p className="text-gray-300 mb-3 text-sm line-clamp-2">
-            {summary}
+          <p className="text-[#94a3b8] mb-4 flex-grow text-sm">
+            {article.summary}
           </p>
-          
-          <div className="flex items-center justify-between mt-4">
-            <div className="flex flex-wrap gap-2">
-              {tags.slice(0, 2).map((tag) => (
-                <ArticleTag 
-                  key={tag} 
-                  tag={tag}
-                  onClick={onTagClick ? (e) => {
-                    e.preventDefault();
-                    onTagClick(tag);
-                  } : undefined}
-                />
-              ))}
-              {tags.length > 2 && (
-                <span className="text-xs text-gray-400">+{tags.length - 2} 更多</span>
-              )}
-            </div>
-            
-            <div className="text-[#94a3b8] text-xs">
-              {formatDate(publishedAt)}
-            </div>
+          <div className="flex flex-wrap gap-2 mt-auto mb-2">
+            {article.tags.slice(0, 3).map((tag) => (
+              <ArticleTag 
+                key={tag} 
+                tag={tag}
+                onClick={onTagClick ? (e) => {
+                  e.preventDefault();
+                  onTagClick(tag);
+                } : undefined}
+              />
+            ))}
           </div>
-        </a>
+          <div className="text-xs text-[#64748b] mt-3">
+            {formatDate(article.publishedAt)}
+          </div>
+        </div>
       </Link>
     </div>
   );

@@ -1,8 +1,7 @@
-import React from 'react';
 import Link from 'next/link';
 
 // 使用行內樣式，不再依賴外部CSS
-const Footer: React.FC = () => {
+const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   const footerStyle = {

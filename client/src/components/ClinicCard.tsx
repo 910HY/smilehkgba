@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Clinic } from '../types/clinic';
 import { 
   MapPin, Phone, Clock, DollarSign, Map,
@@ -19,7 +19,7 @@ interface ClinicCardProps {
   clinic: Clinic;
 }
 
-const ClinicCard: React.FC<ClinicCardProps> = ({ clinic }) => {
+const ClinicCard = ({ clinic }: ClinicCardProps) => {
   const [isMapOpen, setIsMapOpen] = useState(false);
 
   // 格式化電話號碼以便顯示
