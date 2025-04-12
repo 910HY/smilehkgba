@@ -4,11 +4,5 @@
     "files": [
       "static/chunks/_pages-dir-browser_components_MapClient_tsx.js"
     ]
-  },
-  "pages/articles/[slug].tsx -> ../../components/ArticleDetailPage": {
-    "id": "pages/articles/[slug].tsx -> ../../components/ArticleDetailPage",
-    "files": [
-      "static/chunks/_pages-dir-browser_components_ArticleDetailPage_tsx.js"
-    ]
   }
 }
