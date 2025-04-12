@@ -4,6 +4,8 @@ import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import { useQuery } from '@tanstack/react-query';
 import { getArticleBySlug } from '../../lib/article-service';
+import Header from '../../components/Header';
+import LatestArticles from '../../components/LatestArticles';
 
 // 動態導入文章詳情組件，關閉 SSR
 const ArticleDetailPage = dynamic(() => import('../../components/ArticleDetailPage'), { ssr: false });
@@ -37,7 +39,11 @@ export default function ArticlePage() {
         />
         <meta property="og:image" content="/og-image.png" />
       </Head>
-      {slug && <ArticleDetailPage />}
+      <Header />
+      <main>
+        {slug && <ArticleDetailPage />}
+        <LatestArticles limit={3} />
+      </main>
     </>
   );
 }
