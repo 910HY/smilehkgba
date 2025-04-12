@@ -21,6 +21,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     
     // 在不同位置查找文章目錄
     const possibleArticlesPaths = [
+      // client/content/articles (優先位置)
+      path.join(rootDir, 'client', 'content', 'articles'),
       // content/articles (主要位置)
       path.join(rootDir, 'content', 'articles'),
       // Vercel部署可能的位置

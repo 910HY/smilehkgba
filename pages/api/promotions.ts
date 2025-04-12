@@ -17,6 +17,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     
     // 在不同位置查找優惠文章目錄
     const possiblePromotionsPaths = [
+      // client/content/promotions (優先位置)
+      path.join(rootDir, 'client', 'content', 'promotions'),
       // content/promotions (主要位置)
       path.join(rootDir, 'content', 'promotions'),
       // Vercel部署可能的位置
