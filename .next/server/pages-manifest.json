@@ -2,11 +2,9 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/api/articles": "pages/api/articles.js",
   "/": "pages/index.js",
-  "/articles": "pages/articles.js",
-  "/api/promotions": "pages/api/promotions.js",
-  "/promotions": "pages/promotions.js",
+  "/api/articles": "pages/api/articles.js",
   "/articles/[slug]": "pages/articles/[slug].js",
+  "/api/promotions": "pages/api/promotions.js",
   "/api/articles/[slug]": "pages/api/articles/[slug].js"
 }
