@@ -163,9 +163,9 @@ function enhanceClinicData(clinic: Clinic): Clinic {
 export async function fetchClinicData(): Promise<Clinic[]> {
   try {
     // 根據環境確定BASE URL
-    const baseUrl = import.meta.env.DEV 
+    const baseUrl = process.env.NODE_ENV === 'development'
       ? '' 
-      : (import.meta.env.VITE_API_URL || '');
+      : (process.env.NEXT_PUBLIC_API_URL || '');
     
     // 添加時間戳和隨機數，強制瀏覽器不使用緩存
     const cacheBreaker = `nocache=${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
@@ -215,9 +215,9 @@ export async function fetchClinicData(): Promise<Clinic[]> {
 export const fetchClinicDataFallback = async (): Promise<Clinic[]> => {
   try {
     // 根據環境確定BASE URL
-    const baseUrl = import.meta.env.DEV 
+    const baseUrl = process.env.NODE_ENV === 'development'
       ? '' 
-      : (import.meta.env.VITE_API_URL || '');
+      : (process.env.NEXT_PUBLIC_API_URL || '');
     
     // 添加時間戳和隨機數，強制瀏覽器不使用緩存
     const cacheBreaker = `nocache=${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
