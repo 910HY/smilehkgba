@@ -35,6 +35,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     // 尋找匹配的文章
     let foundArticle = null;
     
+    // 紀錄請求的slug和類型
+    console.log(`尋找文章slug: "${slug}",類型: ${typeof slug}`);
+    
     // 遍歷所有可能的目錄
     for (const articlesDir of possibleArticlesPaths) {
       // 如果目錄存在
@@ -42,8 +45,35 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         console.log(`檢查目錄: ${articlesDir}`);
         
         // 讀取目錄中的所有文件
-        const files = fs.readdirSync(articlesDir)
-          .filter(file => file.endsWith('.json') && !file.includes('clinic'));
+        // 過濾JSON文件，但排除特定的診所數據文件
+        const excludePatterns = [
+          'shenzhen_dental_clinics_',
+          'fixed_',
+          '_fixed',
+          'clinic_list_',
+          'ngo_clinics_',
+          'enhanced_sz_clinics'
+        ];
+        
+        const allFiles = fs.readdirSync(articlesDir);
+        console.log(`目錄 ${articlesDir} 中的所有文件:`, allFiles);
+        
+        const files = allFiles.filter(file => {
+          // 必須是JSON文件
+          if (!file.endsWith('.json')) return false;
+          
+          // 檢查是否包含任何排除模式
+          for (const pattern of excludePatterns) {
+            if (file.includes(pattern)) return false;
+          }
+          
+          // 特別包含包含"recommendations"的文件，即使包含"clinics"
+          if (file.includes('recommendations')) return true;
+          
+          return true;
+        });
+        
+        console.log(`過濾後的文件列表:`, files);
         
         // 查找匹配的文章
         for (const file of files) {
@@ -51,6 +81,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
           try {
             const fileContent = fs.readFileSync(filePath, 'utf8');
             const article = JSON.parse(fileContent);
+            
+            console.log(`檢查文件 ${file}, 其slug為 "${article.slug}"`);
             
             if (article.slug === slug) {
               foundArticle = article;
@@ -72,7 +104,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     if (foundArticle) {
       return handleApiResponse(res, foundArticle);
     } else {
-      return res.status(404).json({ error: '找不到指定的文章' });
+      // 提供更詳細的錯誤信息
+      return res.status(404).json({ 
+        error: `找不到指定的文章（slug: ${slug}）`,
+        searchedLocations: possibleArticlesPaths.filter(dir => fs.existsSync(dir))
+      });
     }
   } catch (error: any) {
     return handleApiError(res, error, '無法獲取文章');
