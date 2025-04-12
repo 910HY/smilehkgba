@@ -10,9 +10,9 @@ import LatestArticles from "../src/components/LatestArticles";
 import LatestPromotions from "../src/components/LatestPromotions";
 import { Toaster } from "../../components/ui/toaster";
 import { useQuery } from "@tanstack/react-query";
-import { fetchClinicData } from "../src/lib/clinic-data";
-import { detailedRegions } from "../src/lib/regions";
-import type { Clinic } from "../src/types/clinic";
+import { fetchClinicData } from "../../client/src/lib/clinic-data";
+import { detailedRegions } from "../../client/src/lib/regions";
+import type { Clinic } from "../../client/src/types/clinic";
 
 export default function Home() {
   const [searchParams, setSearchParams] = useState({
