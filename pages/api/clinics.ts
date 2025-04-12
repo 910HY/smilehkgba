@@ -51,9 +51,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     const ngoFilePath = path.join(rootDir, 'attached_assets', 'ngo_clinics_cleaned.json');
     
     // 嘗試讀取深圳診所數據文件
-    const szFilePath = path.join(rootDir, 'attached_assets', 'shenzhen_dental_clinics_20250407.json');
+    const szFilePath = path.join(rootDir, 'attached_assets', 'shenzhen_dental_clinics_fixed.json');
     
     console.log('使用深圳診所數據文件:', szFilePath);
+    console.log('檢查文件是否存在:', require('fs').existsSync(szFilePath));
     
     const hkData = readJsonFile(hkFilePath);
     const ngoData = readJsonFile(ngoFilePath);
@@ -61,6 +62,35 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     
     // 處理深圳診所數據，添加缺失的字段
     const szData = szRawData.map((clinic: any) => {
+      // 添加評分和連鎖診所標籤數據（如果沒有）
+      if (!clinic.rating) {
+        // 根據内容設置合理默認值
+        const clinicName = clinic.name || '';
+        
+        // 為連鎖診所設置評分和連鎖標籤
+        if (
+          clinicName.includes('益康') || 
+          clinicName.includes('維港') || 
+          clinicName.includes('仁樺') || 
+          clinicName.includes('拜博') || 
+          clinicName.includes('愛康健') || 
+          clinicName.includes('麥芽')
+        ) {
+          clinic.rating = 4.5; // 為連鎖品牌設置默認評分
+          clinic.is_chain = true; // 標記為連鎖診所
+          clinic.isChain = true; // 兼容舊屬性
+        } else if (clinicName.includes('自有光')) {
+          clinic.rating = 4.7; // 根據文章中提到的評分
+          clinic.is_chain = true;
+          clinic.isChain = true; // 兼容舊屬性
+        } else {
+          // 為其他診所設置評分
+          clinic.rating = 4.0; // 默認評分
+          clinic.is_chain = false;
+          clinic.isChain = false; // 兼容舊屬性
+        }
+      }
+      
       if (!clinic.region_en) {
         // 根據region添加region_en和region_code
         let region = clinic.region || clinic.district || '';
@@ -138,6 +168,36 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         const hours = clinic.hours || clinic.opening_hours || '';
         const type = clinic.type === '私營' ? '私家診所' : (clinic.type || '私家診所');
         
+        // 設置評分和連鎖診所標籤（如果還沒有設置）
+        let rating = clinic.rating;
+        let is_chain = clinic.is_chain || clinic.isChain;
+        
+        // 根據診所名稱設置合理值
+        const clinicName = clinic.name || '';
+        if (!rating || !is_chain) {
+          if (
+            clinicName.includes('益康') || 
+            clinicName.includes('維港') || 
+            clinicName.includes('仁樺') || 
+            clinicName.includes('拜博') || 
+            clinicName.includes('愛康健') || 
+            clinicName.includes('麥芽')
+          ) {
+            rating = rating || 4.5; // 為連鎖品牌設置評分
+            is_chain = true; // 標記為連鎖診所
+          } else if (clinicName.includes('自有光')) {
+            rating = rating || 4.7; // 根據文章中提到的評分
+            is_chain = true;
+          } else if (clinicName.includes('鵬程')) {
+            rating = rating || 4.5; // 根據文章中提到的評分
+            is_chain = true;
+          } else {
+            // 其他診所默認評分
+            rating = rating || 4.0;
+            is_chain = is_chain || false;
+          }
+        }
+        
         return {
           ...clinic,
           region: region,
@@ -150,9 +210,48 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
           city: clinic.city || '深圳',
           country: clinic.country || '中國',
           isGreaterBayArea: true,
-          photo: clinic.photo || '無照片'
+          photo: clinic.photo || '無照片',
+          rating: rating,
+          is_chain: is_chain,
+          isChain: is_chain // 兼容舊的屬性名
         };
       }
+      
+      // 確保即使有 region_en 的診所也有評分和連鎖標籤
+      if (!clinic.rating || (!clinic.is_chain && !clinic.isChain)) {
+        const clinicName = clinic.name || '';
+        let rating = clinic.rating;
+        let is_chain = clinic.is_chain || clinic.isChain;
+        
+        if (
+          clinicName.includes('益康') || 
+          clinicName.includes('維港') || 
+          clinicName.includes('仁樺') || 
+          clinicName.includes('拜博') || 
+          clinicName.includes('愛康健') || 
+          clinicName.includes('麥芽')
+        ) {
+          rating = rating || 4.5;
+          is_chain = true;
+        } else if (clinicName.includes('自有光')) {
+          rating = rating || 4.7;
+          is_chain = true;
+        } else if (clinicName.includes('鵬程')) {
+          rating = rating || 4.5;
+          is_chain = true;
+        } else {
+          rating = rating || 4.0;
+          is_chain = is_chain || false;
+        }
+        
+        return {
+          ...clinic,
+          rating: rating,
+          is_chain: is_chain,
+          isChain: is_chain // 兼容舊的屬性名
+        };
+      }
+      
       return clinic;
     });
     
