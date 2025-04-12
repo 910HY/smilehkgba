@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getLatestPromotions } from '../lib/promotion-service';
 import ArticleCard from './ArticleCard';
 import { Button } from './ui/button';
-import { Link } from 'wouter';
+import Link from 'next/link';
 import { Skeleton } from './ui/skeleton';
 
 // 加載中的卡片骨架屏

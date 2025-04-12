@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'wouter';
+import Link from 'next/link';
 import { Article, Source } from '../types/article';
 import ArticleTag from './ArticleTag';
 import { Button } from './ui/button';
@@ -42,10 +42,12 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ article, onTagClick }) => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       {/* 返回按鈕 */}
-      <Link href="/articles">
-        <Button variant="link" className="text-orange-400 hover:text-orange-500 p-0 mb-8">
-          ← 返回文章列表
-        </Button>
+      <Link href="/articles" legacyBehavior>
+        <a>
+          <Button variant="link" className="text-orange-400 hover:text-orange-500 p-0 mb-8">
+            ← 返回文章列表
+          </Button>
+        </a>
       </Link>
       
       {/* 文章標題 */}

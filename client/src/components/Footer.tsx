@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'wouter';
+import Link from 'next/link';
 
 // 使用行內樣式，不再依賴外部CSS
 const Footer: React.FC = () => {
@@ -109,7 +109,7 @@ const Footer: React.FC = () => {
         </div>
         
         <nav style={navStyle}>
-          <Link href="/">
+          <Link href="/" legacyBehavior>
             <a 
               style={navLinkStyle} 
               onMouseEnter={handleNavLinkHover} 
@@ -118,7 +118,7 @@ const Footer: React.FC = () => {
               首頁
             </a>
           </Link>
-          <Link href="/articles">
+          <Link href="/articles" legacyBehavior>
             <a 
               style={navLinkStyle} 
               onMouseEnter={handleNavLinkHover} 
@@ -127,7 +127,7 @@ const Footer: React.FC = () => {
               關心你啲牙
             </a>
           </Link>
-          <Link href="/promotions">
+          <Link href="/promotions" legacyBehavior>
             <a 
               style={navLinkStyle} 
               onMouseEnter={handleNavLinkHover} 
@@ -136,7 +136,7 @@ const Footer: React.FC = () => {
               優惠牙
             </a>
           </Link>
-          <Link href="/report">
+          <Link href="/report" legacyBehavior>
             <a 
               style={navLinkStyle} 
               onMouseEnter={handleNavLinkHover} 

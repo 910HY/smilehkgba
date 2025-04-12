@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'wouter';
+import Link from 'next/link';
 import { Article } from '../types/article';
 import ArticleTag from './ArticleTag';
 import { Button } from './ui/button';
@@ -59,13 +59,15 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, onTagClick, isPromot
         )}
       </div>
       
-      <Link href={articlePath}>
-        <Button 
-          variant="outline" 
-          className="w-full border-orange-500 text-orange-400 hover:bg-orange-500 hover:text-white"
-        >
-          {isPromotion ? '查看優惠' : '閱讀全文'}
-        </Button>
+      <Link href={articlePath} legacyBehavior>
+        <a className="w-full">
+          <Button 
+            variant="outline" 
+            className="w-full border-orange-500 text-orange-400 hover:bg-orange-500 hover:text-white"
+          >
+            {isPromotion ? '查看優惠' : '閱讀全文'}
+          </Button>
+        </a>
       </Link>
     </div>
   );

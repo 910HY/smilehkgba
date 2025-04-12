@@ -1,21 +1,7 @@
-import React, { useEffect, useRef } from 'react';
-import L from 'leaflet';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+import React from 'react';
+import dynamic from 'next/dynamic';
 
-// 解決 Leaflet 默認圖標問題
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-
-const DefaultIcon = L.icon({
-  iconUrl: icon,
-  shadowUrl: iconShadow,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41]
-});
-
-L.Marker.prototype.options.icon = DefaultIcon;
-
+// 定義 Props 接口
 interface MapViewProps {
   lat: number;
   lng: number;
@@ -23,39 +9,22 @@ interface MapViewProps {
   address: string;
 }
 
+// 創建一個無 SSR 的地圖組件
+const MapWithNoSSR = dynamic(
+  () => import('./MapClient'), // 我們將建立這個組件
+  { 
+    ssr: false, // 禁用伺服器端渲染
+    loading: () => (
+      <div className="w-full h-[300px] rounded-lg overflow-hidden flex items-center justify-center bg-gray-800">
+        <p className="text-amber-500">載入地圖中...</p>
+      </div>
+    )
+  }
+);
+
+// 主要的 MapView 組件現在只是一個包裝器
 const MapView: React.FC<MapViewProps> = ({ lat, lng, name, address }) => {
-  const mapRef = useRef<L.Map | null>(null);
-
-  useEffect(() => {
-    if (mapRef.current) {
-      // 地圖加載後設置視圖
-      mapRef.current.setView([lat, lng], 15);
-    }
-  }, [lat, lng]);
-
-  return (
-    <div className="w-full h-[300px] rounded-lg overflow-hidden">
-      <MapContainer
-        center={[lat, lng]}
-        zoom={15}
-        style={{ height: '100%', width: '100%' }}
-        ref={mapRef}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker position={[lat, lng]}>
-          <Popup>
-            <div>
-              <h3 className="font-bold">{name}</h3>
-              <p className="text-sm">{address}</p>
-            </div>
-          </Popup>
-        </Marker>
-      </MapContainer>
-    </div>
-  );
+  return <MapWithNoSSR lat={lat} lng={lng} name={name} address={address} />;
 };
 
 export default MapView;

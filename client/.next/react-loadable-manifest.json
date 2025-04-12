@@ -1,8 +1,8 @@
 {
-  "pages/index.tsx -> ../src/App": {
-    "id": "pages/index.tsx -> ../src/App",
+  "src/components/MapView.tsx -> ./MapClient": {
+    "id": "src/components/MapView.tsx -> ./MapClient",
     "files": [
-      "static/chunks/_pages-dir-browser_src_App_tsx.js"
+      "static/chunks/_pages-dir-browser_src_components_MapClient_tsx.js"
     ]
   }
 }

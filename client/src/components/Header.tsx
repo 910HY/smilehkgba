@@ -1,15 +1,17 @@
 import React from 'react';
-import { Link, useLocation } from 'wouter';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 // 按照新設計重構的Header組件
 const Header = () => {
-  const [location] = useLocation();
+  const router = useRouter();
+  const pathname = router.pathname;
   
   // 判斷當前頁面
-  const isHome = location === '/';
-  const isArticles = location.startsWith('/articles');
-  const isPromotions = location.startsWith('/promotions');
-  const isReport = location === '/report';
+  const isHome = pathname === '/';
+  const isArticles = pathname.startsWith('/articles');
+  const isPromotions = pathname.startsWith('/promotions');
+  const isReport = pathname === '/report';
   
   // 使用行內樣式確保顯示正確
   const headerStyle = {
@@ -111,12 +113,14 @@ const Header = () => {
         
         {/* 右側Logo區塊 */}
         <div style={logoContainerStyle}>
-          <Link href="/">
-            <img 
-              src={`/logo.png?v=${Date.now()}`} 
-              alt="牙GoGo Logo" 
-              style={logoStyle}
-            />
+          <Link href="/" legacyBehavior>
+            <a>
+              <img 
+                src={`/logo.png?v=${Date.now()}`}
+                alt="牙GoGo Logo" 
+                style={logoStyle}
+              />
+            </a>
           </Link>
         </div>
       </header>
@@ -125,14 +129,14 @@ const Header = () => {
       <div style={navigationBarStyle}>
         <div style={navigationContainerStyle}>
           <nav style={navStyle}>
-            <Link href="/">
-              <span style={isHome ? activeNavItemStyle : navItemStyle}>首頁</span>
+            <Link href="/" legacyBehavior>
+              <a style={isHome ? activeNavItemStyle : navItemStyle}>首頁</a>
             </Link>
-            <Link href="/articles">
-              <span style={isArticles ? activeNavItemStyle : navItemStyle}>關心你啲牙</span>
+            <Link href="/articles" legacyBehavior>
+              <a style={isArticles ? activeNavItemStyle : navItemStyle}>關心你啲牙</a>
             </Link>
-            <Link href="/promotions">
-              <span style={isPromotions ? activeNavItemStyle : navItemStyle}>優惠牙</span>
+            <Link href="/promotions" legacyBehavior>
+              <a style={isPromotions ? activeNavItemStyle : navItemStyle}>優惠牙</a>
             </Link>
           </nav>
         </div>
