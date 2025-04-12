@@ -42,13 +42,9 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ article, onTagClick }) => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       {/* 返回按鈕 */}
-      <Link href="/articles" legacyBehavior>
-        <a>
-          <Button variant="link" className="text-orange-400 hover:text-orange-500 p-0 mb-8">
-            ← 返回文章列表
-          </Button>
-        </a>
-      </Link>
+      <Button variant="link" className="text-orange-400 hover:text-orange-500 p-0 mb-8" asChild>
+        <Link href="/articles">← 返回文章列表</Link>
+      </Button>
       
       {/* 文章標題 */}
       <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
