@@ -2,8 +2,34 @@ import { Clinic } from "../types/clinic";
 
 // 為診所數據增加缺失的字段
 function enhanceClinicData(clinic: Clinic): Clinic {
-  // 如果已經有這些字段，不需要處理
+  // 檢查深圳診所評分和連鎖標籤
+  // 在完整處理前先保留下來
+  const originalRating = clinic.rating;
+  const originalIsChain = clinic.isChain || clinic.is_chain;
+  
+  // 如果已經有所有必要字段，只確保評分和連鎖標籤保留
   if (clinic.region_en && clinic.region_code && clinic.slug && clinic.url) {
+    // 如果是大灣區診所，確保評分和連鎖標籤正確設置
+    if (clinic.isGreaterBayArea || clinic.city === '深圳' || clinic.city === '深圳市') {
+      // 可能的連鎖診所名稱
+      const chainNames = ['益康', '維港', '仁樺', '拜博', '愛康健', '麥芽', '自有光'];
+      
+      // 如果原本沒有評分，需要設置一個合理的默認值
+      if (!clinic.rating) {
+        // 連鎖診所默認評分較高
+        if (originalIsChain || chainNames.some(name => clinic.name.includes(name))) {
+          clinic.rating = 4.5;
+        } else {
+          clinic.rating = 4.0;
+        }
+      }
+      
+      // 如果原本沒有連鎖標籤，但名稱中包含連鎖診所關鍵字，則設置為連鎖診所
+      if (!originalIsChain && chainNames.some(name => clinic.name.includes(name))) {
+        clinic.is_chain = true;
+      }
+    }
+    
     return clinic;
   }
   
@@ -150,6 +176,34 @@ function enhanceClinicData(clinic: Clinic): Clinic {
   // 創建URL
   const url = clinic.url || `/clinic/${slug}`;
   
+  // 檢查是否是大灣區診所，如果是則添加評分和連鎖標籤
+  if (clinic.isGreaterBayArea || clinic.city === '深圳' || clinic.city === '深圳市') {
+    // 可能的連鎖診所名稱
+    const chainNames = ['益康', '維港', '仁樺', '拜博', '愛康健', '麥芽', '自有光'];
+    
+    // 如果沒有評分，根據是否為連鎖診所設置默認評分
+    const rating = clinic.rating || (
+      (clinic.isChain || clinic.is_chain || chainNames.some(name => clinic.name.includes(name)))
+        ? 4.5  // 連鎖診所默認較高評分
+        : 4.0  // 普通診所默認評分
+    );
+    
+    // 如果名稱中含有連鎖診所關鍵字，標記為連鎖診所
+    const is_chain = clinic.isChain || clinic.is_chain || 
+      chainNames.some(name => clinic.name.includes(name));
+    
+    return {
+      ...clinic,
+      region_en: clinic.region_en || region_en,
+      region_code: clinic.region_code || region_code,
+      slug: clinic.slug || slug,
+      url: clinic.url || url,
+      rating: rating,
+      is_chain: is_chain
+    };
+  }
+  
+  // 非大灣區診所，只添加基本字段
   return {
     ...clinic,
     region_en: clinic.region_en || region_en,
