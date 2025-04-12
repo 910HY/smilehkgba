@@ -6,6 +6,8 @@
   "/": "pages/index.js",
   "/articles": "pages/articles.js",
   "/articles/[slug]": "pages/articles/[slug].js",
+  "/api/promotions": "pages/api/promotions.js",
+  "/api/clinics": "pages/api/clinics.js",
   "/api/articles/[slug]": "pages/api/articles/[slug].js",
-  "/api/promotions": "pages/api/promotions.js"
+  "/promotions": "pages/promotions.js"
 }
