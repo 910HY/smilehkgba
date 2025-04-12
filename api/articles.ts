@@ -26,10 +26,30 @@ export default function handler(req: any, res: any) {
       return JSON.parse(fileContent);
     });
     
+    // 添加版本信息
+    console.log('文章數據版本: 20250412-001');
+
+    // 確保每篇文章都有發佈日期，如果沒有則設為當前日期
+    const articlesWithDates = articles.map(article => {
+      if (!article.publishedAt) {
+        article.publishedAt = new Date().toISOString().split('T')[0];
+        console.log(`文章 ${article.title} 缺少發佈日期，已設為當前日期`);
+      }
+      return article;
+    });
+    
     // 根據發佈日期排序（最新的在前）
-    const sortedArticles = articles.sort((a, b) => 
-      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-    );
+    const sortedArticles = articlesWithDates.sort((a, b) => {
+      const dateA = new Date(a.publishedAt).getTime();
+      const dateB = new Date(b.publishedAt).getTime();
+      
+      // 如果日期相同，則按標題排序
+      if (dateA === dateB) {
+        return a.title.localeCompare(b.title);
+      }
+      
+      return dateB - dateA;
+    });
     
     return handleApiResponse(res, sortedArticles);
   } catch (error: any) {
