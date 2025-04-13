@@ -1,12 +1,12 @@
 {
   "include": [
-    "client/src/**/*",
+    "pages/**/*", 
+    "components/**/*", 
+    "lib/**/*", 
+    "server/**/*", 
     "shared/**/*",
-    "server/**/*",
-    "components/**/*",
-    "pages/**/*",
-    "lib/**/*",
-    "types/**/*"
+    "types/**/*",
+    "hooks/**/*"
   ],
   "exclude": [
     "node_modules",
