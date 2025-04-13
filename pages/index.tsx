@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Head from 'next/head';
 import Header from "../client/src/components/Header";
 import SearchPanel from "../components/SearchPanel";
@@ -266,52 +266,23 @@ export default function Home() {
               )}
             </div>
           ) : (
-            <div style={{ 
-                padding: '4rem 0', 
-                textAlign: 'center',
-                maxWidth: '1200px',
-                margin: '0 auto'
-              }}>
+            <div className="py-16 text-center max-w-6xl mx-auto">
               {!hasSearched ? (
-                <div style={{ 
-                  display: 'flex', 
-                  flexDirection: 'column', 
-                  alignItems: 'center', 
-                  justifyContent: 'center' 
-                }}>
-                  <div style={{ 
-                    backgroundColor: 'rgba(255, 122, 0, 0.1)', 
-                    padding: '1.5rem', 
-                    borderRadius: '9999px', 
-                    marginBottom: '1.5rem' 
-                  }}>
+                <div className="flex flex-col items-center justify-center">
+                  <div className="bg-[rgba(255,122,0,0.1)] p-6 rounded-full mb-6">
                     <img 
                       src={`/logo.png?v=${Date.now()}`} 
                       alt="牙GoGo Logo" 
-                      style={{ height: '4rem', width: '4rem' }} 
+                      className="h-16 w-16" 
                     />
                   </div>
-                  <h2 style={{ 
-                    color: '#FF7A00', 
-                    fontSize: '2.25rem', 
-                    fontWeight: 'bold', 
-                    marginBottom: '0.5rem' 
-                  }}>
+                  <h2 className="text-[#FF7A00] text-4xl font-bold mb-2">
                     牙GoGo
                   </h2>
-                  <p style={{ 
-                    color: '#FF9D45', 
-                    fontSize: '1.25rem', 
-                    marginBottom: '1.5rem' 
-                  }}>
+                  <p className="text-[#FF9D45] text-xl mb-6">
                     至關心你啲牙既牙科資訊平台
                   </p>
-                  <p style={{ 
-                    color: '#94a3b8', 
-                    maxWidth: '36rem', 
-                    marginBottom: '2rem',
-                    fontSize: '1.1rem'
-                  }}>
+                  <p className="text-[#94a3b8] max-w-lg mb-8 text-lg">
                     請使用上方搜尋欄位尋找香港及大灣區的牙科診所資訊。
                   </p>
                 </div>
