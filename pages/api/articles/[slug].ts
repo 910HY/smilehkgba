@@ -24,7 +24,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     const possibleArticlesPaths = [
       // public/articles (優先位置) - 推薦的直接公開路徑
       path.join(rootDir, 'public', 'articles'),
-      // client/content/articles (次要位置)
+      // content/articles (次要位置)
       path.join(rootDir, 'client', 'content', 'articles'),
       // content/articles (備用位置)
       path.join(rootDir, 'content', 'articles'),

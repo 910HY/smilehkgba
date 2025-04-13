@@ -19,7 +19,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     const possiblePromotionsPaths = [
       // public/promotions (優先位置) - 推薦的直接公開路徑
       path.join(rootDir, 'public', 'promotions'),
-      // client/content/promotions (次要位置)
+      // content/promotions (次要位置)
       path.join(rootDir, 'client', 'content', 'promotions'),
       // content/promotions (備用位置)
       path.join(rootDir, 'content', 'promotions'),
