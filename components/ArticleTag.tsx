@@ -6,22 +6,19 @@ interface ArticleTagProps {
   isActive?: boolean;
 }
 
-const ArticleTag: React.FC<ArticleTagProps> = ({ tag, onClick, isActive = false }) => {
-  const baseClasses = "inline-flex items-center px-3 py-1 rounded-full text-sm font-medium cursor-pointer transition-colors";
-  
-  const activeClasses = "bg-orange-500 text-white hover:bg-orange-600";
-  const inactiveClasses = "bg-slate-700 text-slate-300 hover:bg-slate-600";
-  
-  const classes = `${baseClasses} ${isActive ? activeClasses : inactiveClasses}`;
-  
+export default function ArticleTag({ tag, onClick, isActive = false }: ArticleTagProps) {
   return (
-    <span 
-      className={classes}
+    <span
+      className={`
+        inline-block px-2 py-1 text-xs font-medium rounded-full
+        ${isActive 
+          ? 'bg-[#FF7A00] text-white' 
+          : 'bg-[#334155] text-[#FDBA74] hover:bg-[#475569] cursor-pointer'}
+        transition-colors duration-200
+      `}
       onClick={onClick}
     >
       {tag}
     </span>
   );
-};
-
-export default ArticleTag;
+}

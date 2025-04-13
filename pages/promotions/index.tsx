@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import Header from '../../client/src/components/Header';
-import Footer from '../../client/src/components/Footer';
-import { getAllPromotions, getPromotionsByTag } from '../../client/src/lib/promotion-service';
-import ArticleCard from '../../client/src/components/ArticleCard';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import { getAllPromotions, getPromotionsByTag } from '../../lib/promotion-service';
+import ArticleCard from '../../components/ArticleCard';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import ArticleTag from '../../client/src/components/ArticleTag';
-import { Button } from '../../client/src/components/ui/button';
-import { Skeleton } from '../../client/src/components/ui/skeleton';
+import ArticleTag from '../../components/ArticleTag';
+import { Button } from '../../components/ui/button';
+import { Skeleton } from '../../components/ui/skeleton';
 
 // 加載中的卡片骨架屏
 const ArticleCardSkeleton = () => (

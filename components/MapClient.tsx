@@ -1,17 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import L from 'leaflet';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-
-// 設置默認圖標
-const DefaultIcon = L.icon({
-  iconUrl: '/leaflet/marker-icon.png',
-  shadowUrl: '/leaflet/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41]
-});
-
-L.Marker.prototype.options.icon = DefaultIcon;
 
 interface MapClientProps {
   lat: number;
@@ -20,39 +9,59 @@ interface MapClientProps {
   address: string;
 }
 
-const MapClient: React.FC<MapClientProps> = ({ lat, lng, name, address }) => {
-  const mapRef = useRef<L.Map | null>(null);
+export default function MapClient({ lat, lng, name, address }: MapClientProps) {
+  const mapRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<L.Map | null>(null);
 
   useEffect(() => {
-    if (mapRef.current) {
-      // 地圖加載後設置視圖
-      mapRef.current.setView([lat, lng], 15);
+    if (!mapRef.current) return;
+
+    // 避免重複創建地圖
+    if (mapInstanceRef.current) {
+      mapInstanceRef.current.remove();
     }
-  }, [lat, lng]);
 
-  return (
-    <div className="w-full h-[300px] rounded-lg overflow-hidden">
-      <MapContainer
-        center={[lat, lng]}
-        zoom={15}
-        style={{ height: '100%', width: '100%' }}
-        ref={mapRef}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker position={[lat, lng]}>
-          <Popup>
-            <div>
-              <h3 className="font-bold">{name}</h3>
-              <p className="text-sm">{address}</p>
-            </div>
-          </Popup>
-        </Marker>
-      </MapContainer>
-    </div>
-  );
-};
+    // 建立地圖實例
+    const map = L.map(mapRef.current).setView([lat, lng], 16);
+    mapInstanceRef.current = map;
 
-export default MapClient;
+    // 添加 OpenStreetMap 底圖
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // 自定義診所標記圖示
+    const customIcon = L.divIcon({
+      className: 'custom-div-icon',
+      html: `<div style="
+        background-color: #FF7A00;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 3px solid white;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+      "></div>`,
+      iconSize: [18, 18],
+      iconAnchor: [9, 9],
+    });
+
+    // 添加標記
+    const marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
+    
+    // 添加彈出信息窗口
+    marker.bindPopup(`
+      <strong style="color: #FF7A00;">${name}</strong>
+      <p style="margin-top: 5px; color: #333; font-size: 12px;">${address}</p>
+    `).openPopup();
+
+    // 清理函數
+    return () => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.remove();
+        mapInstanceRef.current = null;
+      }
+    };
+  }, [lat, lng, name, address]);
+
+  return <div ref={mapRef} style={{ width: '100%', height: '100%' }} />;
+}
