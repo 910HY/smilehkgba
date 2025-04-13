@@ -4,12 +4,13 @@ import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import { useQuery } from '@tanstack/react-query';
 import { getPromotionBySlug } from '../../lib/promotion-service';
-import Header from '../../components/Header';
-import LatestPromotions from '../../components/LatestPromotions';
-import LatestArticles from '../../components/LatestArticles';
+import Header from '@components/Header';
+import Footer from '@components/Footer';
+import LatestPromotions from '@components/LatestPromotions';
+import LatestArticles from '@components/LatestArticles';
 
 // 動態導入優惠詳情組件，關閉 SSR
-const PromotionDetailPage = dynamic(() => import('../../components/PromotionDetailPage'), { ssr: false });
+const PromotionDetailPage = dynamic(() => import('@components/PromotionDetailPage'), { ssr: false });
 
 export default function PromotionPage() {
   const router = useRouter();
@@ -46,6 +47,7 @@ export default function PromotionPage() {
         <LatestPromotions limit={3} />
         <LatestArticles limit={3} />
       </main>
+      <Footer />
     </>
   );
 }

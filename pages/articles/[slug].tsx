@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { useQuery } from '@tanstack/react-query';
 import { getArticleBySlug } from '../../lib/article-service';
 import Header from '@components/Header';
+import Footer from '@components/Footer';
 import LatestArticles from '@components/LatestArticles';
 
 // 動態導入文章詳情組件，關閉 SSR

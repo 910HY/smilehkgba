@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import Header from '@components/Header';
+import Footer from '@components/Footer';
 import { getAllArticles, getArticlesByTag } from '../../lib/article-service';
-import ArticleCard from '../../components/ArticleCard';
+import ArticleCard from '@components/ArticleCard';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
-import ArticleTag from '../../components/ArticleTag';
-import { Button } from '../../components/ui/button';
-import { Skeleton } from '../../components/ui/skeleton';
+import ArticleTag from '@components/ArticleTag';
+import { Button } from '@components/ui/button';
+import { Skeleton } from '@components/ui/skeleton';
 
 // 加載中的卡片骨架屏
 const ArticleCardSkeleton = () => (
