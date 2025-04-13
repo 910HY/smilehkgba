@@ -21,15 +21,15 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     
     // 在不同位置查找文章目錄
     const possibleArticlesPaths = [
-      // client/content/articles (優先位置)
+      // public/articles (優先位置) - 推薦的直接公開路徑
+      path.join(rootDir, 'public', 'articles'),
+      // client/content/articles (次要位置)
       path.join(rootDir, 'client', 'content', 'articles'),
-      // content/articles (主要位置)
+      // content/articles (備用位置)
       path.join(rootDir, 'content', 'articles'),
       // Vercel部署可能的位置
-      path.join(process.cwd(), 'public', 'content', 'articles'),
-      // attached_assets下的content/articles
-      path.join(rootDir, 'attached_assets', 'content', 'articles'),
-      // 直接在attached_assets下查找
+      path.join(process.cwd(), 'public', 'articles'),
+      // attached_assets下查找
       path.join(rootDir, 'attached_assets'),
     ];
     
