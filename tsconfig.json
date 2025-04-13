@@ -1,48 +1,27 @@
 {
-  "include": [
-    "client/src/**/*",
-    "shared/**/*",
-    "server/**/*",
-    "components/**/*",
-    "pages/**/*",
-    "lib/**/*",
-    "types/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "build",
-    "dist",
-    "**/*.test.ts"
-  ],
   "compilerOptions": {
+    "target": "ES2017",
+    "module": "ESNext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "moduleResolution": "bundler",
     "incremental": true,
     "tsBuildInfoFile": "./node_modules/typescript/tsbuildinfo",
-    "noEmit": true,
-    "module": "ESNext",
-    "strict": true,
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable"
-    ],
-    "jsx": "preserve",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "allowImportingTsExtensions": true,
-    "moduleResolution": "bundler",
     "baseUrl": ".",
-    "types": [
-      "node",
-      "vite/client"
-    ],
     "paths": {
-      "@components/*": [
-        "components/*"
-      ]
+      "@components/*": ["components/*"],
+      "@lib/*": ["lib/*"],
+      "@hooks/*": ["hooks/*"]
     },
-    "target": "ES2017",
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true
-  }
+    "types": ["node"]
+  },
+  "include": ["pages", "components", "lib", "hooks", "types"],
+  "exclude": ["node_modules", ".next", "dist"]
 }
