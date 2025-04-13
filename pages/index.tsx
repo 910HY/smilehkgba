@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Head from 'next/head';
 import Header from "../client/src/components/Header";
-import SearchPanel from "../components/SearchPanel";
+import SearchPanel from "../client/src/components/SearchPanel";
 import ClinicCard from "../client/src/components/ClinicCard";
 import NoResults from "../client/src/components/NoResults";
 import Footer from "../client/src/components/Footer";
