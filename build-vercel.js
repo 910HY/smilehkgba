@@ -28,10 +28,9 @@ console.log('📂 處理診所數據文件...');
 const attachedAssetsDir = path.join(process.cwd(), 'attached_assets');
 const publicApiDir = path.join(process.cwd(), 'public', 'api');
 const apiDataDir = path.join(publicApiDir, 'data');
-const clientPublicDir = path.join(process.cwd(), 'client', 'public', 'api', 'data');
 
-// 確保API數據目錄存在 - 同時創建Vercel部署和開發環境都能訪問的目錄
-[publicApiDir, apiDataDir, clientPublicDir].forEach(dir => {
+// 確保API數據目錄存在 - 為Vercel部署創建必要的目錄
+[publicApiDir, apiDataDir].forEach(dir => {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
     console.log(`✅ 已創建API目錄: ${dir}`);
@@ -52,7 +51,6 @@ if (vercelApiDirExists) {
 // 定義所有需要向其複製數據文件的路徑
 const allApiDataDirs = [
   apiDataDir,                   // /public/api/data
-  clientPublicDir,              // /client/public/api/data
   vercelApiDirExists ? vercelOutputDir : null  // /.vercel/output/static/api/data (如果存在)
 ].filter(Boolean);
 
@@ -150,15 +148,13 @@ console.log('📂 複製內容文件...');
 // 確保內容目錄結構存在
 const publicContentDir = path.join(process.cwd(), 'public', 'content');
 const publicArticlesDir = path.join(publicContentDir, 'articles');
-const clientPublicContentDir = path.join(process.cwd(), 'client', 'public', 'content');
-const clientPublicArticlesDir = path.join(clientPublicContentDir, 'articles');
+const publicPromotionsDir = path.join(publicContentDir, 'promotions');
 
 // 確保所有必需的目錄存在
 [
   publicContentDir,
-  publicArticlesDir, 
-  clientPublicContentDir,
-  clientPublicArticlesDir
+  publicArticlesDir,
+  publicPromotionsDir
 ].forEach(dir => {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
@@ -185,7 +181,6 @@ if (vercelDirExists) {
 const allArticlesDirs = [
   articlesDir,                    // /content/articles (主要目錄)
   publicArticlesDir,              // /public/content/articles
-  clientPublicArticlesDir,        // /client/public/content/articles
   vercelDirExists ? vercelArticlesDir : null  // /.vercel/output/static/content/articles
 ].filter(Boolean);
 
@@ -364,40 +359,36 @@ console.log('📝 依照用戶要求，不再創建默認優惠文章');
 // 構建前端
 console.log('🏗️ 開始構建前端...');
 try {
-  // 直接使用 Vite build 而不是通過 package.json 的 build 腳本
-  const clientRoot = path.join(process.cwd(), 'client');
-  process.chdir(clientRoot); // 切換到 client 目錄
-  execSync('npx vite build', { stdio: 'inherit' });
-  process.chdir(process.cwd()); // 切回原目錄
-  console.log('✅ 前端構建成功');
+  // 使用 Next.js 構建
+  execSync('npm run build', { stdio: 'inherit' });
+  console.log('✅ Next.js 構建成功');
 } catch (error) {
-  console.error('❌ 前端構建失敗:', error);
+  console.error('❌ Next.js 構建失敗:', error);
   process.exit(1);
 }
 
 // 確保public目錄下有favicons等靜態資源
 console.log('📂 處理靜態資源...');
 const publicDir = path.join(process.cwd(), 'public');
-const clientDistDir = path.join(process.cwd(), 'client', 'dist');
 const assetsDir = path.join(process.cwd(), 'attached_assets');
 
-// 確保favicon複製到構建目錄
+// 確保favicon複製到public目錄
 const faviconPath = path.join(assetsDir, 'favicon.ico');
-const faviconDestPath = path.join(clientDistDir, 'favicon.ico');
+const faviconDestPath = path.join(publicDir, 'favicon.ico');
 
 if (fs.existsSync(faviconPath) && !fs.existsSync(faviconDestPath)) {
   try {
     // 拷貝favicon
     fs.copyFileSync(faviconPath, faviconDestPath);
-    console.log(`✅ 已複製favicon.ico到構建目錄`);
+    console.log(`✅ 已複製favicon.ico到public目錄`);
   } catch (error) {
     console.error(`❌ 複製favicon失敗:`, error);
   }
 }
 
-// 確保og-image複製到構建目錄的images子目錄
+// 確保og-image複製到public/images目錄
 const ogImagePath = path.join(assetsDir, 'og-image.png');
-const imagesDir = path.join(clientDistDir, 'images');
+const imagesDir = path.join(publicDir, 'images');
 const ogImageDestPath = path.join(imagesDir, 'og-image.png');
 
 if (fs.existsSync(ogImagePath)) {
@@ -408,35 +399,35 @@ if (fs.existsSync(ogImagePath)) {
   try {
     // 拷貝og-image
     fs.copyFileSync(ogImagePath, ogImageDestPath);
-    console.log(`✅ 已複製og-image.png到構建目錄`);
+    console.log(`✅ 已複製og-image.png到public/images目錄`);
   } catch (error) {
     console.error(`❌ 複製og-image失敗:`, error);
   }
 }
 
-// 確保Google驗證文件存在
+// 確保Google驗證文件存在於public目錄
 const googleVerificationPath = path.join(assetsDir, 'googlee2ca71ad5059f9c9.html');
-const googleVerificationDestPath = path.join(clientDistDir, 'googlee2ca71ad5059f9c9.html');
+const googleVerificationDestPath = path.join(publicDir, 'googlee2ca71ad5059f9c9.html');
 
 if (fs.existsSync(googleVerificationPath)) {
   try {
     // 拷貝Google驗證文件
     fs.copyFileSync(googleVerificationPath, googleVerificationDestPath);
-    console.log(`✅ 已複製Google驗證文件到構建目錄`);
+    console.log(`✅ 已複製Google驗證文件到public目錄`);
   } catch (error) {
     console.error(`❌ 複製Google驗證文件失敗:`, error);
   }
 }
 
-// 確保sitemap.xml存在
+// 確保sitemap.xml存在於public目錄
 const sitemapPath = path.join(assetsDir, 'sitemap.xml');
-const sitemapDestPath = path.join(clientDistDir, 'sitemap.xml');
+const sitemapDestPath = path.join(publicDir, 'sitemap.xml');
 
 if (fs.existsSync(sitemapPath)) {
   try {
     // 拷貝sitemap.xml
     fs.copyFileSync(sitemapPath, sitemapDestPath);
-    console.log(`✅ 已複製sitemap.xml到構建目錄`);
+    console.log(`✅ 已複製sitemap.xml到public目錄`);
   } catch (error) {
     console.error(`❌ 複製sitemap.xml失敗:`, error);
   }
