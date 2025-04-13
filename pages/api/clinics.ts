@@ -198,6 +198,29 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
           }
         }
         
+        // 添加基本的經緯度數據，以確保地圖功能能夠正常工作
+        // 這裡根據區域提供默認經緯度以便地圖正常顯示
+        let location = clinic.location;
+        if (!location || !location.lat || !location.lng) {
+          // 根據區域提供默認經緯度
+          switch (region_code) {
+            case 'futian':
+              location = { lat: 22.5431, lng: 114.0579 }; // 福田區中心點
+              break;
+            case 'luohu':
+              location = { lat: 22.5554, lng: 114.1371 }; // 羅湖區中心點
+              break;
+            case 'nanshan':
+              location = { lat: 22.5367, lng: 113.9252 }; // 南山區中心點
+              break;
+            case 'baoan':
+              location = { lat: 22.5538, lng: 113.8830 }; // 寶安區中心點
+              break;
+            default:
+              location = { lat: 22.5329, lng: 114.0539 }; // 深圳市中心點
+          }
+        }
+
         return {
           ...clinic,
           region: region,
@@ -213,12 +236,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
           photo: clinic.photo || '無照片',
           rating: rating,
           is_chain: is_chain,
-          isChain: is_chain // 兼容舊的屬性名
+          isChain: is_chain, // 兼容舊的屬性名
+          location: location // 添加經緯度資訊
         };
       }
       
-      // 確保即使有 region_en 的診所也有評分和連鎖標籤
-      if (!clinic.rating || (!clinic.is_chain && !clinic.isChain)) {
+      // 確保即使有 region_en 的診所也有評分和連鎖標籤以及位置數據
+      if (!clinic.rating || (!clinic.is_chain && !clinic.isChain) || !clinic.location) {
         const clinicName = clinic.name || '';
         let rating = clinic.rating;
         let is_chain = clinic.is_chain || clinic.isChain;
@@ -244,19 +268,126 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
           is_chain = is_chain || false;
         }
         
+        // 為所有沒有位置信息的診所添加默認位置數據
+        let location = clinic.location;
+        if (!location || !location.lat || !location.lng) {
+          // 根據 region_code 或 region_en 提供默認經緯度
+          const region = (clinic.region_code || '').toLowerCase() || 
+                         (clinic.region_en || '').toLowerCase();
+          
+          if (region.includes('futian')) {
+            location = { lat: 22.5431, lng: 114.0579 }; // 福田區中心點
+          } else if (region.includes('luohu')) {
+            location = { lat: 22.5554, lng: 114.1371 }; // 羅湖區中心點  
+          } else if (region.includes('nanshan')) {
+            location = { lat: 22.5367, lng: 113.9252 }; // 南山區中心點
+          } else if (region.includes('baoan')) {
+            location = { lat: 22.5538, lng: 113.8830 }; // 寶安區中心點
+          } else if (region.includes('central') || region.includes('western')) {
+            location = { lat: 22.2798, lng: 114.1587 }; // 中西區中心點
+          } else if (region.includes('wan chai')) {
+            location = { lat: 22.2780, lng: 114.1719 }; // 灣仔區中心點
+          } else if (region.includes('eastern')) {
+            location = { lat: 22.2824, lng: 114.2186 }; // 東區中心點
+          } else if (region.includes('southern')) {
+            location = { lat: 22.2473, lng: 114.1580 }; // 南區中心點
+          } else if (region.includes('kowloon')) {
+            location = { lat: 22.3193, lng: 114.1694 }; // 九龍中心點
+          } else if (clinic.city === '深圳' || clinic.city === '深圳市') {
+            location = { lat: 22.5329, lng: 114.0539 }; // 深圳市中心點
+          } else {
+            location = { lat: 22.3193, lng: 114.1694 }; // 香港中心點（默認）
+          }
+        }
+        
         return {
           ...clinic,
           rating: rating,
           is_chain: is_chain,
-          isChain: is_chain // 兼容舊的屬性名
+          isChain: is_chain, // 兼容舊的屬性名
+          location: location  // 添加位置資訊
         };
       }
       
       return clinic;
     });
     
+    // 處理香港診所數據，添加位置信息
+    const processedHkData = hkData.map((clinic: any) => {
+      // 如果已經有位置信息，則不需要處理
+      if (clinic.location && clinic.location.lat && clinic.location.lng) {
+        return clinic;
+      }
+      
+      // 添加默認位置信息
+      let location = { lat: 22.2798, lng: 114.1587 }; // 默認香港中環
+      
+      // 根據區域提供默認位置
+      if (clinic.region === '中西區') {
+        location = { lat: 22.2798, lng: 114.1587 };
+      } else if (clinic.region === '灣仔區') {
+        location = { lat: 22.2780, lng: 114.1719 };
+      } else if (clinic.region === '東區') {
+        location = { lat: 22.2824, lng: 114.2186 };
+      } else if (clinic.region === '南區') {
+        location = { lat: 22.2473, lng: 114.1580 };
+      } else if (clinic.region === '油尖旺區') {
+        location = { lat: 22.3193, lng: 114.1694 };
+      } else if (clinic.region === '深水埗區') {
+        location = { lat: 22.3287, lng: 114.1597 };
+      } else if (clinic.region === '九龍城區') {
+        location = { lat: 22.3285, lng: 114.1827 };
+      } else if (clinic.region === '黃大仙區') {
+        location = { lat: 22.3420, lng: 114.1953 };
+      } else if (clinic.region === '觀塘區') {
+        location = { lat: 22.3156, lng: 114.2271 };
+      }
+      
+      return {
+        ...clinic,
+        location
+      };
+    });
+    
+    // 處理NGO診所數據，添加位置信息
+    const processedNgoData = ngoData.map((clinic: any) => {
+      // 如果已經有位置信息，則不需要處理
+      if (clinic.location && clinic.location.lat && clinic.location.lng) {
+        return clinic;
+      }
+      
+      // 添加默認位置信息
+      let location = { lat: 22.2798, lng: 114.1587 }; // 默認香港中環
+      
+      // 根據區域提供默認位置
+      if (clinic.region.includes('中西區')) {
+        location = { lat: 22.2798, lng: 114.1587 };
+      } else if (clinic.region.includes('灣仔')) {
+        location = { lat: 22.2780, lng: 114.1719 };
+      } else if (clinic.region.includes('東區')) {
+        location = { lat: 22.2824, lng: 114.2186 };
+      } else if (clinic.region.includes('南區')) {
+        location = { lat: 22.2473, lng: 114.1580 };
+      } else if (clinic.region.includes('油尖旺')) {
+        location = { lat: 22.3193, lng: 114.1694 };
+      } else if (clinic.region.includes('深水埗')) {
+        location = { lat: 22.3287, lng: 114.1597 };
+      } else if (clinic.region.includes('九龍城')) {
+        location = { lat: 22.3285, lng: 114.1827 };
+      } else if (clinic.region.includes('黃大仙')) {
+        location = { lat: 22.3420, lng: 114.1953 };
+      } else if (clinic.region.includes('觀塘')) {
+        location = { lat: 22.3156, lng: 114.2271 };
+      }
+      
+      return {
+        ...clinic,
+        location
+      };
+    });
+    
     // 合併所有診所資料
-    const allClinics = [...hkData, ...ngoData, ...szData];
+    const allClinics = [...processedHkData, ...processedNgoData, ...szData];
     console.log(`返回 ${allClinics.length} 筆診所資料`);
     
     return handleApiResponse(res, allClinics);
