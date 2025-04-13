@@ -14,15 +14,13 @@ const rootDir = isDev
   : path.resolve(__dirname, '..');
 
 // 確定靜態文件目錄
-const clientDistDir = isDev
-  ? path.join(rootDir, 'client', 'dist')  // 開發環境
-  : path.join(rootDir, 'client');         // 生產環境 
+const publicDir = path.join(rootDir, 'public');
 
 // 創建 Express 應用程序
 const app = express();
 
 // 靜態文件服務
-app.use(express.static(clientDistDir));
+app.use(express.static(publicDir));
 
 // API 路由處理 - 獲取所有診所資料
 app.get('/api/clinics', (req, res) => {
@@ -339,12 +337,13 @@ app.get('*', (req, res) => {
     return res.status(404).json({ error: '找不到API端點' });
   }
   
-  res.sendFile(path.join(clientDistDir, 'index.html'));
+  // 在 Next.js 中這個路由處理會被 Next.js 自身接管，這裡只是為了兼容舊代碼
+  res.sendFile(path.join(publicDir, 'index.html'));
 });
 
 // 啟動 Express 服務器
 app.listen(Number(PORT), '0.0.0.0', () => {
   console.log(`牙GoGo服務器運行於 http://localhost:${PORT}`);
   console.log(`環境: ${isDev ? '開發' : '生產'}`);
-  console.log(`靜態文件目錄: ${clientDistDir}`);
+  console.log(`靜態文件目錄: ${publicDir}`);
 });
