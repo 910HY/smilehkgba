@@ -36,23 +36,8 @@
       "vite/client"
     ],
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "@shared/*": [
-        "./shared/*"
-      ],
       "@components/*": [
-        "./components/*"
-      ],
-      "@lib/*": [
-        "./lib/*"
-      ],
-      "@pages/*": [
-        "./pages/*"
-      ],
-      "@types/*": [
-        "./types/*"
+        "components/*"
       ]
     },
     "target": "ES2017",

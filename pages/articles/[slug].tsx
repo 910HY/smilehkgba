@@ -4,11 +4,11 @@ import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import { useQuery } from '@tanstack/react-query';
 import { getArticleBySlug } from '../../lib/article-service';
-import Header from '../../components/Header';
-import LatestArticles from '../../components/LatestArticles';
+import Header from '@components/Header';
+import LatestArticles from '@components/LatestArticles';
 
 // 動態導入文章詳情組件，關閉 SSR
-const ArticleDetailPage = dynamic(() => import('../../components/ArticleDetailPage'), { ssr: false });
+const ArticleDetailPage = dynamic(() => import('@components/ArticleDetailPage'), { ssr: false });
 
 export default function ArticlePage() {
   const router = useRouter();
@@ -44,6 +44,7 @@ export default function ArticlePage() {
         {slug && <ArticleDetailPage />}
         <LatestArticles limit={3} />
       </main>
+      <Footer />
     </>
   );
 }
