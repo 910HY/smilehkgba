@@ -22,13 +22,15 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     
     // 在不同位置查找優惠文章目錄
     const possiblePromotionsPaths = [
-      // content/promotions (主要位置)
+      // public/promotions (優先位置) - 推薦的直接公開路徑
+      path.join(rootDir, 'public', 'promotions'),
+      // client/content/promotions (次要位置)
+      path.join(rootDir, 'client', 'content', 'promotions'),
+      // content/promotions (備用位置)
       path.join(rootDir, 'content', 'promotions'),
       // Vercel部署可能的位置
-      path.join(process.cwd(), 'public', 'content', 'promotions'),
-      // attached_assets下的content/promotions
-      path.join(rootDir, 'attached_assets', 'content', 'promotions'),
-      // 直接在attached_assets下查找
+      path.join(process.cwd(), 'public', 'promotions'),
+      // attached_assets下查找
       path.join(rootDir, 'attached_assets'),
     ];
     
