@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Head from 'next/head';
 import Header from "../client/src/components/Header";
-import SearchPanel from "../client/src/components/SearchPanel";
+import SearchPanel from "../components/SearchPanel";
 import ClinicCard from "../client/src/components/ClinicCard";
 import NoResults from "../client/src/components/NoResults";
 import Footer from "../client/src/components/Footer";
@@ -10,9 +10,9 @@ import LatestArticles from "../client/src/components/LatestArticles";
 import LatestPromotions from "../client/src/components/LatestPromotions";
 import { Toaster } from "../client/src/components/ui/toaster";
 import { useQuery } from "@tanstack/react-query";
-import { fetchClinicData } from "../client/src/lib/clinic-data";
-import { detailedRegions } from "../client/src/lib/regions";
-import type { Clinic } from "../client/src/types/clinic";
+import { fetchClinicData } from "../lib/clinic-data";
+import { detailedRegions } from "../lib/regions";
+import type { Clinic } from "../types/clinic";
 
 export default function Home() {
   const [searchParams, setSearchParams] = useState({
