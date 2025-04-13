@@ -11,10 +11,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     res.setHeader('Pragma', 'no-cache');
     res.setHeader('Expires', '0');
     
-    // 嘗試讀取深圳診所數據文件
-    const szFilePath = path.join(rootDir, 'attached_assets', 'shenzhen_dental_clinics_20250407.json');
+    // 從公開目錄讀取深圳診所數據文件
+    const szFilePath = path.join(rootDir, 'public', 'data', 'shenzhen_dental_clinics_working.json');
     
-    console.log('使用深圳診所數據文件:', szFilePath);
+    console.log('使用公開目錄深圳診所數據文件:', szFilePath);
     
     const szRawData = readJsonFile(szFilePath);
     

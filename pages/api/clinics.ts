@@ -46,12 +46,12 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     res.setHeader('Pragma', 'no-cache');
     res.setHeader('Expires', '0');
     
-    // 讀取所有診所資料
-    const hkFilePath = path.join(rootDir, 'attached_assets', 'clinic_list_hkcss_cleaned.json');
-    const ngoFilePath = path.join(rootDir, 'attached_assets', 'ngo_clinics_cleaned.json');
+    // 從公開目錄讀取所有診所資料
+    const hkFilePath = path.join(rootDir, 'public', 'data', 'clinic_list_hkcss_cleaned.json');
+    const ngoFilePath = path.join(rootDir, 'public', 'data', 'ngo_clinics_cleaned.json');
     
     // 嘗試讀取深圳診所數據文件
-    const szFilePath = path.join(rootDir, 'attached_assets', 'shenzhen_dental_clinics_working.json');
+    const szFilePath = path.join(rootDir, 'public', 'data', 'shenzhen_dental_clinics_working.json');
     
     console.log('使用深圳診所數據文件:', szFilePath);
     console.log('檢查文件是否存在:', require('fs').existsSync(szFilePath));

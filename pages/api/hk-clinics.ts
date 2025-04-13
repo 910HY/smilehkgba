@@ -11,7 +11,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     res.setHeader('Pragma', 'no-cache');
     res.setHeader('Expires', '0');
     
-    const filePath = path.join(rootDir, 'attached_assets', 'clinic_list_hkcss_cleaned.json');
+    const filePath = path.join(rootDir, 'public', 'data', 'clinic_list_hkcss_cleaned.json');
     const data = readJsonFile(filePath);
     console.log(`返回 ${data.length} 筆香港診所資料`);
     return handleApiResponse(res, data);

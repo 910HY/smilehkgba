@@ -1,0 +1,358 @@
+[
+    {
+        "name": "\u6df1\u5733\u81ea\u6709\u5149\u7259\u79d1\u8a3a\u6240",
+        "address": "\u4e2d\u570b\u6df1\u5733\u5e02\u7f85\u6e56\u5340\u4eba\u6c11\u5357\u8def2002\u865f\u4f73\u5be7\u5a1c\u5ee3\u58343\u6a13\u5168\u5c64",
+        "region": "\u7f85\u6e56\u5340",
+        "count": "1",
+        "type": "\u79c1\u5bb6\u8a3a\u6240",
+        "sourceLink": "https://mybeame.com/",
+        "phone": "+852 5388 7318",
+        "hours": "09:00-19:00",
+        "photo": "\u7121\u7167\u7247",
+        "city": "\u6df1\u5733",
+        "country": "\u4e2d\u570b",
+        "isGreaterBayArea": true,
+        "prices": {
+            "\u6d17\u7259": "\u00a5180-350/\u6b21",
+            "\u88dc\u7259": "\u672a\u77e5",
+            "\u62d4\u7259": "\u672a\u77e5",
+            "\u690d\u7259": "\u672a\u77e5"
+        }
+    },
+    {
+        "name": "\u6df1\u5733\u7dad\u6e2f\u53e3\u8154\u8a3a\u6240",
+        "address": "\u4e2d\u570b\u6df1\u5733\u5e02\u798f\u7530\u5340\u798f\u7530\u5357\u8def\u7687\u5fa1\u82d1\u6df1\u6e2f\u4e00\u865f\u5927\u6a131\u6a13\u81f32\u6a13",
+        "region": "\u798f\u7530\u5340",
+        "count": "4",
+        "type": "\u79c1\u5bb6\u8a3a\u6240",
+        "sourceLink": "https://www.vickongdental.cn/Price-list.html",
+        "phone": "+86 132 6696 2630",
+        "hours": "09:30-18:30",
+        "photo": "\u7121\u7167\u7247",
+        "city": "\u6df1\u5733",
+        "country": "\u4e2d\u570b",
+        "isGreaterBayArea": true,
+        "prices": {
+            "\u6d17\u7259": "\u00a5200-500/\u6b21",
+            "\u88dc\u7259": "\u00a5180-600/\u9846",
+            "\u62d4\u7259": "\u00a520-2000/\u9846",
+            "\u690d\u7259": "\u00a55180-15800/\u9846"
+        }
+    },
+    {
+        "name": "\u7dad\u6e2f\u6b61\u6a02\u53e3\u8154\u8a3a\u6240\uff08\u7f85\u6e56\u5340\u59d4\u9662\uff09",
+        "address": "\u4e2d\u570b\u6df1\u5733\u5e02\u7f85\u6e56\u5340\u611b\u570b\u8def1002\u865f\u5916\u8cbf\u8f15\u5de5\u5927\u5ec88\u6a13",
+        "region": "\u7f85\u6e56\u5340",
+        "count": "1",
+        "type": "\u79c1\u5bb6\u8a3a\u6240",
+        "sourceLink": "https://www.vickongdental.cn/",
+        "phone": "+86 132 6696 2630",
+        "hours": "09:30-18:30",
+        "photo": "\u7121\u7167\u7247",
+        "city": "\u6df1\u5733",
+        "country": "\u4e2d\u570b",
+        "isGreaterBayArea": true,
+        "prices": {
+            "\u6d17\u7259": "\u00a5200-500/\u6b21",
+            "\u88dc\u7259": "\u00a5180-600/\u9846",
+            "\u62d4\u7259": "\u00a5200-2000/\u9846",
+            "\u690d\u7259": "\u00a55180-15800/\u9846"
+        }
+    },
+    {
+        "name": "\u7dad\u6e2f\u6b61\u7b11\u53e3\u8154\u8a3a\u6240\uff08\u798f\u7530\u7687\u5d17\u9662\uff09",
+        "address": "\u4e2d\u570b\u6df1\u5733\u5e02\u798f\u7530\u5340\u798f\u7530\u5357\u8def\u7687\u5fa1\u82d1\u6df1\u6e2f\u4e00\u865f\u5927\u6a131\u6a13\u81f32\u6a13",
+        "region": "\u798f\u7530\u5340",
+        "count": "1",
+        "type": "\u79c1\u5bb6\u8a3a\u6240",
+        "sourceLink": "https://www.vickongdental.cn/",
+        "phone": "+86 132 6696 2630",
+        "hours": "09:30-18:30",
+        "photo": "\u7121\u7167\u7247",
+        "city": "\u6df1\u5733",
+        "country": "\u4e2d\u570b",
+        "isGreaterBayArea": true,
+        "prices": {
+            "\u6d17\u7259": "\u00a5200-500/\u6b21",
+            "\u88dc\u7259": "\u00a5180-600/\u9846",
+            "\u62d4\u7259": "\u00a5200-2000/\u9846",
+            "\u690d\u7259": "\u00a55180-15800/\u9846"
+        }
+    },
+    {
+        "name": "\u7dad\u6e2f\u4e09\u5eb7\u53e3\u8154\u8a3a\u6240\uff08\u7f85\u6e56\u570b\u8cbf\u9662\uff09",
+        "address": "\u4e2d\u570b\u6df1\u5733\u5e02\u7f85\u6e56\u5340\u6625\u98a8\u8def\u5eec\u5c71\u5927\u5ec8B\u5ea721\u6a13",
+        "region": "\u7f85\u6e56\u5340",
+        "count": "1",
+        "type": "\u79c1\u5bb6\u8a3a\u6240",
+        "sourceLink": "https://www.vickongdental.cn/",
+        "phone": "+86 132 6696 2630",
+        "hours": "09:00-18:00",
+        "photo": "\u7121\u7167\u7247",
+        "city": "\u6df1\u5733",
+        "country": "\u4e2d\u570b",
+        "isGreaterBayArea": true,
+        "prices": {
+            "\u6d17\u7259": "\u00a5200-500/\u6b21",
+            "\u88dc\u7259": "\u00a5180-600/\u9846",
+            "\u62d4\u7259": "\u00a5200-2000/\u9846",
+            "\u690d\u7259": "\u00a55180-15800/\u9846"
+        }
+    },
+    {
+        "name": "\u7dad\u6e2f\u52a0\u6a02\u53e3\u8154\u8a3a\u6240\uff08\u7f85\u6e56\u91d1\u5149\u83ef\u9662\uff09",
+        "address": "\u4e2d\u570b\u6df1\u5733\u5e02\u7f85\u6e56\u5340\u5357\u6e56\u8def\u51f1\u5229\u5546\u696d\u5ee3\u58341\u6a13\u81f32\u6a13",
+        "region": "\u7f85\u6e56\u5340",
+        "count": "1",
+        "type": "\u79c1\u5bb6\u8a3a\u6240",
+        "sourceLink": "https://www.vickongdental.cn/",
+        "phone": "+86 132 6696 2630",
+        "hours": "09:00-18:00",
+        "photo": "\u7121\u7167\u7247",
+        "city": "\u6df1\u5733",
+        "country": "\u4e2d\u570b",
+        "isGreaterBayArea": true,
+        "prices": {
+            "\u6d17\u7259": "\u00a5200-500/\u6b21",
+            "\u88dc\u7259": "\u00a5180-600/\u9846",
+            "\u62d4\u7259": "\u00a5200-2000/\u9846",
+            "\u690d\u7259": "\u00a55180-15800/\u9846"
+        }
+    },
+    {
+        "name": "\u7dad\u6e2f\u5eb7\u56fa\u53e3\u8154\u8a3a\u6240\uff08\u798f\u7530KKONE\u5206\u9662\uff09",
+        "address": "\u4e2d\u570b\u6df1\u5733\u5e02\u798f\u7530\u5340\u4e0b\u6c99\u82b1\u597d\u5712106-107\u865f1\u6a13\u81f32\u6a13",
+        "region": "\u798f\u7530\u5340",
+        "count": "1",
+        "type": "\u79c1\u5bb6\u8a3a\u6240",
+        "sourceLink": "https://www.vickongdental.cn/",
+        "phone": "+86 132 6696 2630",
+        "hours": "09:30-18:30",
+        "photo": "\u7121\u7167\u7247",
+        "city": "\u6df1\u5733",
+        "country": "\u4e2d\u570b",
+        "isGreaterBayArea": true,
+        "prices": {
+            "\u6d17\u7259": "\u00a5200-500/\u6b21",
+            "\u88dc\u7259": "\u00a5180-600/\u9846",
+            "\u62d4\u7259": "\u00a5200-2000/\u9846",
+            "\u690d\u7259": "\u00a55180-15800/\u9846"
+        }
+    },
+    {
+        "name": "\u6df1\u5733\u4e94\u4e00\u9f7f\u79d1",
+        "address": "\u6df1\u5733\u5e02\u7f57\u6e56\u533a\u6df1\u5357\u4e1c\u8def5002\u53f7\u5730\u738b\u5927\u53a6",
+        "district": "\u7f85\u6e56\u5340",
+        "city": "\u6df1\u5733\u5e02",
+        "region": "\u5927\u7063\u5340",
+        "phone": "0755-8225-6333",
+        "opening_hours": "9:00-18:00",
+        "prices": {
+            "\u690d\u7259": "10000\u5143\u8d77"
+        },
+        "type": "\u79c1\u71df",
+        "country": "\u4e2d\u570b",
+        "isGreaterBayArea": true
+    },
+    {
+        "name": "\u6df1\u5733\u7f8e\u4f73\u5fb7\u53e3\u8154\uff08\u7f57\u6e56\u5e97\uff09",
+        "address": "\u6df1\u5733\u5e02\u7f57\u6e56\u533a\u5357\u6e56\u8857\u9053\u5efa\u8bbe\u8def1098-2\u53f7",
+        "district": "\u7f85\u6e56\u5340",
+        "city": "\u6df1\u5733\u5e02",
+        "region": "\u5927\u7063\u5340",
+        "phone": "",
+        "opening_hours": "\u672a\u660e\u78ba",
+        "prices": {
+            "\u6d17\u7259": "58\u5143\u8d77"
+        },
+        "type": "\u79c1\u71df",
+        "country": "\u4e2d\u570b",
+        "isGreaterBayArea": true
+    },
+    {
+        "name": "\u6df1\u5733\u535a\u68ee\u53e3\u8154\uff08\u83b2\u5858\u5e97\uff09",
+        "address": "\u6df1\u5733\u5e02\u7f57\u6e56\u533a\u7f57\u6c99\u8def4099\u53f7\u5170\u4ead\u540d\u56ed\u4e00\u5355\u5143203-204\u53f7",
+        "district": "\u7f85\u6e56\u5340",
+        "city": "\u6df1\u5733\u5e02",
+        "region": "\u5927\u7063\u5340",
+        "phone": "",
+        "opening_hours": "8:30-19:00",
+        "prices": {
+            "\u690d\u7259": "\u8001\u5e74\u4eba\u7a2e\u72595000\u5143\u8d77"
+        },
+        "type": "\u79c1\u71df",
+        "country": "\u4e2d\u570b",
+        "isGreaterBayArea": true
+    },
+    {
+        "name": "\u6df1\u5733\u683c\u4f26\u83f2\u5c14\u53e3\u8154\uff08\u9f99\u534e\u5206\u9662\uff09",
+        "address": "\u6df1\u5733\u5e02\u9f99\u534e\u533a\u548c\u5e73\u8def\u4e0e\u6e05\u6cc9\u8def\u4ea4\u6c47\u5904\uff08\u6e05\u6e56\u5730\u94c1\u7ad9\uff09",
+        "district": "\u9f8d\u83ef\u5340",
+        "city": "\u6df1\u5733\u5e02",
+        "region": "\u5927\u7063\u5340",
+        "phone": "0755-2102-2999",
+        "opening_hours": "9:00-21:00",
+        "prices": {
+            "\u690d\u7259": "\u97d3\u570b\u7a2e\u690d\u7259980\u5143\u8d77"
+        },
+        "type": "\u79c1\u71df",
+        "country": "\u4e2d\u570b",
+        "isGreaterBayArea": true
+    },
+    {
+        "name": "\u6df1\u5733\u535a\u68ee\u53e3\u8154\uff08\u7ea2\u5c71\u5e97\uff09",
+        "address": "\u6df1\u5733\u5e02\u9f99\u534e\u533a\u6c11\u6cbb\u8857\u9053\u4e2d\u6885\u8def\u6da6\u8fbe\u5706\u5eadB\u5ea7\u5357\u8857\u94fa107\u3001201\u4e4bB1-201",
+        "district": "\u9f8d\u83ef\u5340",
+        "city": "\u6df1\u5733\u5e02",
+        "region": "\u5927\u7063\u5340",
+        "phone": "",
+        "opening_hours": "9:00-21:00",
+        "prices": {
+            "\u77ef\u6b63": "\u5b78\u751f\u77ef\u6b63\u512a\u60e02000\u5143"
+        },
+        "type": "\u79c1\u71df",
+        "country": "\u4e2d\u570b",
+        "isGreaterBayArea": true
+    },
+    {
+        "name": "\u6df1\u5733\u540c\u6b65\u9f7f\u79d1\uff08\u5357\u5c71\u5206\u9662\uff09",
+        "address": "\u5357\u5c71\u533a\u5357\u6d77\u5927\u9053\u6d77\u738b\u5927\u53a6A\u5ea717\u697c",
+        "district": "\u5357\u5c71\u533a",
+        "city": "\u6df1\u5733\u5e02",
+        "country": "\u4e2d\u570b",
+        "phone": "0755-2665-5333",
+        "hours": "9:00-18:00",
+        "prices": {
+            "\u77ef\u6b63": "\u9690\u9002\u7f8e\u77eb\u6b6338000\u5143\u8d77"
+        },
+        "isGreaterBayArea": true,
+        "type": "\u79c1\u71df",
+        "region": "\u5927\u7063\u5340"
+    },
+    {
+        "name": "\u6df1\u5733\u767b\u7f07\u65af\u53e3\u8154",
+        "address": "\u5357\u5c71\u533a\uff08\u5177\u4f53\u5730\u5740\u672a\u660e\u786e\uff09",
+        "district": "\u5357\u5c71\u533a",
+        "city": "\u6df1\u5733\u5e02",
+        "country": "\u4e2d\u570b",
+        "phone": "",
+        "hours": "",
+        "prices": {
+            "\u690d\u7259": "\u9ad8\u96e3\u5ea6\u7a7f\u984e\u7a7f\u7ffc\u7a2e\u690d"
+        },
+        "isGreaterBayArea": true,
+        "type": "\u79c1\u71df",
+        "region": "\u5927\u7063\u5340"
+    },
+    {
+        "name": "\u6df1\u5733\u7f8e\u4f73\u5fb7\u53e3\u8154\uff08\u7f85\u6e56\u5e97\uff09",
+        "address": "\u7f85\u6e56\u5340\u5357\u6e56\u8857\u9053\u5efa\u8a2d\u8def1098-2\u865f",
+        "district": "\u7f85\u6e56\u5340",
+        "city": "\u6df1\u5733\u5e02",
+        "country": "\u4e2d\u570b",
+        "phone": "",
+        "hours": "",
+        "prices": {
+            "\u6d17\u7259": "\u8d85\u8072\u6ce2\u6f54\u725958\u5143\u8d77"
+        },
+        "isGreaterBayArea": true,
+        "type": "\u79c1\u71df",
+        "region": "\u5927\u7063\u5340"
+    },
+    {
+        "name": "\u6df1\u5733\u767b\u7f07\u65af\u53e3\u8154",
+        "address": "\u5357\u5c71\u533a\uff08\u5177\u4f53\u5730\u5740\u672a\u660e\u786e\uff09",
+        "region": "\u5357\u5c71\u533a",
+        "district": "\u5357\u5c71\u533a",
+        "city": "\u6df1\u5733\u5e02",
+        "country": "\u4e2d\u570b",
+        "type": "\u79c1\u71df\u8a3a\u6240",
+        "phone": "",
+        "hours": "",
+        "prices": {
+            "\u690d\u7259": "\u9ad8\u96e3\u5ea6\u7a7f\u9874\u7a7f\u7ffc\u7a2e\u690d"
+        },
+        "isGreaterBayArea": true,
+        "sourceLink": ""
+    },
+    {
+        "name": "\u6df1\u5733\u540c\u6b65\u9f7f\u79d1\uff08\u798f\u7530\u5206\u9662\uff09",
+        "address": "\u798f\u7530\u5340\uff08\u5730\u5740\u672a\u8a73\uff09",
+        "region": "\u798f\u7530\u533a",
+        "district": "\u798f\u7530\u5340",
+        "city": "\u6df1\u5733\u5e02",
+        "country": "\u4e2d\u570b",
+        "type": "\u79c1\u71df\u8a3a\u6240",
+        "phone": "0755-2665-5333",
+        "hours": "9:00-18:00",
+        "prices": {
+            "\u690d\u7259": "\u5fb7\u570bICX\u7a2e\u690d\u725913800\u5143\u8d77"
+        },
+        "isGreaterBayArea": true,
+        "sourceLink": ""
+    },
+    {
+        "name": "\u6df1\u5733\u7f8e\u4f73\u5fb7\u53e3\u8154\uff08\u7f85\u6e56\u5e97\uff09",
+        "address": "\u7f85\u6e56\u5340\u5357\u6e56\u8857\u9053\u5efa\u8a2d\u8def1098-2\u865f",
+        "region": "\u7f85\u6e56\u5340",
+        "district": "\u7f85\u6e56\u5340",
+        "city": "\u6df1\u5733\u5e02",
+        "country": "\u4e2d\u570b",
+        "type": "\u79c1\u71df\u8a3a\u6240",
+        "phone": "",
+        "hours": "",
+        "prices": {
+            "\u6d17\u7259": "\u8d85\u8072\u6ce2\u6f54\u725958\u5143\u8d77"
+        },
+        "isGreaterBayArea": true,
+        "sourceLink": ""
+    },
+    {
+        "name": "\u6df1\u5733\u535a\u68ee\u53e3\u8154\uff08\u84ee\u5858\u5e97\uff09",
+        "address": "\u7f85\u6e56\u5340\u7f85\u6c99\u8def4099\u865f\u862d\u4ead\u540d\u5712\u4e00\u55ae\u5143203-204\u865f",
+        "region": "\u7f85\u6e56\u5340",
+        "district": "\u7f85\u6e56\u5340",
+        "city": "\u6df1\u5733\u5e02",
+        "country": "\u4e2d\u570b",
+        "type": "\u79c1\u71df\u8a3a\u6240",
+        "phone": "",
+        "hours": "8:30-19:00",
+        "prices": {
+            "\u690d\u7259": "\u8001\u5e74\u4eba\u7a2e\u72595000\u5143\u8d77"
+        },
+        "isGreaterBayArea": true,
+        "sourceLink": ""
+    },
+    {
+        "name": "\u6df1\u5733\u535a\u68ee\u53e3\u8154\uff08\u7d05\u5c71\u5e97\uff09",
+        "address": "\u9f8d\u83ef\u5340\u6c11\u6cbb\u8857\u9053\u4e2d\u6885\u8def\u6f64\u9054\u5713\u5eadB\u5ea7\u5357\u8857\u92ea107\u3001201\u4e4bB1-201",
+        "region": "\u9f8d\u83ef\u5340",
+        "district": "\u9f8d\u83ef\u5340",
+        "city": "\u6df1\u5733\u5e02",
+        "country": "\u4e2d\u570b",
+        "type": "\u79c1\u71df\u8a3a\u6240",
+        "phone": "",
+        "hours": "9:00-21:00",
+        "prices": {
+            "\u77ef\u6b63": "\u5b78\u751f\u77ef\u6b63\u512a\u60e02000\u5143"
+        },
+        "isGreaterBayArea": true,
+        "sourceLink": ""
+    },
+    {
+        "name": "\u6df1\u5733\u4e16\u7d00\u6cb3\u5c71\u53e3\u8154",
+        "address": "\u5bf6\u5b89\u5340\u65b0\u6c99\u8def565\u865f1\u6a13",
+        "region": "\u5bf6\u5b89\u5340",
+        "district": "\u5bf6\u5b89\u5340",
+        "city": "\u6df1\u5733\u5e02",
+        "country": "\u4e2d\u570b",
+        "type": "\u79c1\u71df\u8a3a\u6240",
+        "phone": "0755-2780-6333",
+        "hours": "9:00-18:00",
+        "prices": {
+            "\u77ef\u6b63": "\u96b1\u9069\u7f8e\u77ef\u6b6345000\u5143\u8d77"
+        },
+        "isGreaterBayArea": true,
+        "sourceLink": ""
+    }
+]

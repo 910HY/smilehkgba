@@ -290,16 +290,16 @@ export const fetchClinicDataFallback = async (): Promise<Clinic[]> => {
     const szClinicsResp = await fetch(`${baseUrl}/api/sz-clinics?${cacheBreaker}`, fetchOptions);
     const szClinics = szClinicsResp.ok ? await szClinicsResp.json() : [];
     
-    // 如果深圳診所數據不足，嘗試直接請求文件
+    // 如果深圳診所數據不足，嘗試直接請求公開目錄中的JSON文件
     if (szClinics.length < 20) {
-      console.log("API返回深圳診所數據不足，嘗試直接請求JSON文件...");
+      console.log("API返回深圳診所數據不足，嘗試直接請求公開JSON文件...");
       try {
-        // 嘗試直接從靜態文件獲取
-        const directJsonResp = await fetch(`${baseUrl}/attached_assets/fixed_sz_clinics.json?${cacheBreaker}`, fetchOptions);
+        // 嘗試直接從公開目錄中的靜態文件獲取
+        const directJsonResp = await fetch(`${baseUrl}/data/fixed_sz_clinics.json?${cacheBreaker}`, fetchOptions);
         if (directJsonResp.ok) {
           const directClinics = await directJsonResp.json();
           if (Array.isArray(directClinics) && directClinics.length > 15) {
-            console.log(`成功從靜態文件獲取 ${directClinics.length} 間深圳診所`);
+            console.log(`成功從公開JSON文件獲取 ${directClinics.length} 間深圳診所`);
             
             // 標記這些診所為大灣區
             const markedDirectClinics = directClinics.map(clinic => ({
@@ -309,14 +309,16 @@ export const fetchClinicDataFallback = async (): Promise<Clinic[]> => {
               country: clinic.country || '中國'
             }));
             
-            // 獲取香港和NGO診所
+            // 從公開目錄獲取香港和NGO診所JSON文件
             const [hkClinicsResp, ngoClinicsResp] = await Promise.all([
-              fetch(`${baseUrl}/api/hk-clinics?${cacheBreaker}`, fetchOptions),
-              fetch(`${baseUrl}/api/ngo-clinics?${cacheBreaker}`, fetchOptions)
+              fetch(`${baseUrl}/data/clinic_list_hkcss_cleaned.json?${cacheBreaker}`, fetchOptions),
+              fetch(`${baseUrl}/data/ngo_clinics_cleaned.json?${cacheBreaker}`, fetchOptions)
             ]);
             
             const hkClinics = hkClinicsResp.ok ? await hkClinicsResp.json() : [];
             const ngoClinics = ngoClinicsResp.ok ? await ngoClinicsResp.json() : [];
+            
+            console.log("成功從公開JSON文件獲取香港診所:", hkClinics.length, "NGO診所:", ngoClinics.length);
             
             // 合併所有診所數據
             const allClinics = [...hkClinics, ...ngoClinics, ...markedDirectClinics];
@@ -331,14 +333,16 @@ export const fetchClinicDataFallback = async (): Promise<Clinic[]> => {
       }
     }
     
-    // 正常流程：獲取所有診所數據
+    // 正常流程：從公開目錄獲取所有診所JSON數據
     const [hkClinicsResp, ngoClinicsResp] = await Promise.all([
-      fetch(`${baseUrl}/api/hk-clinics?${cacheBreaker}`, fetchOptions),
-      fetch(`${baseUrl}/api/ngo-clinics?${cacheBreaker}`, fetchOptions)
+      fetch(`${baseUrl}/data/clinic_list_hkcss_cleaned.json?${cacheBreaker}`, fetchOptions),
+      fetch(`${baseUrl}/data/ngo_clinics_cleaned.json?${cacheBreaker}`, fetchOptions)
     ]);
 
     const hkClinics = hkClinicsResp.ok ? await hkClinicsResp.json() : [];
     const ngoClinics = ngoClinicsResp.ok ? await ngoClinicsResp.json() : [];
+    
+    console.log("成功從公開JSON文件獲取香港診所:", hkClinics.length, "NGO診所:", ngoClinics.length);
 
     console.log("備用方法獲取資料:", {
       hk: hkClinics.length,
