@@ -7,10 +7,11 @@ module.exports = {
   content: [
     "./pages/**/*.{js,jsx,ts,tsx}",
     "./components/**/*.{js,jsx,ts,tsx}",
-    "./client/pages/**/*.{js,jsx,ts,tsx}",
-    "./client/src/**/*.{js,jsx,ts,tsx}",
-    "./client/components/**/*.{js,jsx,ts,tsx}",
     "./lib/**/*.{js,jsx,ts,tsx}",
+    "./hooks/**/*.{js,jsx,ts,tsx}",
+    "./types/**/*.{js,jsx,ts,tsx}",
+    "./shared/**/*.{js,jsx,ts,tsx}",
+    "./server/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
